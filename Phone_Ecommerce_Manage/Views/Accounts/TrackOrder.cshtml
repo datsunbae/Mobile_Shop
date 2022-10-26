@@ -1,0 +1,135 @@
+﻿@{
+    ViewData["Title"] = "TrackOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--====== Section 1 ======-->
+<div class="u-s-p-y-60">
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="breadcrumb">
+                <div class="breadcrumb__wrap">
+                    <ul class="breadcrumb__list">
+                        <li class="has-separator">
+
+                            <a href="/Home/Index">Home</a>
+                        </li>
+                        <li class="is-marked">
+
+                            <a href="/Accounts/ManageAccount">Tài khoản của bạn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Section 1 ======-->
+<!--====== Section 2 ======-->
+<div class="u-s-p-b-60">
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <!--====== Dashboard Features ======-->
+                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                            <div class="dash__pad-1">
+
+                                <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                <ul class="dash__f-list">
+                                    <li>
+                                        <a href="/Accounts/ManageAccount">Quản lý tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Profile">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/AddressBook">Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li>
+                                        <a class="dash-active" href="/Accounts/TrackOrder">Theo dõi đơn hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Orders">Đơn hàng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/PaymentOption">Tuỳ chọn thanh toán</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/ReturnsAndCancellations">Đơn hàng đã huỷ hoặc trả về</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                            <div class="dash__pad-1">
+                                <ul class="dash__w-list">
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+
+                                            <span class="dash__w-text">4</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã đặt</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã huỷ</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Sản phẩm yêu thích</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--====== End - Dashboard Features ======-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+                            <div class="dash__pad-2">
+                                <h1 class="dash__h1 u-s-m-b-14">THEO DÕI ĐƠN HÀNG CỦA BẠN</h1>
+                                <span class="dash__text u-s-m-b-30">Để theo dõi đơn hàng, vui lòng nhập ID đơn hàng của bạn vào ô bên dưới và nhấn nút "Theo dõi". Điều này đã được trao cho bạn trên biên nhận của bạn và trong email xác nhận mà bạn đáng lẽ đã nhận được.</span>
+                                <form class="dash-track-order">
+                                    <div class="gl-inline">
+                                        <div class="u-s-m-b-30">
+
+                                            <label class="gl-label" for="order-id">Mã đơn hàng *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="order-id" placeholder="Tìm thấy trong email xác nhận của bạn">
+                                        </div>
+                                        <div class="u-s-m-b-30">
+
+                                            <label class="gl-label" for="track-email">Email *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="track-email" placeholder="Email bạn đã sử dụng khi thanh toán">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn--e-brand-b-2" type="submit">THEO DÕI</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->

@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewData["Title"] = "ManageAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--====== Section 1 ======-->
+<div class="u-s-p-y-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="breadcrumb">
+                <div class="breadcrumb__wrap">
+                    <ul class="breadcrumb__list">
+                        <li class="has-separator">
+
+                            <a href="/Home/Index">Home</a>
+                        </li>
+                        <li class="is-marked">
+
+                            <a href="/Accounts/ManageAccount">Tài khoản của bạn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Section 1 ======-->
+<!--====== Section 2 ======-->
+<div class="u-s-p-b-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+
+                        <!--====== Dashboard Features ======-->
+                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                            <div class="dash__pad-1">
+
+                                <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                <ul class="dash__f-list">
+                                    <li>
+                                        <a class ="dash-active" href="/Accounts/ManageAccount">Quản lý tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Profile">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/AddressBook">Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/TrackOrder">Theo dõi đơn hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Orders">Đơn hàng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/PaymentOption">Tuỳ chọn thanh toán</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/ReturnsAndCancellations">Đơn hàng đã huỷ hoặc trả về</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                            <div class="dash__pad-1">
+                                <ul class="dash__w-list">
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+
+                                            <span class="dash__w-text">4</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã đặt</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã huỷ</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Sản phẩm yêu thích</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--====== End - Dashboard Features ======-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <h1 class="dash__h1 u-s-m-b-14">Quản lý tài khoản</h1>
+
+                                <span class="dash__text u-s-m-b-30">From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</span>
+                                <div class="row">
+                                    <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
+                                            <div class="dash__pad-3">
+                                                <h2 class="dash__h2 u-s-m-b-8">THÔNG TIN CÁ NHÂN</h2>
+                                                <div class="dash__link dash__link--secondary u-s-m-b-8">
+
+                                                    <a href="/Accounts/EditAccounts">Chỉnh sửa</a>
+                                                </div>
+
+                                                <span class="dash__text">John Doe</span>
+
+                                                <span class="dash__text">johndoe@domain.com</span>
+                                                <div class="dash__link dash__link--secondary u-s-m-t-8">
+
+                                                    <a data-modal="modal" data-modal-id="#dash-newsletter">Đăng ký nhận thông tin mới</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
+                                            <div class="dash__pad-3">
+                                                <h2 class="dash__h2 u-s-m-b-8">ĐỊA CHỈ GIAO HÀNG</h2>
+
+                                                <span class="dash__text-2 u-s-m-b-8">Địa chỉ giao hàng mặc định</span>
+                                                <div class="dash__link dash__link--secondary u-s-m-b-8">
+
+                                                    <a href="/Accounts/AddressBook">Chỉnh sửa</a>
+                                                </div>
+
+                                                <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                                                <span class="dash__text">(+0) 900901904</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
+                                            <div class="dash__pad-3">
+                                                <h2 class="dash__h2 u-s-m-b-8">ĐỊA CHỈ THANH TOÁN</h2>
+
+                                                <span class="dash__text-2 u-s-m-b-8">Địa chỉ thanh toán mặc định</span>
+
+                                                <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                                                <span class="dash__text">(+0) 900901904</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius">
+                            <h2 class="dash__h2 u-s-p-xy-20">ĐƠN HÀNG GẦN ĐÂY</h2>
+                            <div class="dash__table-wrap gl-scroll">
+                                <table class="dash__table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn hàng #</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>3054231326</td>
+                                            <td>26/13/2016</td>
+                                            <td>
+                                                <div class="dash__table-img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt="">
+                                                </div>
+                                            </td>
+                                            <td>1</td>
+                                            <td>
+                                                <div class="dash__table-total">
+
+                                                    <span>$126.00</span>
+                                                    <div class="dash__link dash__link--brand">
+
+                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3054231326</td>
+                                            <td>26/13/2016</td>
+                                            <td>
+                                                <div class="dash__table-img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/electronic/product14.jpg" alt="">
+                                                </div>
+                                            </td>
+                                            <td>1</td>
+                                            <td>
+                                                <div class="dash__table-total">
+
+                                                    <span>$126.00</span>
+                                                    <div class="dash__link dash__link--brand">
+
+                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3054231326</td>
+                                            <td>26/13/2016</td>
+                                            <td>
+                                                <div class="dash__table-img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/men/product8.jpg" alt="">
+                                                </div>
+                                            </td>
+                                            <td>1</td>
+                                            <td>
+                                                <div class="dash__table-total">
+
+                                                    <span>$126.00</span>
+                                                    <div class="dash__link dash__link--brand">
+
+                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3054231326</td>
+                                            <td>26/13/2016</td>
+                                            <td>
+                                                <div class="dash__table-img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/women/product10.jpg" alt="">
+                                                </div>
+                                            </td>
+                                            <td>1</td>
+                                            <td>
+                                                <div class="dash__table-total">
+
+                                                    <span>$126.00</span>
+                                                    <div class="dash__link dash__link--brand">
+
+                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->
+

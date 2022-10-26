@@ -1,0 +1,260 @@
+﻿@{
+    ViewData["Title"] = "ManageOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--====== Section 1 ======-->
+<div class="u-s-p-y-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="breadcrumb">
+                <div class="breadcrumb__wrap">
+                    <ul class="breadcrumb__list">
+                        <li class="has-separator">
+
+                            <a href="/Home/Index">Home</a>
+                        </li>
+                        <li class="is-marked">
+
+                            <a href="/Accounts/ManageAccount">Tài khoản của bạn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Section 1 ======-->
+<!--====== Section 2 ======-->
+<div class="u-s-p-b-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <!--====== Dashboard Features ======-->
+                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                            <div class="dash__pad-1">
+
+                                <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                <ul class="dash__f-list">
+                                    <li>
+                                        <a class ="dash-active" href="/Accounts/ManageAccount">Quản lý tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Profile">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/AddressBook">Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/TrackOrder">Theo dõi đơn hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Orders">Đơn hàng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/PaymentOption">Tuỳ chọn thanh toán</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/ReturnsAndCancellations">Đơn hàng đã huỷ hoặc trả về</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                            <div class="dash__pad-1">
+                                <ul class="dash__w-list">
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+
+                                            <span class="dash__w-text">4</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã đặt</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã huỷ</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Sản phẩm yêu thích</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--====== End - Dashboard Features ======-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <h1 class="dash__h1 u-s-m-b-30">Chi tiết đơn hàng</h1>
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <div class="dash-l-r">
+                                    <div>
+                                        <div class="manage-o__text-2 u-c-secondary">Mã đơn hàng #305423126</div>
+                                        <div class="manage-o__text u-c-silver">Thời gian đặt hàng 26 Oct 2016 09:08:37</div>
+                                    </div>
+                                    <div>
+                                        <div class="manage-o__text-2 u-c-silver">
+                                            Total:
+
+                                            <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <div class="manage-o">
+                                    <div class="manage-o__header u-s-m-b-30">
+                                        <div class="manage-o__icon">
+                                            <i class="fas fa-box u-s-m-r-5"></i>
+
+                                            <span class="manage-o__text">Gói hàng 1</span>
+                                        </div>
+                                    </div>
+                                    <div class="dash-l-r">
+                                        <div class="manage-o__text u-c-secondary">Được giao vào ngày 26 Oct 2016</div>
+                                        <div class="manage-o__icon">
+                                            <i class="fas fa-truck u-s-m-r-5"></i>
+
+                                            <span class="manage-o__text">Tiêu chuẩn</span>
+                                        </div>
+                                    </div>
+                                    <div class="manage-o__timeline">
+                                        <div class="timeline-row">
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span>
+                                                    </div>
+
+                                                    <span class="timeline-text">Xử lý</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span>
+                                                    </div>
+
+                                                    <span class="timeline-text">Đã vận chuyển</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i">
+
+                                                        <span class="timeline-circle"></span>
+                                                    </div>
+
+                                                    <span class="timeline-text">Đã giao hàng</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="manage-o__description">
+                                        <div class="description__container">
+                                            <div class="description__img-wrap">
+
+                                                <img class="u-img-fluid" src="~/asset/images/product/electronic/product3.jpg" alt="">
+                                            </div>
+                                            <div class="description-title">Yellow Wireless Headphone</div>
+                                        </div>
+                                        <div class="description__info-wrap">
+                                            <div>
+
+                                                <span class="manage-o__text-2 u-c-silver">
+                                                    Số lượng:
+
+                                                    <span class="manage-o__text-2 u-c-secondary">1</span>
+                                                </span>
+                                            </div>
+                                            <div>
+
+                                                <span class="manage-o__text-2 u-c-silver">
+                                                    Tổng tiền:
+
+                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                    <div class="dash__pad-3">
+                                        <h2 class="dash__h2 u-s-m-b-8">Địa chỉ giao hàng</h2>
+                                        <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
+
+                                        <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                                        <span class="dash__text-2">(+0) 900901904</span>
+                                    </div>
+                                </div>
+                                <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                                    <div class="dash__pad-3">
+                                        <h2 class="dash__h2 u-s-m-b-8">Địa chỉ thanh toán</h2>
+                                        <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
+
+                                        <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                                        <span class="dash__text-2">(+0) 900901904</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
+                                    <div class="dash__pad-3">
+                                        <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
+                                        <div class="dash-l-r u-s-m-b-8">
+                                            <div class="manage-o__text-2 u-c-secondary">Tổng tiền hàng</div>
+                                            <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                        </div>
+                                        <div class="dash-l-r u-s-m-b-8">
+                                            <div class="manage-o__text-2 u-c-secondary">Phí vận chuyển</div>
+                                            <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                        </div>
+                                        <div class="dash-l-r u-s-m-b-8">
+                                            <div class="manage-o__text-2 u-c-secondary">Thành tiền</div>
+                                            <div class="manage-o__text-2 u-c-secondary">$32.00</div>
+                                        </div>
+
+                                        <span class="dash__text-2">Thanh toán khi nhận hàng</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->
+
