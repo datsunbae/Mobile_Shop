@@ -8,7 +8,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
-
                     <!--====== Product Breadcrumb ======-->
                     <div class="pd-breadcrumb u-s-m-b-30">
                         <ul class="pd-breadcrumb__list">
@@ -252,7 +251,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-com">
+                                    <a class="nav-link" id="view-comment" data-toggle="tab" href="#pd-com">
                                         COMMENTS
                                         <span>(1)</span>
                                     </a>
@@ -397,34 +396,6 @@
                                                 </div>
                                             </div>
                                             <div class="rev-f1__review">
-                                                <div class="review-o u-s-m-b-15">
-                                                    <div class="review-o__info u-s-m-b-8">
-
-                                                        <span class="review-o__name">John Doe</span>
-
-                                                        <span class="review-o__date">27 Feb 2018 10:57:43</span>
-                                                    </div>
-                                                    <div class="review-o__rating gl-rating-style u-s-m-b-8">
-                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span>(4)</span>
-                                                    </div>
-                                                    <p class="review-o__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                </div>
-                                                <div class="review-o u-s-m-b-15">
-                                                    <div class="review-o__info u-s-m-b-8">
-
-                                                        <span class="review-o__name">John Doe</span>
-
-                                                        <span class="review-o__date">27 Feb 2018 10:57:43</span>
-                                                    </div>
-                                                    <div class="review-o__rating gl-rating-style u-s-m-b-8">
-                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span>(4)</span>
-                                                    </div>
-                                                    <p class="review-o__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                </div>
                                                 <div class="review-o u-s-m-b-15">
                                                     <div class="review-o__info u-s-m-b-8">
 
@@ -678,12 +649,10 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="d-meta__comment-arena">
-
                                                     <span class="d-meta__text u-s-m-b-36">Hỏi đáp về sản phẩm</span>
                                                     <div class="d-meta__comments u-s-m-b-30">
                                                         <ol>
                                                             <li>
-
                                                                 <!--====== Comment ======-->
                                                                 <div class="d-meta__p-comment">
                                                                     <div class="p-comment__wrap1">
@@ -704,8 +673,39 @@
                                                                             </a>
                                                                         </span>
                                                                         <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                        <div>
+                                                                            <div>
+                                                                                <a class="p-comment__reply" data-target="#comment1" data-toggle="collapse">Trả lời</a>
+                                                                            </div>
+                                                                            <div class="shop-w__wrap collapse" id="comment1">
+                                                                                <form class="respond__form">
+                                                                                    <div class="respond__group">
+                                                                                        <div class="u-s-m-b-15">
 
-                                                                        <a class="p-comment__reply" href="#">Reply</a>
+                                                                                            <label class="gl-label" for="comment">Bình luận *</label><textarea class="text-area text-area--primary-style"></textarea>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <p class="u-s-m-b-30">
+
+                                                                                                <label class="gl-label" for="responder-name">Họ tên *</label>
+
+                                                                                                <input class="input-text input-text--primary-style" type="text" id="responder-name">
+                                                                                            </p>
+                                                                                            <p class="u-s-m-b-30">
+
+                                                                                                <label class="gl-label" for="responder-email">Email *</label>
+
+                                                                                                <input class="input-text input-text--primary-style" type="text" id="responder-email">
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div>
+
+                                                                                        <button class="btn btn--e-brand-shadow" type="submit">Bình luận</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <!--====== End - Comment ======-->
@@ -732,135 +732,47 @@
                                                                                     </a>
                                                                                 </span>
                                                                                 <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                                <div>
+                                                                                    <div>
+                                                                                        <a class="p-comment__reply" data-target="#comment2" data-toggle="collapse">Trả lời</a>
+                                                                                    </div>
+                                                                                    <div class="shop-w__wrap collapse" id="comment2">
+                                                                                        <form class="respond__form">
+                                                                                            <div class="respond__group">
+                                                                                                <div class="u-s-m-b-15">
 
-                                                                                <a class="p-comment__reply" href="#">Reply</a>
+                                                                                                    <label class="gl-label" for="comment">Bình luận *</label><textarea class="text-area text-area--primary-style"></textarea>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <p class="u-s-m-b-30">
+
+                                                                                                        <label class="gl-label" for="responder-name">Họ tên *</label>
+
+                                                                                                        <input class="input-text input-text--primary-style" type="text" id="responder-name">
+                                                                                                    </p>
+                                                                                                    <p class="u-s-m-b-30">
+
+                                                                                                        <label class="gl-label" for="responder-email">Email *</label>
+
+                                                                                                        <input class="input-text input-text--primary-style" type="text" id="responder-email">
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+
+                                                                                                <button class="btn btn--e-brand-shadow" type="submit">Bình luận</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         <!--====== End - Comment ======-->
-                                                                        <ol class="comment-children">
-                                                                            <li>
-
-                                                                                <!--====== Comment ======-->
-                                                                                <div class="d-meta__p-comment">
-                                                                                    <div class="p-comment__wrap1">
-                                                                                        <div class="aspect aspect--square p-comment__img-wrap">
-
-                                                                                            <img src="~/asset/images/blog/avatar-3.jpg" alt="">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="p-comment__wrap2">
-
-                                                                                        <span class="p-comment__author">Dayle</span>
-
-                                                                                        <span class="p-comment__timestamp">
-
-                                                                                            <a href="#">
-
-                                                                                                <span>25 March 2015 at 3:55pm</span>
-                                                                                            </a>
-                                                                                        </span>
-                                                                                        <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-                                                                                        <a class="p-comment__reply" href="#">Reply</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!--====== End - Comment ======-->
-                                                                                <ol class="comment-children">
-                                                                                    <li>
-
-                                                                                        <!--====== Comment ======-->
-                                                                                        <div class="d-meta__p-comment">
-                                                                                            <div class="p-comment__wrap1">
-                                                                                                <div class="aspect aspect--square p-comment__img-wrap">
-
-                                                                                                    <img src="~/asset/images/blog/avatar-4.jpg" alt="">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="p-comment__wrap2">
-
-                                                                                                <span class="p-comment__author">Dayle</span>
-
-                                                                                                <span class="p-comment__timestamp">
-
-                                                                                                    <a href="#">
-
-                                                                                                        <span>25 March 2015 at 3:55pm</span>
-                                                                                                    </a>
-                                                                                                </span>
-                                                                                                <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-                                                                                                <a class="p-comment__reply" href="#">Reply</a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <!--====== End - Comment ======-->
-                                                                                        <ol class="comment-children">
-                                                                                            <li>
-
-                                                                                                <!--====== Comment ======-->
-                                                                                                <div class="d-meta__p-comment">
-                                                                                                    <div class="p-comment__wrap1">
-                                                                                                        <div class="aspect aspect--square p-comment__img-wrap">
-
-                                                                                                            <img src="~/asset/images/blog/avatar-5.jpg" alt="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="p-comment__wrap2">
-
-                                                                                                        <span class="p-comment__author">Dayle</span>
-
-                                                                                                        <span class="p-comment__timestamp">
-
-                                                                                                            <a href="#">
-
-                                                                                                                <span>25 March 2015 at 3:55pm</span>
-                                                                                                            </a>
-                                                                                                        </span>
-                                                                                                        <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-                                                                                                        <a class="p-comment__reply" href="#">Reply</a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <!--====== End - Comment ======-->
-                                                                                            </li>
-                                                                                            <li>
-
-                                                                                                <!--====== Comment ======-->
-                                                                                                <div class="d-meta__p-comment">
-                                                                                                    <div class="p-comment__wrap1">
-                                                                                                        <div class="aspect aspect--square p-comment__img-wrap">
-
-                                                                                                            <img src="~/asset/images/blog/avatar.jpg" alt="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="p-comment__wrap2">
-
-                                                                                                        <span class="p-comment__author">Dayle</span>
-
-                                                                                                        <span class="p-comment__timestamp">
-
-                                                                                                            <a href="#">
-
-                                                                                                                <span>25 March 2015 at 3:55pm</span>
-                                                                                                            </a>
-                                                                                                        </span>
-                                                                                                        <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-                                                                                                        <a class="p-comment__reply" href="#">Reply</a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <!--====== End - Comment ======-->
-                                                                                            </li>
-                                                                                        </ol>
-                                                                                    </li>
-                                                                                </ol>
-                                                                            </li>
-                                                                        </ol>
                                                                     </li>
                                                                 </ol>
                                                             </li>
                                                         </ol>
                                                     </div>
-
                                                     <span class="d-meta__text-2 u-s-m-b-6">Join the Conversation</span>
 
                                                     <span class="d-meta__text-3 u-s-m-b-16">Your email address will not be published. Required fields are marked *</span>
@@ -1247,4 +1159,3 @@
     </div>
     <!--====== End - Section 1 ======-->
 <!--====== End - App Content ======-->
-

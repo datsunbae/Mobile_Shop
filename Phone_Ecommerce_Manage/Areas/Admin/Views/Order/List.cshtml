@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-container">
+	<div class="pd-ltr-20 xs-pd-20-10">
+		<div class="min-height-200px">
+			<!-- Simple Datatable start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+					<h4 class="text-blue h4">Danh sách đơn hàng</h4>
+				</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th class="table-plus datatable-nosort">Mã đơn hàng</th>
+								<th>Khách hàng</th>
+								<th>Ngày đặt</th>
+								<th>Tình trạng</th>
+								<th>Giá trị đơn hàng</th>
+								<th class="table-plus datatable-nosort">Xử lý đơn hàng</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table-plus">101010101</td>
+								<td>TRAN CAO DAI</td>
+								<td>1/1/2022</td>
+								<td><button type="button" class="btn btn-primary">Đang giao</button></td>
+								<td>$999999</td>
+								<td><button type="button" class="btn btn-primary">Đang giao</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- Simple Datatable End -->
+		</div>
+	</div>
+</div>

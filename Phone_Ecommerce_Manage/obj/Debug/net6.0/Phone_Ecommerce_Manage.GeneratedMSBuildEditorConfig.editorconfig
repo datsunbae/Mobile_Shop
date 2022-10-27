@@ -15,16 +15,52 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\ASPNETCORE\Mobile_Shop\Phone_Ecommerce_Manage
 build_property._RazorSourceGeneratorDebug = 
 
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Admin/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Admin/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Admin/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Admin/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Customer/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ3VzdG9tZXJcTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Customer/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ3VzdG9tZXJcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Customer/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ3VzdG9tZXJcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Product/AddProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxBZGRQcm9kdWN0LmNzaHRtbA==
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Order/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Product/ListProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxMaXN0UHJvZHVjdC5jc2h0bWw=
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Product/AddPhone.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxBZGRQaG9uZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Product/AddSound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxBZGRTb3VuZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Product/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Areas/Admin/Views/Shared/Error.cshtml]
@@ -49,6 +85,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Views/Accounts/EditAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRWRpdEFjY291bnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Views/Accounts/LostPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcTG9zdFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/ASPNETCORE/Mobile_Shop/Phone_Ecommerce_Manage/Views/Accounts/ManageAccount.cshtml]

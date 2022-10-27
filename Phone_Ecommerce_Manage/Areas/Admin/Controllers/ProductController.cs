@@ -9,7 +9,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             return View();
         }
-        public IActionResult ListProduct()
+        public IActionResult List()
         {
             return View();
         }

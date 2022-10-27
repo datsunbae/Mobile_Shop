@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-6 col-lg-7">
+				<img src="~/adminasset/vendors/images/register-page-img.png" alt="" />
+			</div>
+			<div class="col-md-6 col-lg-5">
+				<div class="register-box bg-white box-shadow border-radius-10">
+					<div class="wizard-content">
+						<form class="tab-wizard2 wizard-circle wizard">
+							<h5>Thông tin đăng nhập</h5>
+							<section>
+								<div class="form-wrap max-width-600 mx-auto">
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Email*</label>
+										<div class="col-sm-8">
+											<input type="email" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Tài khoản*</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Mật khẩu*</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Nhập lại mật khẩu*</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" />
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- Step 2 -->
+							<h5>Thông tin cá nhân</h5>
+							<section>
+								<div class="form-wrap max-width-600 mx-auto">
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Họ và tên*</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row align-items-center">
+										<label class="col-sm-4 col-form-label">Giới tính*</label>
+										<div class="col-sm-8">
+											<div class="custom-control custom-radio custom-control-inline pb-0">
+												<input type="radio"
+													   id="male"
+													   name="gender"
+													   class="custom-control-input" />
+												<label class="custom-control-label" for="male">Nam</label>
+											</div>
+											<div class="custom-control custom-radio custom-control-inline pb-0">
+												<input type="radio"
+													   id="female"
+													   name="gender"
+													   class="custom-control-input" />
+												<label class="custom-control-label" for="female">Nữ</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Địa chỉ</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" />
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- Step 4 -->
+							<h5>Xác nhận thông tin</h5>
+							<section>
+								<div class="form-wrap max-width-600 mx-auto">
+									<ul class="register-info">
+										<li>
+											<div class="row">
+												<div class="col-sm-4 weight-600">Email</div>
+												<div class="col-sm-8">example@abc.com</div>
+											</div>
+										</li>
+										<li>
+											<div class="row">
+												<div class="col-sm-4 weight-600">Tài khoản</div>
+												<div class="col-sm-8">Example</div>
+											</div>
+										</li>
+										<li>
+											<div class="row">
+												<div class="col-sm-4 weight-600">Mật khẩu</div>
+												<div class="col-sm-8">.....000</div>
+											</div>
+										</li>
+										<li>
+											<div class="row">
+												<div class="col-sm-4 weight-600">Họ và tên</div>
+												<div class="col-sm-8">john smith</div>
+											</div>
+										</li>
+										<li>
+											<div class="row">
+												<div class="col-sm-4 weight-600">Địa chỉ</div>
+												<div class="col-sm-8">123 Example</div>
+											</div>
+										</li>
+									</ul>
+									<div class="custom-control custom-checkbox mt-4">
+										<input type="checkbox"
+											   class="custom-control-input"
+											   id="customCheck1" />
+										<label class="custom-control-label" for="customCheck1">
+											Tôi đã đọc và đồng ý với các điều khoản dịch vụ và chính sách bảo mật
+										</label>
+									</div>
+								</div>
+							</section>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- success Popup html Start -->
+<button type="button"
+		id="success-modal-btn"
+		hidden
+		data-toggle="modal"
+		data-target="#success-modal"
+		data-backdrop="static">
+	Launch modal
+</button>
+<div class="modal fade"
+	 id="success-modal"
+	 tabindex="-1"
+	 role="dialog"
+	 aria-labelledby="exampleModalCenterTitle"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered max-width-400"
+		 role="document">
+		<div class="modal-content">
+			<div class="modal-body text-center font-18">
+				<h3 class="mb-20">Form Submitted!</h3>
+				<div class="mb-30 text-center">
+					<img src="~/adminasset/vendors/images/success.png" />
+				</div>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+				eiusmod
+			</div>
+			<div class="modal-footer justify-content-center">
+				<a href="/Admin/Admin/List" class="btn btn-primary">Done</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- success Popup html End -->
