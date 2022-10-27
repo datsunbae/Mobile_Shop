@@ -5,6 +5,11 @@
       "ProjectGuid": "11541bed-6b95-44e3-8f99-f2b83df5457b",
       "DisplayName": "Phone_Ecommerce_Manage",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1
