@@ -12,6 +12,10 @@ namespace Phone_Ecommerce_Manage.Controllers
         {
             return View();
         }
+        public IActionResult LostPassword()
+        {
+            return View();
+        }
         public IActionResult Profile()
         {
             return View();
