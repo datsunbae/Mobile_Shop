@@ -1,0 +1,39 @@
+﻿@model Phone_Ecommerce_Manage.Models.Role
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-30">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Thêm quyền truy cập</h4>
+                    </div>
+                </div>
+                <form asp-action="Create">
+                    <div class="form-group row">
+                        <label asp-for="RoleName" class="col-sm-12 col-md-2 col-form-label">Tên quyền truy cập</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input asp-for="RoleName" class="form-control"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <input type="submit" value="Lưu" class="btn btn-primary btn-sm scroll-click" />
+                        </div>
+                    </div>
+                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,27 @@
+﻿@model Phone_Ecommerce_Manage.Models.Role
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="min-height-200px">
+        <h4 class="d-block mt-4 mb-4">Bạn có muốn xóa quyền này không?</h4>
+        <div class="card-box mb-30 pd-20">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RoleName)
+                </dd>
+            </dl>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdRole" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

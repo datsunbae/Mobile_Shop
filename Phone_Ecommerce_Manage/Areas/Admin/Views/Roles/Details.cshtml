@@ -1,0 +1,25 @@
+﻿@model Phone_Ecommerce_Manage.Models.Role
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="min-height-200px">
+        <div class="card-box mb-30 pd-20">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RoleName)
+                </dd>
+            </dl>
+            <div>
+                <a class=" btn btn-primary" asp-action="Edit" asp-route-id="@Model.IdRole">Edit</a>
+                <a class=" btn btn-success" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
