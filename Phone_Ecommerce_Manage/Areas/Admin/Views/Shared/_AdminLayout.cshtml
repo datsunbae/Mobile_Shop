@@ -40,6 +40,8 @@
 		  type="text/css"
 		  href="~/adminasset/src/plugins/jquery-steps/jquery.steps.css" />
 	<link rel="stylesheet" type="text/css" href="~/adminasset/vendors/styles/style.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async
@@ -67,6 +69,8 @@
 		})(window, document, "script", "dataLayer", "GTM-NXZMQSS");
 	</script>
 	<!-- End Google Tag Manager -->
+	 @await RenderSectionAsync("Styles", required: false)
+
 </head>
 <body>
 
@@ -434,13 +438,8 @@
 	<script src="~/adminasset/src/plugins/datatables/js/pdfmake.min.js"></script>
 	<script src="~/adminasset/src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
-	<!-- Google Tag Manager (noscript) -->
-	<noscript>
-		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS"
-				height="0"
-				width="0"
-				style="display: none; visibility: hidden"></iframe>
-	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
+	@await RenderSectionAsync("Scripts", required: false);
+	
 </body>
 </html>

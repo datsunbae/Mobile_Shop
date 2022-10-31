@@ -6,20 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Phone_Ecommerce_Manage.Models
 {
-    [Table("StatusProduct")]
-    public partial class StatusProduct
+    [Table("ColorProduct")]
+    public partial class ColorProduct
     {
-        public StatusProduct()
+        public ColorProduct()
         {
             ProductColors = new HashSet<ProductColor>();
         }
 
         [Key]
-        public int IdStatusProduct { get; set; }
+        public int IdColor { get; set; }
         [StringLength(100)]
-        public string NameStatus { get; set; } = null!;
+        public string NameColor { get; set; } = null!;
 
-        [InverseProperty("IdStatusProduct1")]
+        [InverseProperty("IdColorNavigation")]
         public virtual ICollection<ProductColor> ProductColors { get; set; }
     }
 }
