@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.Role
+﻿@model Phone_Ecommerce_Manage.Models.BrandMobile
 
 @{
     ViewData["Title"] = "Delete";
@@ -14,20 +14,20 @@
             <div class="col-md-6 col-lg-5">
                 <div class="login-box bg-white box-shadow border-radius-10">
                     <div class="login-title">
-                        <h2 class="text-center text-primary">Xoá quyền truy cập</h2>
+                        <h2 class="text-center text-primary">Xoá thương hiệu sản phẩm</h2>
                     </div>
                     <form asp-action="Delete">
                         <div class="input-group custom">
-                            <input asp-for="RoleName" class="form-control form-control-lg"
+                            <input asp-for="NameBrand" class="form-control form-control-lg"
                                    type="text" />
                             <div class="input-group-append custom">
-                                <label asp-for="RoleName" class="input-group-text">Tên quyền truy cập</label>
+                                <label asp-for="NameBrand" class="input-group-text">Tên thương hiệu</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
-                                    <input type="hidden" asp-for="IdRole" />
+                                    <input type="hidden" asp-for="IdBrandMobile" />
                                     <input type="submit" value="Xoá" class="btn btn-danger" /> &ensp;
                                     <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
                                 </div>

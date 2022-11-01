@@ -1,0 +1,56 @@
+﻿@model Phone_Ecommerce_Manage.Models.BrandMobile
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-7">
+                <img src="~/adminasset/vendors/images/register-page-img.png" alt="" />
+            </div>
+            <div class="col-md-6 col-lg-5">
+                <div class="login-box bg-white box-shadow border-radius-10">
+                    <div class="login-title">
+                        <h2 class="text-center text-primary">Cập nhật thương hiệu</h2>
+                    </div>
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="IdBrandMobile" />
+                        <div class="input-group custom">
+                            <input asp-for="NameBrand" class="form-control form-control-lg"
+                                   type="text" />
+                            <div class="input-group-append custom">
+                                <label asp-for="NameBrand" class="input-group-text">Tên thương hiệu</label>
+                            </div>
+                        </div>
+                        <div class="input-group custom">
+                            <input asp-for="ImgBrand" class="form-control form-control-lg form-control-file"
+                                   type="file" />
+                        </div>
+                        <div class="row pb-30">
+                            <div class="col-6">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           asp-for="@Model.IsPublished"
+                                           checked="true" />
+                                    <label asp-for="@Model.IsPublished" class="custom-control-label">Công khai</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group mb-0">
+                                    <input type="submit" value="Lưu" class="btn btn-outline-primary" /> &ensp;
+                                    <a class="btn btn-outline-danger" asp-action="Index">Quay lại danh sách</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
