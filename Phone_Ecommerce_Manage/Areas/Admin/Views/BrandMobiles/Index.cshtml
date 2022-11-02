@@ -31,9 +31,16 @@
                                 <tr>
                                     <td>@item.NameBrand</td>
                                     <td>@item.ImgBrand</td>
-                                    <td><input type="checkbox" checked="@item.IsPublished"></td>
                                     <td>
-                                        <a asp-action="Details" asp-route-id="@item.IdBrandMobile" class=" btn btn-success">Xem</a>
+                                        @if (item.IsPublished == true)
+                                        {
+                                            <a>Công khai</a>
+                                        }
+                                        else{
+                                            <a>Không công khai</a>
+                                        }
+                                    </td>
+                                    <td>
                                         <a asp-action="Edit" asp-route-id="@item.IdBrandMobile" class="btn btn-primary">Sửa</a>
                                         <a asp-action="Delete" asp-route-id="@item.IdBrandMobile" class="btn btn-danger">Xóa</a>
                                     </td>

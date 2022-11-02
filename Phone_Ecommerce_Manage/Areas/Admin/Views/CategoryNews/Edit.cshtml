@@ -18,12 +18,10 @@
                     </div>
                     <form asp-action="Edit">
                         <input type="hidden" asp-for="IdCategoryNews" />
+                        <label asp-for="NameCategory"><h6>Tên danh mục</h6></label>
                         <div class="input-group custom">
                             <input asp-for="NameCategory" class="form-control form-control-lg"
                                    type="text" />
-                            <div class="input-group-append custom">
-                                <label asp-for="NameCategory" class="input-group-text">Tên danh mục</label>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
