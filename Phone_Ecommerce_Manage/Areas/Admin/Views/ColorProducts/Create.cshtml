@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.Role
+﻿@model Phone_Ecommerce_Manage.Models.ColorProduct
 
 @{
     ViewData["Title"] = "Create";
@@ -14,14 +14,14 @@
             <div class="col-md-6 col-lg-5">
                 <div class="login-box bg-white box-shadow border-radius-10">
                     <div class="login-title">
-                        <h2 class="text-center text-primary">Thêm quyền truy cập</h2>
+                        <h2 class="text-center text-primary">Thêm màu sản phẩm</h2>
                     </div>
                     <form asp-action="Create">
                         <div class="input-group custom">
-                            <input asp-for="RoleName" class="form-control form-control-lg"
+                            <input asp-for="NameColor" class="form-control form-control-lg"
                                    type="text" />
                             <div class="input-group-append custom">
-                                <label asp-for="RoleName" class="input-group-text">Tên quyền truy cập</label>
+                                <label asp-for="NameColor" class="input-group-text">Tên màu</label>
                             </div>
                         </div>
                         <div class="row">
@@ -44,29 +44,27 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-30">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Thêm quyền truy cập</h4>
+                        <h4 class="text-blue h4">Thêm màu sản phẩm</h4>
                     </div>
                 </div>
                 <form asp-action="Create">
                     <div class="form-group row">
-                        <label asp-for="RoleName" class="col-sm-12 col-md-2 col-form-label">Tên quyền truy cập</label>
+                        <label asp-for="NameColor" class="col-sm-12 col-md-2 col-form-label">Tên màu</label>
                         <div class="col-sm-12 col-md-10">
-                            <input asp-for="RoleName" class="form-control"
-                                   type="text"/>
+                            <input asp-for="NameColor" class="form-control"
+                                   type="text" />
                         </div>
                     </div>
                     <div class="clearfix">
-                    <div class="pull-right">
-                        <div class="form-group">
-                            <input type="submit" value="Lưu" class="btn btn-primary btn-sm scroll-click" />
+                        <div class="pull-right">
+                            <div class="form-group">
+                                <input type="submit" value="Lưu" class="btn btn-primary btn-sm scroll-click" />
+                            </div>
                         </div>
                     </div>
-                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
 

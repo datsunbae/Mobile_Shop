@@ -1,7 +1,7 @@
-﻿@model Phone_Ecommerce_Manage.Models.Role
+﻿@model Phone_Ecommerce_Manage.Models.CategoryNews
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -14,22 +14,22 @@
             <div class="col-md-6 col-lg-5">
                 <div class="login-box bg-white box-shadow border-radius-10">
                     <div class="login-title">
-                        <h2 class="text-center text-primary">Xoá quyền truy cập</h2>
+                        <h2 class="text-center text-primary">Cập nhật danh mục tin tức</h2>
                     </div>
-                    <form asp-action="Delete">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="IdCategoryNews" />
                         <div class="input-group custom">
-                            <input asp-for="RoleName" class="form-control form-control-lg"
+                            <input asp-for="NameCategory" class="form-control form-control-lg"
                                    type="text" />
                             <div class="input-group-append custom">
-                                <label asp-for="RoleName" class="input-group-text">Tên quyền truy cập</label>
+                                <label asp-for="NameCategory" class="input-group-text">Tên danh mục</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
-                                    <input type="hidden" asp-for="IdRole" />
-                                    <input type="submit" value="Xoá" class="btn btn-danger" /> &ensp;
-                                    <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+                                    <input type="submit" value="Lưu" class="btn btn-outline-primary" /> &ensp;
+                                    <a class="btn btn-outline-danger" asp-action="Index">Quay lại danh sách</a>
                                 </div>
                             </div>
                         </div>
@@ -39,3 +39,4 @@
         </div>
     </div>
 </div>
+

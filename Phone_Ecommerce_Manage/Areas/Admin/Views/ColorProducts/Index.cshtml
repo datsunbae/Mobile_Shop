@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.ColorProduct>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-container">
+    <div>
+        <div class="min-height-200px">
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Danh màu sắc sản phẩm</h4>
+                    <a asp-area="Admin" asp-controller="ColorProducts" asp-action="Create" type="button" class="btn btn-primary">
+                        Thêm màu sắc sản phẩm
+                    </a>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr>
+                                <th>Tên màu sắc sản phẩm</th>
+                                <th class="table-plus datatable-nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.NameColor</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.IdColor" class=" btn btn-success">Xem</a>
+                                        <a asp-action="Edit" asp-route-id="@item.IdColor" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdColor" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
