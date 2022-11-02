@@ -18,7 +18,6 @@ namespace Phone_Ecommerce_Manage.Models
             Ratings = new HashSet<Rating>();
         }
 
-
         [Key]
         public int IdProductVersion { get; set; }
         [StringLength(255)]
@@ -30,7 +29,6 @@ namespace Phone_Ecommerce_Manage.Models
         public bool IsPublished { get; set; }
         public int? IdProduct { get; set; }
 
-
         [ForeignKey("IdProduct")]
         [InverseProperty("ProductVersions")]
         public virtual Product? IdProductNavigation { get; set; }
@@ -38,14 +36,11 @@ namespace Phone_Ecommerce_Manage.Models
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<CommentRating> CommentRatings { get; set; }
-        [InverseProperty("IdStatusProductNavigation")]
+        [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<ProductColor> ProductColors { get; set; }
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<PromotionProduct> PromotionProducts { get; set; }
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<Rating> Ratings { get; set; }
-
-
-        
     }
 }

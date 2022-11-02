@@ -19,7 +19,7 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(100)]
         public string NameStatus { get; set; } = null!;
 
-        [InverseProperty("IdStatusProduct1")]
+        [InverseProperty("IdStatusProductNavigation")]
         public virtual ICollection<ProductColor> ProductColors { get; set; }
     }
 }

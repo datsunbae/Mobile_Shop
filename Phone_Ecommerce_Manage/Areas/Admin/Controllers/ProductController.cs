@@ -14,6 +14,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
     {
         private readonly MobileShop_DBContext _context;
 
+        int IDProductFilter = 0;
         public ProductController(MobileShop_DBContext context)
         {
             _context = context;
@@ -22,7 +23,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/Product
         public async Task<IActionResult> Index()
         {
-            var mobileShop_DBContext = _context.ProductColors.Include(p => p.IdColorNavigation).Include(p => p.IdStatusProduct1).Include(p => p.IdStatusProductNavigation);
+            var mobileShop_DBContext = _context.ProductColors.Include(p => p.IdColorNavigation).Include(p => p.IdProductVersion).Include(p => p.IdStatusProductNavigation);
             return View(await mobileShop_DBContext.ToListAsync());
         }
 
@@ -36,7 +37,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             var productColor = await _context.ProductColors
                 .Include(p => p.IdColorNavigation)
-                .Include(p => p.IdStatusProduct1)
+                .Include(p => p.IdProductVersion)
                 .Include(p => p.IdStatusProductNavigation)
                 .FirstOrDefaultAsync(m => m.IdProductColor == id);
             if (productColor == null)
@@ -68,12 +69,101 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             foreach(var item in data.ListProductViewModel)
             {
                 ProductVersion productVersion = new ProductVersion();
-                productVersion.IdProduct = product.IdProduct;
                 productVersion = item.productVersion;
+                productVersion.IdProduct = product.IdProduct;
                 _context.Add(productVersion);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Admin/Product/Create
+        public IActionResult CreateProductColor(int IdProduct = 0, int IdProductVersion = 0)
+        {
+            ViewData["ListProduct"] = new SelectList(_context.Products, "IdProduct", "NameProduct");
+            ViewData["ListStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "NameStatus");
+            ViewBag.CurrentIDProduct = IdProduct;
+            ViewBag.CurrentIDProductVersion = IdProductVersion;
+            if (IdProduct != 0)
+            {
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions.AsNoTracking().Where(x => x.IdProduct == IdProduct), "IdProductVersion", "NameProductVersion");
+            }
+            else
+            {
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions ,"IdProductVersion", "NameProductVersion");
+            }
+
+            if (IdProductVersion != 0)
+            {
+                var listProductColor = _context.ProductColors.AsNoTracking().Where(x => x.IdProductVersion == IdProductVersion);
+                var colorProducts = from c in _context.ColorProducts
+                                      join p in listProductColor on c.IdColor equals p.IdColor into joinGroup
+                                      from gr in joinGroup.DefaultIfEmpty()
+                                      where gr.IdProductColor == null
+                                      select new
+                                      {
+                                          ColorProducts = c,
+                                          ProductColors = gr
+                                      };
+
+
+                List<ColorProduct> colors = colorProducts.Select(x => x.ColorProducts).ToList();
+                ViewData["ListColorProducts"] = new SelectList(colors, "IdColor", "NameColor");
+
+            }
+
+            else
+            {
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
+            }
+
+
+            return View();
+        }
+
+        // POST: Admin/Product/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProductColor(ProductColor productColor)
+        {   
+            if(ModelState.IsValid)
+            {
+                productColor.CreateDate = DateTime.Now;
+                _context.Add(productColor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("CreateProductColor", "Product");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Filtter(int IdProduct = 0)
+        {
+            IDProductFilter = IdProduct;
+            var url = $"/Admin/Product/CreateProductColor?IdProduct={IdProduct}";
+            return Json(new { status = "success",  redirectUrl = url });
+        }
+
+        public IActionResult FiltterColor(int IdProductVersion = 0, string currentURL = "")
+        {
+            if(currentURL != "")
+            {
+                if (currentURL.Contains("&IdProductVersion="))
+                {
+                    Console.WriteLine("Ton tai");
+                    currentURL = currentURL.Split("&")[0] + $"&IdProductVersion={IdProductVersion}";
+
+                }
+                else
+                {
+                    currentURL += $"&IdProductVersion={IdProductVersion}";
+                }
+                
+            }
+            else
+            {
+                currentURL = "/Admin/Product/CreateProductColor";
+            }
+            return Json(new { status = "success", redirectUrl = currentURL });
         }
 
         // GET: Admin/Product/Edit/5
@@ -141,7 +231,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             var productColor = await _context.ProductColors
                 .Include(p => p.IdColorNavigation)
-                .Include(p => p.IdStatusProduct1)
+                .Include(p => p.IdProductVersion)
                 .Include(p => p.IdStatusProductNavigation)
                 .FirstOrDefaultAsync(m => m.IdProductColor == id);
             if (productColor == null)

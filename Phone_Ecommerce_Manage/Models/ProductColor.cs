@@ -23,7 +23,7 @@ namespace Phone_Ecommerce_Manage.Models
         public double? PromotionPrice { get; set; }
         public double? OrderPrice { get; set; }
         public int? Quantity { get; set; }
-        public bool? IsPublished { get; set; }
+        public bool IsPublished { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateDate { get; set; }
         [StringLength(255)]
@@ -36,12 +36,12 @@ namespace Phone_Ecommerce_Manage.Models
         [ForeignKey("IdColor")]
         [InverseProperty("ProductColors")]
         public virtual ColorProduct? IdColorNavigation { get; set; }
+        [ForeignKey("IdProductVersion")]
+        [InverseProperty("ProductColors")]
+        public virtual ProductVersion? IdProductVersionNavigation { get; set; }
         [ForeignKey("IdStatusProduct")]
         [InverseProperty("ProductColors")]
-        public virtual StatusProduct? IdStatusProduct1 { get; set; }
-        [ForeignKey("IdStatusProduct")]
-        [InverseProperty("ProductColors")]
-        public virtual ProductVersion? IdStatusProductNavigation { get; set; }
+        public virtual StatusProduct? IdStatusProductNavigation { get; set; }
         [InverseProperty("IdProductColorNavigation")]
         public virtual ICollection<OrderBillDetail> OrderBillDetails { get; set; }
     }

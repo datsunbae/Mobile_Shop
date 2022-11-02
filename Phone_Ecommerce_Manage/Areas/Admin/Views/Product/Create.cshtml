@@ -5,83 +5,11 @@
 <link href="~/adminasset/summernote/summernote.css" rel="stylesheet" />
 }
 
-
 @{
-    var count = 1;
-
-}
-
-
-margin-bottom"Title"] = "Create";
+    ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var count = 1;
 }
-@*
-    <h1>Create</h1>
-
-    <h4>ProductColor</h4>
-    <hr />
-    <div class="row">
-    <div class="col-md-4">
-    <form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-    <label asp-for="ImgProductColor" class="control-label"></label>
-    <input asp-for="ImgProductColor" class="form-control" />
-    <span asp-validation-for="ImgProductColor" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Price" class="control-label"></label>
-    <input asp-for="Price" class="form-control" />
-    <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="PromotionPrice" class="control-label"></label>
-    <input asp-for="PromotionPrice" class="form-control" />
-    <span asp-validation-for="PromotionPrice" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="OrderPrice" class="control-label"></label>
-    <input asp-for="OrderPrice" class="form-control" />
-    <span asp-validation-for="OrderPrice" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Quantity" class="control-label"></label>
-    <input asp-for="Quantity" class="form-control" />
-    <span asp-validation-for="Quantity" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="CreateDate" class="control-label"></label>
-    <input asp-for="CreateDate" class="form-control" />
-    <span asp-validation-for="CreateDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="AvailableAtShop" class="control-label"></label>
-    <input asp-for="AvailableAtShop" class="form-control" />
-    <span asp-validation-for="AvailableAtShop" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="IdStatusProduct" class="control-label"></label>
-    <select asp-for="IdStatusProduct" class="form-control" asp-items="ViewBag.IdStatusProduct"></select>
-    </div>
-    <div class="form-group">
-    <label asp-for="IdProductVersion" class="control-label"></label>
-    <input asp-for="IdProductVersion" class="form-control" />
-    <span asp-validation-for="IdProductVersion" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="IdColor" class="control-label"></label>
-    <select asp-for="IdColor" class="form-control" asp-items="ViewBag.IdColor"></select>
-    </div>
-    <div class="form-group">
-    <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-    </form>
-    </div>
-    </div>*@
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">

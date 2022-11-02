@@ -43,9 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IdColorNavigation)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.IdStatusProduct1)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.IdStatusProductNavigation)
             </th>
@@ -85,12 +85,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IdColorNavigation.IdColor)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IdStatusProduct1.IdStatusProduct)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdStatusProductNavigation.IdProductVersion)
-            </td>
+            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdProductColor">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdProductColor">Details</a> |

@@ -54,7 +54,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<AccountUser>(entity =>
             {
                 entity.HasKey(e => e.IdAccountUser)
-                    .HasName("PK__AccountU__76959AFB7DC728AC");
+                    .HasName("PK__AccountU__76959AFBA439B51C");
 
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.AccountUsers)
@@ -66,7 +66,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<BrandMobile>(entity =>
             {
                 entity.HasKey(e => e.IdBrandMobile)
-                    .HasName("PK__BrandMob__3D412B038C20EF46");
+                    .HasName("PK__BrandMob__3D412B033DDAB7EE");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
             });
@@ -74,19 +74,19 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CategoryNews>(entity =>
             {
                 entity.HasKey(e => e.IdCategoryNews)
-                    .HasName("PK__Category__002B75A5A0908C32");
+                    .HasName("PK__Category__002B75A52EAD1D4F");
             });
 
             modelBuilder.Entity<ColorProduct>(entity =>
             {
                 entity.HasKey(e => e.IdColor)
-                    .HasName("PK__ColorPro__E83D55CB28762A20");
+                    .HasName("PK__ColorPro__E83D55CB81155956");
             });
 
             modelBuilder.Entity<CommentNews>(entity =>
             {
                 entity.HasKey(e => e.IdCommentNew)
-                    .HasName("PK__CommentN__708A0203E5F36F51");
+                    .HasName("PK__CommentN__708A020373A55A3B");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -100,7 +100,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CommentProduct>(entity =>
             {
                 entity.HasKey(e => e.IdCommentProduct)
-                    .HasName("PK__CommentP__542057BCC405B281");
+                    .HasName("PK__CommentP__542057BCCF8F98B6");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -114,7 +114,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CommentRating>(entity =>
             {
                 entity.HasKey(e => e.IdCommentRating)
-                    .HasName("PK__CommentR__F4D21E30E14FE954");
+                    .HasName("PK__CommentR__F4D21E3008EF2791");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -128,7 +128,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<EventSale>(entity =>
             {
                 entity.HasKey(e => e.IdEventSale)
-                    .HasName("PK__EventSal__520D189420D1CACA");
+                    .HasName("PK__EventSal__520D1894804D757C");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
             });
@@ -151,13 +151,13 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.HasKey(e => e.IdLocation)
-                    .HasName("PK__Location__FB5FABA9200D7611");
+                    .HasName("PK__Location__FB5FABA9FBE60A90");
             });
 
             modelBuilder.Entity<News>(entity =>
             {
                 entity.HasKey(e => e.IdNews)
-                    .HasName("PK__News__4559C72D2FB7D3F8");
+                    .HasName("PK__News__4559C72DDE68EE89");
 
                 entity.HasOne(d => d.IdAccountUserNavigation)
                     .WithMany(p => p.News)
@@ -175,7 +175,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<OrderBill>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBill)
-                    .HasName("PK__OrderBil__251DF393585A0318");
+                    .HasName("PK__OrderBil__251DF393E5E78283");
 
                 entity.HasOne(d => d.IdAccountUserNavigation)
                     .WithMany(p => p.OrderBills)
@@ -193,7 +193,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<OrderBillDetail>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBillDetails)
-                    .HasName("PK__OrderBil__3748B242FDB9A158");
+                    .HasName("PK__OrderBil__3748B24276A2D489");
 
                 entity.HasOne(d => d.IdOrderBillNavigation)
                     .WithMany(p => p.OrderBillDetails)
@@ -210,7 +210,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.IdProduct)
-                    .HasName("PK__Product__2E8946D49F828557");
+                    .HasName("PK__Product__2E8946D4AED7DDCE");
 
                 entity.Property(e => e.IsHot).HasDefaultValueSql("((0))");
 
@@ -226,7 +226,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductColor>(entity =>
             {
                 entity.HasKey(e => e.IdProductColor)
-                    .HasName("PK__ProductC__44B498FADADC0D9F");
+                    .HasName("PK__ProductC__44B498FAE0CF15C0");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((1))");
 
@@ -236,13 +236,13 @@ namespace Phone_Ecommerce_Manage.Models
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_IdColor_ProductColor");
 
-                entity.HasOne(d => d.IdStatusProductNavigation)
+                entity.HasOne(d => d.IdProductVersionNavigation)
                     .WithMany(p => p.ProductColors)
-                    .HasForeignKey(d => d.IdStatusProduct)
+                    .HasForeignKey(d => d.IdProductVersion)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_IdProductVersion_ProductColor");
 
-                entity.HasOne(d => d.IdStatusProduct1)
+                entity.HasOne(d => d.IdStatusProductNavigation)
                     .WithMany(p => p.ProductColors)
                     .HasForeignKey(d => d.IdStatusProduct)
                     .OnDelete(DeleteBehavior.SetNull)
@@ -252,7 +252,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductVersion>(entity =>
             {
                 entity.HasKey(e => e.IdProductVersion)
-                    .HasName("PK__ProductV__AD31AF69289CD6F5");
+                    .HasName("PK__ProductV__AD31AF69B2EC1D1A");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -266,7 +266,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<PromotionProduct>(entity =>
             {
                 entity.HasKey(e => e.IdPromotionProduct)
-                    .HasName("PK__Promotio__2D9BA168172B5841");
+                    .HasName("PK__Promotio__2D9BA168700B07B2");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -298,25 +298,25 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Role__B43690548F43126F");
+                    .HasName("PK__Role__B4369054D3E7E425");
             });
 
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.IdStatusOrder)
-                    .HasName("PK__StatusOr__361588A83B94895B");
+                    .HasName("PK__StatusOr__361588A8DAF29BE9");
             });
 
             modelBuilder.Entity<StatusProduct>(entity =>
             {
                 entity.HasKey(e => e.IdStatusProduct)
-                    .HasName("PK__StatusPr__D980E094A5390E8C");
+                    .HasName("PK__StatusPr__D980E094C7CF2DDD");
             });
 
             modelBuilder.Entity<Store>(entity =>
             {
                 entity.HasKey(e => e.IdStore)
-                    .HasName("PK__Stores__2A8EB278970BE70D");
+                    .HasName("PK__Stores__2A8EB27871FE132F");
 
                 entity.HasOne(d => d.IdLocationNavigation)
                     .WithMany(p => p.Stores)

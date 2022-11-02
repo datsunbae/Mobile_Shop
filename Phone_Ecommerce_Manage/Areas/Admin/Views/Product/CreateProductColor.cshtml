@@ -1,0 +1,185 @@
+﻿@model Phone_Ecommerce_Manage.Models.ProductColor;
+
+@{
+    ViewData["Title"] = "CreateProductColor";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var count = 1;
+}
+
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thêm màu sản phẩm</h4>
+                </div>
+                <div class="wizard-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Chọn sản phẩm</label>
+                                <select class="custom-select" id="productID" name="productID" style="min-width: 200px;" asp-items="ViewBag.ListProduct">
+                                    <option selected>Chọn danh mục</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <form asp-action="CreateProductColor">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <section class="mb-5">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Chọn phiên bản</label>
+                                        @{
+                                            if (@ViewBag.CurrentIDProduct != 0)
+                                            {
+
+                                                <select class="custom-select" style="min-width: 200px;" asp-for="@Model.IdProductVersion" asp-items="ViewBag.ListProductVersion" id="idProductVersion">
+                                                    <option selected>Chọn danh mục</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width: 200px;">
+                                                    <option selected>Chọn phiên bản</option>
+                                                </select>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                        </section>
+                        <h5>Màu sản phẩm</h5>
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Chọn màu</label>
+                                        <select asp-for="@Model.IdColor" class="form-control" asp-items="ViewBag.ListColorProducts"></select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.OrderPrice" class="control-label">Giá nhập</label>
+                                        <input asp-for="@Model.OrderPrice" class="form-control" />
+                                        <span asp-validation-for="@Model.OrderPrice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Price" class="control-label">Giá bán</label>
+                                        <input asp-for="@Model.Price" class="form-control" />
+                                        <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PromotionPrice" class="control-label">Giá khuyến mãi</label>
+                                        <input asp-for="@Model.PromotionPrice" class="form-control" />
+                                        <span asp-validation-for="@Model.PromotionPrice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Quantity" class="control-label">Số lượng</label>
+                                        <input asp-for="@Model.Quantity" class="form-control" />
+                                        <span asp-validation-for="@Model.Quantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Trạng thái sản phẩm</label>
+                                        <select asp-for="@Model.IdStatusProduct" class="form-control" asp-items="ViewBag.ListStatusProduct"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsPublished" checked="true">
+                                            <label class="custom-control-label" asp-for="@Model.IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Danh sách sản phẩm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+<script>
+        $(document).ready(function () {
+                $("#productID > [value=" + @ViewBag.CurrentIDProduct + "]").attr("selected", "true");
+                $("#hehehe > [value=" + @ViewBag.CurrentIDProductVersion + "]").attr("selected", "true");
+            jQuery("#productID").change(function () {
+                var productID = jQuery(this).children(":selected").attr("value");
+                productID = parseFloat(productID);
+                $.ajax({
+                    url: '/Admin/Product/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        IdProduct : productID
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+
+            jQuery("#idProductVersion").change(function () {
+                var productVersionID = jQuery(this).children(":selected").attr("value");
+                productVersionID = parseFloat(productVersionID);
+                $.ajax({
+                    url: '/Admin/Product/FiltterColor',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        IdProductVersion : productVersionID,
+                        currentURL: window.location.href
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+
+
+        
+</script>
+
+}
+
