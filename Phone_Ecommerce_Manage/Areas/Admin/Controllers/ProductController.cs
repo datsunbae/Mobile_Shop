@@ -112,11 +112,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             }
 
-            else
-            {
-                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
-            }
-
 
             return View();
         }

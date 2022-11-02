@@ -21,7 +21,7 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(255)]
         [Unicode(false)]
         public string? ImgBrand { get; set; }
-        public bool IsPublished { get; set; }
+        public bool? IsPublished { get; set; }
 
         [InverseProperty("IdBrandMobileNavigation")]
         public virtual ICollection<Product> Products { get; set; }
