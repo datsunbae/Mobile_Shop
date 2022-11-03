@@ -23,8 +23,16 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/Product
         public async Task<IActionResult> Index()
         {
-            var mobileShop_DBContext = _context.ProductColors.Include(p => p.IdColorNavigation).Include(p => p.IdProductVersion).Include(p => p.IdStatusProductNavigation);
-            return View(await mobileShop_DBContext.ToListAsync());
+            ViewBag.ListBranchMobiles = await _context.BrandMobiles.ToListAsync();
+            return View(await _context.Products.ToListAsync());
+        }
+
+        public async Task<IActionResult> ProductsColor()
+        {
+            ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
+            ViewBag.ListColors = await _context.ColorProducts.ToListAsync();
+            ViewBag.StatusProducts = await _context.StatusProducts.ToListAsync();
+            return View(await _context.ProductColors.ToListAsync());
         }
 
         // GET: Admin/Product/Details/5
@@ -35,17 +43,15 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var productColor = await _context.ProductColors
-                .Include(p => p.IdColorNavigation)
-                .Include(p => p.IdProductVersion)
-                .Include(p => p.IdStatusProductNavigation)
-                .FirstOrDefaultAsync(m => m.IdProductColor == id);
-            if (productColor == null)
+            var product = await _context.Products.Where(x => x.IdProduct == id).FirstOrDefaultAsync();
+            ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(productColor);
+            return View(product);
         }
 
         // GET: Admin/Product/Create
@@ -58,20 +64,18 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // POST: Admin/Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductVersionListModelView data)
+        public async Task<IActionResult> Create(ProductViewModel data)
         {  //Add product
             Product product = new Product();
-            product = data.ListProductViewModel[0].product;
+            product = data.product;
             _context.Add(product);
             await _context.SaveChangesAsync();
 
             //Add version products
-            foreach(var item in data.ListProductViewModel)
+            foreach(var item in data.productVersions)
             {
-                ProductVersion productVersion = new ProductVersion();
-                productVersion = item.productVersion;
-                productVersion.IdProduct = product.IdProduct;
-                _context.Add(productVersion);
+                item.IdProduct = product.IdProduct;
+                _context.Add(item);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -161,29 +165,116 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             return Json(new { status = "success", redirectUrl = currentURL });
         }
 
-        // GET: Admin/Product/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Admin/Product/Edit/id
+        public async Task<IActionResult> Edit(int? id, ProductViewModel productViewModel)
+        {
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = _context.Products.Where(x => x.IdProduct == id).FirstOrDefault();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            
+            productViewModel.product = product;
+
+            var listProductVerion = _context.ProductVersions.Where(x => x.IdProduct == id);
+            productViewModel.productVersions = new List<ProductVersion>();
+            foreach (var item in listProductVerion)
+            {
+                productViewModel.productVersions.Add(item);
+            }
+            return View(productViewModel);
+        }
+
+        // POST: Admin/Product/Edit/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, ProductViewModel data)
+        {
+            if (id != data.product.IdProduct)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(data.product);
+                await _context.SaveChangesAsync();
+
+                foreach (var item in data.productVersions)
+                {
+                    _context.Update(item);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(data);
+
+        }
+
+
+        // GET: Admin/Product/EditProductColor/id
+        public async Task<IActionResult> EditProductColor(int? id, int IdProduct = 0, int IdProductVersion = 0)
         {
             if (id == null || _context.ProductColors == null)
             {
                 return NotFound();
             }
 
-            var productColor = await _context.ProductColors.FindAsync(id);
-            if (productColor == null)
+            var productColor = _context.ProductColors.Where(x => x.IdProductColor == id).FirstOrDefault();
+            var product = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion && x.IdProductVersion == IdProductVersion && x.IdProduct == IdProduct).FirstOrDefault(); ;
+            if (productColor == null || product == null)
             {
                 return NotFound();
             }
-            ViewData["IdColor"] = new SelectList(_context.ColorProducts, "IdColor", "IdColor", productColor.IdColor);
-            ViewData["IdStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "IdStatusProduct", productColor.IdStatusProduct);
-            ViewData["IdStatusProduct"] = new SelectList(_context.ProductVersions, "IdProductVersion", "IdProductVersion", productColor.IdStatusProduct);
+
+            ViewData["ListProduct"] = new SelectList(_context.Products, "IdProduct", "NameProduct");
+            ViewData["ListStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "NameStatus");
+            ViewBag.CurrentIDProduct = IdProduct;
+            ViewBag.CurrentIDProductVersion = IdProductVersion;
+            if (IdProduct != 0)
+            {
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions.AsNoTracking().Where(x => x.IdProduct == IdProduct), "IdProductVersion", "NameProductVersion");
+            }
+            else
+            {
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
+            }
+
+            if (IdProductVersion != 0)
+            {
+                var listProductColor = _context.ProductColors.AsNoTracking().Where(x => x.IdProductVersion == IdProductVersion);
+                var colorProducts = from c in _context.ColorProducts
+                                    join p in listProductColor on c.IdColor equals p.IdColor into joinGroup
+                                    from gr in joinGroup.DefaultIfEmpty()
+                                    where gr.IdProductColor == null || gr.IdColor == productColor.IdColor
+                                    select new
+                                    {
+                                        ColorProducts = c,
+                                        ProductColors = gr
+                                    };
+
+
+                List<ColorProduct> colors = colorProducts.Select(x => x.ColorProducts).ToList();
+                ViewData["ListColors"] = new SelectList(colors, "IdColor", "NameColor");
+
+            }
+
+            ViewBag.ProductColor = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion).FirstOrDefault();
             return View(productColor);
         }
 
-        // POST: Admin/Product/Edit/5
+        // POST: Admin/Product/EditProductColor/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProductColor,ImgProductColor,Price,PromotionPrice,OrderPrice,Quantity,IsPublished,CreateDate,AvailableAtShop,IdStatusProduct,IdProductVersion,IdColor")] ProductColor productColor)
+        public async Task<IActionResult> EditProductColor(int id, ProductColor productColor)
         {
             if (id != productColor.IdProductColor)
             {
@@ -192,28 +283,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(productColor);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductColorExists(productColor.IdProductColor))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Update(productColor);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdColor"] = new SelectList(_context.ColorProducts, "IdColor", "IdColor", productColor.IdColor);
-            ViewData["IdStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "IdStatusProduct", productColor.IdStatusProduct);
-            ViewData["IdStatusProduct"] = new SelectList(_context.ProductVersions, "IdProductVersion", "IdProductVersion", productColor.IdStatusProduct);
             return View(productColor);
+
         }
 
         // GET: Admin/Product/Delete/5
@@ -224,17 +299,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var productColor = await _context.ProductColors
-                .Include(p => p.IdColorNavigation)
-                .Include(p => p.IdProductVersion)
-                .Include(p => p.IdStatusProductNavigation)
-                .FirstOrDefaultAsync(m => m.IdProductColor == id);
-            if (productColor == null)
+            var product = await _context.Products.Where(x => x.IdProduct == id).FirstOrDefaultAsync();
+            ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(productColor);
+            return View(product);
         }
 
         // POST: Admin/Product/Delete/5
@@ -242,14 +314,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.ProductColors == null)
+            if (_context.Products == null)
             {
-                return Problem("Entity set 'MobileShop_DBContext.ProductColors'  is null.");
+                return Problem("Entity set 'MobileShop_DBContext.ProductColors' is null.");
             }
-            var productColor = await _context.ProductColors.FindAsync(id);
-            if (productColor != null)
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
             {
-                _context.ProductColors.Remove(productColor);
+                _context.Products.Remove(product);
             }
             
             await _context.SaveChangesAsync();

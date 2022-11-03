@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.ProductVersionListModelView
+﻿@model Phone_Ecommerce_Manage.Models.ProductViewModel
 
 @section Styles{
 <link href="~/adminasset/summernote/summernote-bs4.css" rel="stylesheet" />
@@ -26,15 +26,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ListProductViewModel[0].product.NameProduct"  class="control-label">Tên sản phẩm</label>
-                                        <input asp-for="@Model.ListProductViewModel[0].product.NameProduct" class="form-control" />
-                                        <span asp-validation-for="@Model.ListProductViewModel[0].product.NameProduct" class="text-danger"></span>
+                                        <label asp-for="@Model.product.NameProduct"  class="control-label">Tên sản phẩm</label>
+                                        <input asp-for="@Model.product.NameProduct" class="form-control" />
+                                        <span asp-validation-for="@Model.product.NameProduct" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Thương hiệu</label>
-                                        <select asp-for="@Model.ListProductViewModel[0].product.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles"></select>
+                                        <select asp-for="@Model.product.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles"></select>
                                     </div>
                                 </div>
                             </div>
@@ -42,16 +42,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-5">
-                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.ListProductViewModel[0].product.IsHot">
-											<label class="custom-control-label" asp-for="@Model.ListProductViewModel[0].product.IsHot">Sản phẩm hot</label>
+                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsHot">
+											<label class="custom-control-label" asp-for="@Model.product.IsHot">Sản phẩm hot</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-5">
-                                          <input type="checkbox" class="custom-control-input" asp-for="@Model.ListProductViewModel[0].product.IsPublished" checked="true">
-										<label class="custom-control-label" asp-for="@Model.ListProductViewModel[0].product.IsPublished">Công khai</label>
+                                          <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsPublished" checked="true">
+										<label class="custom-control-label" asp-for="@Model.product.IsPublished">Công khai</label>
                                         </div>
                                     </div>
                                 </div>
@@ -65,41 +65,42 @@
                             <div class="row form-version" style="margin-bottom:50px">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ListProductViewModel[0].productVersion.NameProductVersion" class="control-label">Tên phiên bản</label>
-                                        <input asp-for="@Model.ListProductViewModel[0].productVersion.NameProductVersion" class="form-control" />
-                                        <span asp-validation-for="@Model.ListProductViewModel[0].productVersion.NameProductVersion" class="text-danger"></span>
+                                        <label asp-for="@Model.productVersions[0].NameProductVersion" class="control-label">Tên phiên bản</label>
+                                        <input asp-for="@Model.productVersions[0].NameProductVersion" class="form-control" />
+                                        <span asp-validation-for="@Model.productVersions[0].NameProductVersion" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                          <div class="custom-control custom-checkbox mb-5">
-                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.ListProductViewModel[0].productVersion.IsPublished" checked="true">
-										<label class="custom-control-label" asp-for="@Model.ListProductViewModel[0].productVersion.IsPublished">Công khai</label>
+                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.productVersions[0].IsPublished" checked="true">
+										<label class="custom-control-label" asp-for="@Model.productVersions[0].IsPublished">Công khai</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ListProductViewModel[0].productVersion.Desciprtion">Mô tả</label>
-                                        <textarea asp-for="@Model.ListProductViewModel[0].productVersion.Desciprtion" class="summernote"></textarea>
+                                        <label asp-for="@Model.productVersions[0].Desciprtion">Mô tả</label>
+                                        <textarea asp-for="@Model.productVersions[0].Desciprtion" class="summernote"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.ListProductViewModel[0].productVersion.TechnicalParameters">Thông số kỹ thuật</label>
-                                        <textarea asp-for="@Model.ListProductViewModel[0].productVersion.TechnicalParameters" class="summernote"></textarea>
+                                        <label asp-for="@Model.productVersions[0].TechnicalParameters">Thông số kỹ thuật</label>
+                                        <textarea asp-for="@Model.productVersions[0].TechnicalParameters" class="summernote"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="newrow">
                             </div>
-                            <button id="rowAdder" type="button" onclick="hanleAdd()"
+                            
+                        </section>
+
+                        <button id="rowAdder" type="button" onclick="hanleAdd()"
                                     class="btn btn-dark">
                                 <span class="bi bi-plus-square-dotted">
                                 </span> Thêm phiên bản
                             </button>
-                        </section>
-
                         <button type="submit" class="btn btn-primary">Lưu</button>
                     </form>
                 </div>
@@ -116,37 +117,38 @@
         <div class="row">
                                 <div class="col-md-6 text-success h5">Phiên bản</div>
                             </div>
-                            <div class="row form-version" style="margin-bottom:50px">
+                            <div class="row form-version" style="margin-bottom:10px">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="ListProductViewModel_${i}__productVersion_NameProductVersion">Tên phiên bản</label>
-                                        <input class="form-control" type="text" data-val="true" data-val-length="The field NameProductVersion must be a string with a maximum length of 255." data-val-length-max="255" data-val-required="The NameProductVersion field is required." id="ListProductViewModel_${i}__productVersion_NameProductVersion" maxlength="255" name="ListProductViewModel[${i}].productVersion.NameProductVersion" value="">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="ListProductViewModel[${i}].productVersion.NameProductVersion" data-valmsg-replace="true"></span>
+                                        <label class="control-label" for="productVersions_${i}__NameProductVersion">Tên phiên bản</label>
+                                        <input class="form-control" type="text" data-val="true" data-val-length="The field NameProductVersion must be a string with a maximum length of 255." data-val-length-max="255" data-val-required="The NameProductVersion field is required." id="productVersions_${i}__NameProductVersion" maxlength="255" name="productVersions[${i}].NameProductVersion" value="">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].NameProductVersion" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                        <div class="custom-control custom-checkbox mb-5">
-                                          <input type="checkbox" class="custom-control-input" data-val="true" data-val-required="The IsPublished field is required." id="ListProductViewModel_${i}__productVersion_IsPublished" name="ListProductViewModel[${i}].productVersion.IsPublished" value="true" checked="true">
-										<label class="custom-control-label" for="ListProductViewModel_${i}__productVersion_IsPublished">Công khai</label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" checked="true" data-val="true" data-val-required="The IsPublished field is required." id="productVersions_${i}__IsPublished" name="productVersions[${i}].IsPublished" value="true">
+										<label class="custom-control-label" for="productVersions_${i}__IsPublished">Công khai</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="ListProductViewModel_${i}__productVersion_Desciprtion">Mô tả</label>
-                                        <textarea class="summernote" id="ListProductViewModel_${i}__productVersion_Desciprtion" name="ListProductViewModel[${i}].productVersion.Desciprtion" style="display: none;"></textarea>
+                                        <label for="productVersions_${i}__Desciprtion">Mô tả</label>
+                                       <textarea class="summernote" id="productVersions_${i}__Desciprtion" name="productVersions[${i}].Desciprtion" style="display: none;"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="ListProductViewModel_${i}__productVersion_TechnicalParameters">Thông số kỹ thuật</label>
-                                         <textarea class="summernote" id="ListProductViewModel_${i}__productVersion_TechnicalParameters" name="ListProductViewModel[${i}].productVersion.TechnicalParameters" style="display: none;"></textarea>
+                                        <label for="productVersions_${i}__TechnicalParameters">Thông số kỹ thuật</label>
+                                        <textarea class="summernote" id="productVersions_${i}__TechnicalParameters" name="productVersions[${i}].TechnicalParameters" style="display: none;"></textarea>
                                     </div>
                                 </div>
-                                <button class="btn btn-danger ml-2"
+                            </div>
+                                <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
                                                         id="DeleteRow" type="button">
-                                                    <i class="bi bi-trash"></i>Delete
+                                                    <i class="bi bi-trash "></i>Delete
                                                 </button>
                             </div>`;
 

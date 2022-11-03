@@ -3,12 +3,8 @@
     public class ProductViewModel
     {
         public Product product { get; set; }
-        public ProductVersion productVersion { get; set; }
+        public List<ProductVersion> productVersions { get; set; }
 
-
-        public BrandMobile brandMobile { get; set; }
-
-        public ColorProduct colorProduct { get; set; }
     }
 
 

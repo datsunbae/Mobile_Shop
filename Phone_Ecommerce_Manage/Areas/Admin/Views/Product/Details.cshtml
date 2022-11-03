@@ -1,91 +1,111 @@
-﻿@model Phone_Ecommerce_Manage.Models.ProductColor
+﻿@model Phone_Ecommerce_Manage.Models.Product
+
+
+@section Styles{
+<link href="~/adminasset/summernote/summernote-bs4.css" rel="stylesheet" />
+<link href="~/adminasset/summernote/summernote.css" rel="stylesheet" />
+}
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>ProductColor</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImgProductColor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImgProductColor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PromotionPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PromotionPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPublished)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AvailableAtShop)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AvailableAtShop)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProductVersion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProductVersion)
-        </dd>
-       @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdColorNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdColorNavigation.IdColor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdStatusProduct1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdStatusProduct1.IdStatusProduct)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdStatusProductNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdStatusProductNavigation.IdProductVersion)
-        </dd>*@
-    </dl>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thông tin sản phẩm: @Model.NameProduct</h4>
+                </div>
+                <div class="wizard-content" style="margin-top: 40px">
+                    <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.NameProduct"  class="control-label">Tên sản phẩm</label>
+                                        <input asp-for="@Model.NameProduct" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Thương hiệu</label>
+                                        <select asp-for="@Model.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot" >
+											<label class="custom-control-label" asp-for="@Model.IsHot">Sản phẩm hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                          <input type="checkbox" class="custom-control-input" asp-for="@Model.IsPublished" checked="true" >
+										<label class="custom-control-label" asp-for="@Model.IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        @foreach(var item in listProductVersion)
+                        {
+                            <section class="sectionFormm">
+                            <div class="row">
+                                <div class="col-md-6 text-success h5">Phiên bản</div>
+                            </div>
+                            <div class="row form-version" style="margin-bottom:50px">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@item.NameProductVersion" class="control-label">Tên phiên bản</label>
+                                        <input asp-for="@item.NameProductVersion" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@item.IsPublished" checked="true" >
+										<label class="custom-control-label" asp-for="@item.IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@item.Desciprtion">Mô tả</label>
+                                        <textarea asp-for="@item.Desciprtion" class="summernote" disabled></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@item.TechnicalParameters">Thông số kỹ thuật</label>
+                                        <textarea asp-for="@item.TechnicalParameters" class="summernote" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdProductColor">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@section Scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+<script src="~/adminasset/summernote/summernote-bs4.js"></script>
+
+<script>
+        $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+</script>
+}

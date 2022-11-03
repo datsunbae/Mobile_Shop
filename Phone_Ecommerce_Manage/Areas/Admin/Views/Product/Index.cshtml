@@ -1,102 +1,71 @@
-﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.ProductColor>
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	List<BrandMobile> listBranchMobiles = ViewBag.ListBranchMobiles;
 }
 
-<h1>Index</h1>
+<div class="main-container">
+	<div >
+		<div class="min-height-200px">
+			<div class="card-box mb-30">
+				<div class="pd-20">
+					<h4 class="text-blue h4">Danh sách sản phẩm</h4>
+					<a asp-area="Admin" asp-controller="Product" asp-action="Create" type="button" class="btn btn-primary">
+						Thêm sản phẩm
+					</a>
+					<a asp-area="Admin" asp-controller="Product" asp-action="CreateProductColor" type="button" class="btn btn-primary">
+						Thêm màu cho các phiên bản
+					</a>
+				</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>Tên sản phẩm</th>
+								<th>Hot</th>
+								<th>Công khai</th>
+								<th>Thương hiệu</th>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgProductColor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PromotionPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableAtShop)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProductVersion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdColorNavigation)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IdStatusProduct1)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.IdStatusProductNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgProductColor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PromotionPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvailableAtShop)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProductVersion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdColorNavigation.IdColor)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IdStatusProduct1.IdStatusProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdStatusProductNavigation.IdProductVersion)
-            </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdProductColor">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdProductColor">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdProductColor">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+								<th class="table-plus datatable-nosort"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model) {
+                                <tr>
+                                    <td>@item.NameProduct</td>
+                                    @if (item.IsHot)
+									{
+										<td>Có</td>
+									}
+									else
+									{
+										<td>Không</td>
+									}
+									@if (item.IsPublished)
+									{
+										<td>Công khai</td>
+									}
+									else
+									{
+										<td>Không công khai</td>
+									}
+									@{
+										var brandMobile = listBranchMobiles.Where(x => x.IdBrandMobile == item.IdBrandMobile).FirstOrDefault();
+										<td>@brandMobile.NameBrand</td>
+									}
+									<td>
+										<a asp-action="Details" asp-route-id="@item.IdProduct" class=" btn btn-success">Xem</a> 
+                                        <a asp-action="Edit" asp-route-id="@item.IdProduct" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdProduct" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

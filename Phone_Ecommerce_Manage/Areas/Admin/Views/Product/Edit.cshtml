@@ -1,82 +1,124 @@
-﻿@model Phone_Ecommerce_Manage.Models.ProductColor
+﻿@model Phone_Ecommerce_Manage.Models.ProductViewModel
+
+@section Styles{
+<link href="~/adminasset/summernote/summernote-bs4.css" rel="stylesheet" />
+<link href="~/adminasset/summernote/summernote.css" rel="stylesheet" />
+}
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int countProductVerions = @Model.productVersions.Count();
 }
 
-<h1>Edit</h1>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thêm sản phẩm</h4>
+                </div>
+                <div class="wizard-content">
+                    <form asp-action="Edit" >
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="@Model.product.IdProduct" />
+                        <h5>Sản phẩm</h5>
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.product.NameProduct"  class="control-label">Tên sản phẩm</label>
+                                        <input asp-for="@Model.product.NameProduct" class="form-control" />
+                                        <span asp-validation-for="@Model.product.NameProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Thương hiệu</label>
+                                        <select asp-for="@Model.product.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsHot">
+											<label class="custom-control-label" asp-for="@Model.product.IsHot">Sản phẩm hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                          <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsPublished" checked="true">
+										<label class="custom-control-label" asp-for="@Model.product.IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 2 -->
+                        @for(var i = 0; i < countProductVerions; i++)
+                        {
+                            <input type="hidden" asp-for="@Model.productVersions[i].IdProductVersion" />
+                            <input type="hidden" asp-for="@Model.productVersions[i].IdProduct" />
+                            <section class="sectionFormm">
+                            <div class="row">
+                                <div class="col-md-6 text-success h5">Phiên bản</div>
+                            </div>
+                            <div class="row form-version" style="margin-bottom:50px">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.productVersions[i].NameProductVersion" class="control-label">Tên phiên bản</label>
+                                        <input asp-for="@Model.productVersions[i].NameProductVersion" class="form-control" />
+                                        <span asp-validation-for="@Model.productVersions[i].NameProductVersion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.productVersions[i].IsPublished" checked="true">
+										<label class="custom-control-label" asp-for="@Model.productVersions[i].IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.productVersions[i].Desciprtion">Mô tả</label>
+                                        <textarea asp-for="@Model.productVersions[i].Desciprtion" class="summernote"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.productVersions[i].TechnicalParameters">Thông số kỹ thuật</label>
+                                        <textarea asp-for="@Model.productVersions[i].TechnicalParameters" class="summernote"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        }
 
-<h4>ProductColor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdProductColor" />
-            <div class="form-group">
-                <label asp-for="ImgProductColor" class="control-label"></label>
-                <input asp-for="ImgProductColor" class="form-control" />
-                <span asp-validation-for="ImgProductColor" class="text-danger"></span>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PromotionPrice" class="control-label"></label>
-                <input asp-for="PromotionPrice" class="form-control" />
-                <span asp-validation-for="PromotionPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderPrice" class="control-label"></label>
-                <input asp-for="OrderPrice" class="form-control" />
-                <span asp-validation-for="OrderPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsPublished" class="control-label"></label>
-                <input asp-for="IsPublished" class="form-control" />
-                <span asp-validation-for="IsPublished" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailableAtShop" class="control-label"></label>
-                <input asp-for="AvailableAtShop" class="form-control" />
-                <span asp-validation-for="AvailableAtShop" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdStatusProduct" class="control-label"></label>
-                <select asp-for="IdStatusProduct" class="form-control" asp-items="ViewBag.IdStatusProduct"></select>
-                <span asp-validation-for="IdStatusProduct" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdProductVersion" class="control-label"></label>
-                <input asp-for="IdProductVersion" class="form-control" />
-                <span asp-validation-for="IdProductVersion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdColor" class="control-label"></label>
-                <select asp-for="IdColor" class="form-control" asp-items="ViewBag.IdColor"></select>
-                <span asp-validation-for="IdColor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@section Scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+<script src="~/adminasset/summernote/summernote-bs4.js"></script>
+
+<script>
+        $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+</script>
+}
+
+
 
