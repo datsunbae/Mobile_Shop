@@ -72,9 +72,9 @@
 										@{
 											
 										}
-										<a asp-action="Details" asp-route-id="@item.IdProductColor" class=" btn btn-success">Xem</a> 
-										<a asp-action="EditProductColor" asp-route-id="@item.IdProductColor" asp-route-IdProduct="@productVersion.IdProduct" asp-route-IdProductVersion="@item.IdProductVersion" class="btn btn-primary">Sửa</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdProductColor" asp-route-IdProduct="123" class="btn btn-danger">Xóa</a>
+										<a asp-area="Admin" asp-controller="Product" asp-action="DetailsProductColor" asp-route-id="@item.IdProductColor" class=" btn btn-success">Xem</a> 
+										<a asp-area="Admin" asp-controller="Product" asp-action="EditProductColor" asp-route-id="@item.IdProductColor" asp-route-IdProduct="@productVersion.IdProduct" asp-route-IdProductVersion="@item.IdProductVersion" class="btn btn-primary">Sửa</a>
+                                        <a asp-area="Admin" asp-controller="Product" asp-action="DeleteProductColor"  asp-route-id="@item.IdProductColor" class="btn btn-danger">Xóa</a>
                                     </td>
                                 </tr>
 							}

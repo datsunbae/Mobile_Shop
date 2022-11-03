@@ -38,7 +38,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.ProductColors == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
@@ -52,6 +52,29 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             return View(product);
+        }
+
+        public async Task<IActionResult> DetailsProductColor(int? id)
+        {
+            if (id == null || _context.ProductColors == null)
+            {
+                return NotFound();
+            }
+
+            var productColor = await _context.ProductColors.Where(x => x.IdProductColor == id).FirstOrDefaultAsync();
+
+            if (productColor == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ListProduct"] = new SelectList(_context.Products, "IdProduct", "NameProduct");
+            ViewData["ListColors"] = new SelectList(_context.ColorProducts, "IdColor", "NameColor");
+            ViewData["ListStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "NameStatus");
+            ViewData["ListProductVerion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
+            ViewBag.ProductVersion = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion).FirstOrDefault();
+
+            return View(productColor);
         }
 
         // GET: Admin/Product/Create
@@ -285,7 +308,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.Update(productColor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ProductsColor", "Product");
             }
             return View(productColor);
 
@@ -326,6 +349,48 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteProductColor(int? id)
+        {
+            if (id == null || _context.ProductColors == null)
+            {
+                return NotFound();
+            }
+
+            var productColor = await _context.ProductColors.Where(x => x.IdProductColor == id).FirstOrDefaultAsync();
+            
+            if (productColor == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ListProduct"] = new SelectList(_context.Products, "IdProduct", "NameProduct");
+            ViewData["ListColors"] = new SelectList(_context.ColorProducts, "IdColor", "NameColor");
+            ViewData["ListStatusProduct"] = new SelectList(_context.StatusProducts, "IdStatusProduct", "NameStatus");
+            ViewData["ListProductVerion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
+            ViewBag.ProductVersion = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion).FirstOrDefault();
+
+            return View(productColor);
+        }
+
+        // POST: Admin/Product/Delete/5
+        [HttpPost, ActionName("DeleteProductColor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteProductColorConfirmed(int id)
+        {
+            if (_context.ProductColors == null)
+            {
+                return Problem("Entity set 'MobileShop_DBContext.ProductColors' is null.");
+            }
+            var productColor = await _context.ProductColors.FindAsync(id);
+            if (productColor != null)
+            {
+                _context.ProductColors.Remove(productColor);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ProductsColor", "Product");
         }
 
         private bool ProductColorExists(int id)

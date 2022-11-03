@@ -1,9 +1,9 @@
 ﻿@model Phone_Ecommerce_Manage.Models.ProductColor;
 
 @{
-    ViewData["Title"] = "Edit Product Color";
+    ViewData["Title"] = "Details Product Color";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    ProductVersion productVersion = ViewBag.ProductColor;
+    ProductVersion productVersion = ViewBag.ProductVersion;
 
 }
 
@@ -13,13 +13,13 @@
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-blue h4">Sửa màu sản phẩm - @productVersion.NameProductVersion</h4>
+                    <h4 class="text-blue h4">Chi tiết màu sản phẩm - @productVersion.NameProductVersion</h4>
                 </div>
                 <div class="wizard-content">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Chọn sản phẩm</label>
+                                <label class="control-label">Sản phẩm</label>
                                 <select class="custom-select" asp-for="@productVersion.IdProduct" style="min-width: 200px;" asp-items="ViewBag.ListProduct" disabled>
                                     <option selected>Chọn danh mục</option>
 
@@ -27,20 +27,12 @@
                             </div>
                         </div>
                     </div>
-                    <form asp-action="EditProductColor">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="@Model.IdProductColor" />
-                        <input type="hidden" asp-for="@Model.IdProductVersion" />
-                        <input type="hidden" asp-for="@Model.CreateDate" />
-
-
-                        <section class="mb-5">
-
+                    <section class="mb-5">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Chọn phiên bản</label>
-                                        <select class="custom-select" style="min-width: 200px;" asp-for="@Model.IdProductVersion" asp-items="ViewBag.ListProductVersion" disabled>
+                                        <label class="control-label">Phiên bản</label>
+                                        <select class="custom-select" style="min-width: 200px;" asp-for="@Model.IdProductVersion" asp-items="ViewBag.ListProductVerion" disabled>
                                                     <option selected>Chọn danh mục</option>
                                                 </select>
                                     </div>
@@ -51,8 +43,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Chọn màu</label>
-                                        <select asp-for="@Model.IdColor" class="form-control" asp-items="ViewBag.ListColors"></select>
+                                        <label class="control-label">Màu</label>
+                                        <select asp-for="@Model.IdColor" class="form-control" asp-items="ViewBag.ListColors" disabled></select>
                                     </div>
                                 </div>
 
@@ -62,22 +54,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.OrderPrice" class="control-label">Giá nhập</label>
-                                        <input asp-for="@Model.OrderPrice" class="form-control" />
-                                        <span asp-validation-for="@Model.OrderPrice" class="text-danger"></span>
+                                        <input asp-for="@Model.OrderPrice" class="form-control" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.Price" class="control-label">Giá bán</label>
-                                        <input asp-for="@Model.Price" class="form-control" />
-                                        <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                                        <input asp-for="@Model.Price" class="form-control" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label asp-for="@Model.PromotionPrice" class="control-label">Giá khuyến mãi</label>
-                                        <input asp-for="@Model.PromotionPrice" class="form-control" />
-                                        <span asp-validation-for="@Model.PromotionPrice" class="text-danger"></span>
+                                        <input asp-for="@Model.PromotionPrice" class="form-control" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -85,14 +74,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.Quantity" class="control-label">Số lượng</label>
-                                        <input asp-for="@Model.Quantity" class="form-control" />
-                                        <span asp-validation-for="@Model.Quantity" class="text-danger"></span>
+                                        <input asp-for="@Model.Quantity" class="form-control" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Trạng thái sản phẩm</label>
-                                        <select asp-for="@Model.IdStatusProduct" class="form-control" asp-items="ViewBag.ListStatusProduct"></select>
+                                        <select asp-for="@Model.IdStatusProduct" class="form-control" asp-items="ViewBag.ListStatusProduct" disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -107,10 +95,7 @@
                                 </div>
                             </div>
                         </section>
-
-                        <button type="submit" class="btn btn-primary">Lưu</button>
                         <button asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Danh sách sản phẩm</button>
-                    </form>
                 </div>
             </div>
         </div>
