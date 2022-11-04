@@ -1,0 +1,84 @@
+﻿@model Phone_Ecommerce_Manage.Models.Customer
+
+@{
+    ViewData["Title"] = "Details Customer";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Chi tiết khách hàng: @Model.NameCustomer</h4>
+                </div>
+                <div class="wizard-content">
+                    <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.NameCustomer"  class="control-label">Tên khách hàng</label>
+                                        <input asp-for="@Model.NameCustomer" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Phone"  class="control-label">Số điện thoại</label>
+                                        <input asp-for="@Model.Phone" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Email"  class="control-label">Email</label>
+                                        <input asp-for="@Model.Email" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Address"  class="control-label">Địa chỉ</label>
+                                        <input asp-for="@Model.Address" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IdAccountUserNavigation.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.IdAccountUserNavigation.UserName" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IdAccountUserNavigation.CreateDate"  class="control-label">Ngày tạo</label>
+                                        <input asp-for="@Model.IdAccountUserNavigation.CreateDate" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IdAccountUserNavigation.IsActive"  class="control-label">
+                                            Trạng thái:
+                                            @if(Model.IdAccountUserNavigation.IsActive == true){
+                                                @Html.Raw("Đang hoạt động");
+                                                    }
+                                                else
+                                                {
+                                                     @Html.Raw("Không hoạt động");
+                                                }
+                                    </label>
+                                    </div>
+                                </div>
+                               
+                                </div>
+                            </div>
+                        </section>
+                          <a asp-action="Index" class="btn-primary btn">Danh sách khách hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,82 @@
+﻿@model Phone_Ecommerce_Manage.Models.Customer_Employee_Account_Models
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Sửa khách hàng: @Model.customer.NameCustomer</h4>
+                </div>
+                <div class="wizard-content">
+                    <form asp-action="Edit" >
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="@Model.customer.IdCustomer" />
+                        <input type="hidden" asp-for="@Model.customer.IdAccountUser" />
+                        <input type="hidden" asp-for="@Model.accountUser.IdAccountUser" />
+                        <input type="hidden" asp-for="@Model.accountUser.CreateDate" />
+                        <input type="hidden" asp-for="@Model.accountUser.UserName" />
+                        <input type="hidden" asp-for="@Model.accountUser.IdRole" />
+
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.customer.NameCustomer"  class="control-label">Tên khách hàng</label>
+                                        <input asp-for="@Model.customer.NameCustomer" class="form-control" />
+                                        <span asp-validation-for="@Model.customer.NameCustomer" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.customer.Phone"  class="control-label">Số điện thoại</label>
+                                        <input asp-for="@Model.customer.Phone" class="form-control" />
+                                        <span asp-validation-for="@Model.customer.Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.customer.Email"  class="control-label">Email</label>
+                                        <input asp-for="@Model.customer.Email" class="form-control" />
+                                        <span asp-validation-for="@Model.customer.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.customer.Address"  class="control-label">Địa chỉ</label>
+                                        <input asp-for="@Model.customer.Address" class="form-control" />
+                                        <span asp-validation-for="@Model.customer.Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                               
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <h5 class="text-blue">Thay đổi mật khẩu</h5>
+                                        <label asp-for="@Model.accountUser.PasswordAccount" class="control-label">Mật khẩu mới (Không bắt buộc)</label>
+                                        <input type="password" asp-for="@Model.accountUser.PasswordAccount" class="form-control"/>
+                                        <span asp-validation-for="@Model.accountUser.PasswordAccount" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
