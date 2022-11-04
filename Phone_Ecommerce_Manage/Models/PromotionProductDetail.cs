@@ -11,7 +11,7 @@ namespace Phone_Ecommerce_Manage.Models
         [Key]
         public int Id { get; set; }
         [StringLength(255)]
-        public string? NamePromotionProduct { get; set; }
+        public string NamePromotionProduct { get; set; } = null!;
         [Column("URLPromotion")]
         [StringLength(255)]
         public string? Urlpromotion { get; set; }

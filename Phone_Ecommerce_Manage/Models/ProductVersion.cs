@@ -27,11 +27,11 @@ namespace Phone_Ecommerce_Manage.Models
         [Column("Technical_Parameters", TypeName = "ntext")]
         public string? TechnicalParameters { get; set; }
         public bool IsPublished { get; set; }
-        public int? IdProduct { get; set; }
+        public int IdProduct { get; set; }
 
         [ForeignKey("IdProduct")]
         [InverseProperty("ProductVersions")]
-        public virtual Product? IdProductNavigation { get; set; }
+        public virtual Product IdProductNavigation { get; set; } = null!;
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdProductVersionNavigation")]

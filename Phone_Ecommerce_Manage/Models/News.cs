@@ -16,7 +16,7 @@ namespace Phone_Ecommerce_Manage.Models
         [Key]
         public int IdNews { get; set; }
         [StringLength(255)]
-        public string? Title { get; set; }
+        public string Title { get; set; } = null!;
         [StringLength(255)]
         public string? DescriptionNew { get; set; }
         [Column(TypeName = "ntext")]

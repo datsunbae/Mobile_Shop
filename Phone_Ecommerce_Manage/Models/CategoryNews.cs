@@ -16,7 +16,7 @@ namespace Phone_Ecommerce_Manage.Models
         [Key]
         public int IdCategoryNews { get; set; }
         [StringLength(255)]
-        public string? NameCategory { get; set; }
+        public string NameCategory { get; set; } = null!;
 
         [InverseProperty("IdCategoryNewsNavigation")]
         public virtual ICollection<News> News { get; set; }

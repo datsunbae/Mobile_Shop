@@ -17,7 +17,7 @@ namespace Phone_Ecommerce_Manage.Models
         [Key]
         public int IdRole { get; set; }
         [StringLength(100)]
-        public string? RoleName { get; set; }
+        public string RoleName { get; set; } = null!;
 
         [InverseProperty("IdRoleNavigation")]
         public virtual ICollection<AccountUser> AccountUsers { get; set; }

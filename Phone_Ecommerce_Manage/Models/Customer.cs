@@ -14,12 +14,12 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(100)]
         public string NameCustomer { get; set; } = null!;
         [StringLength(255)]
-        public string? Address { get; set; }
+        public string Address { get; set; } = null!;
         [StringLength(20)]
         [Unicode(false)]
-        public string? Phone { get; set; }
+        public string Phone { get; set; } = null!;
         [StringLength(255)]
-        public string? Email { get; set; }
+        public string Email { get; set; } = null!;
         public int? IdAccountUser { get; set; }
 
         [ForeignKey("IdAccountUser")]

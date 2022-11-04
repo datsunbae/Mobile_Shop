@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Customer>
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Employee>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,16 +10,16 @@
 		<div class="min-height-200px">
 			<div class="card-box mb-30">
 				<div class="pd-20">
-					<h4 class="text-blue h4">Danh sách khách hàng</h4>
-					<a asp-area="Admin" asp-controller="Customers" asp-action="Create" type="button" class="btn btn-primary">
-						Thêm khách hàng
+					<h4 class="text-blue h4">Danh sách nhân viên</h4>
+					<a asp-area="Admin" asp-controller="Employees" asp-action="Create" type="button" class="btn btn-primary">
+						Thêm nhân viên
 					</a>
 				</div>
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
 						<thead>
 							<tr>
-								<th>Tên khách hàng</th>
+								<th>Tên nhân viên</th>
 								<th>Số điện thoại</th>
 								<th>Email</th>
 								<th>Địa chỉ</th>
@@ -32,7 +32,7 @@
 						<tbody>
 							@foreach (var item in Model) {
                                 <tr>
-                                    <td>@item.NameCustomer</td>
+                                    <td>@item.NameEmployee</td>
                                     <td>@item.Phone</td>
                                     <td>@item.Email</td>
                                     <td>@item.Address</td>
@@ -46,9 +46,9 @@
 									}
 
 									<td>
-										<a asp-action="Details" asp-route-id="@item.IdCustomer" class=" btn btn-success">Xem</a> 
-                                        <a asp-action="Edit" asp-route-id="@item.IdCustomer" class="btn btn-primary">Sửa</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdCustomer" class="btn btn-danger">Xóa</a>
+										<a asp-action="Details" asp-route-id="@item.IdEmployee" class=" btn btn-success">Xem</a> 
+                                        <a asp-action="Edit" asp-route-id="@item.IdEmployee" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdEmployee" class="btn btn-danger">Xóa</a>
                                     </td>
                                 </tr>
 							}

@@ -29,8 +29,8 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(255)]
         [Unicode(false)]
         public string? AvailableAtShop { get; set; }
-        public int? IdStatusProduct { get; set; }
-        public int? IdProductVersion { get; set; }
+        public int IdStatusProduct { get; set; }
+        public int IdProductVersion { get; set; }
         public int? IdColor { get; set; }
 
         [ForeignKey("IdColor")]
@@ -38,10 +38,10 @@ namespace Phone_Ecommerce_Manage.Models
         public virtual ColorProduct? IdColorNavigation { get; set; }
         [ForeignKey("IdProductVersion")]
         [InverseProperty("ProductColors")]
-        public virtual ProductVersion? IdProductVersionNavigation { get; set; }
+        public virtual ProductVersion IdProductVersionNavigation { get; set; } = null!;
         [ForeignKey("IdStatusProduct")]
         [InverseProperty("ProductColors")]
-        public virtual StatusProduct? IdStatusProductNavigation { get; set; }
+        public virtual StatusProduct IdStatusProductNavigation { get; set; } = null!;
         [InverseProperty("IdProductColorNavigation")]
         public virtual ICollection<OrderBillDetail> OrderBillDetails { get; set; }
     }
