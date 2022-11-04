@@ -26,11 +26,15 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(255)]
         public string? Note { get; set; }
         public int? IdStatusOrder { get; set; }
-        public int? IdAccountUser { get; set; }
+        public int? IdAccountUserCustomer { get; set; }
+        public int? IdEmployee { get; set; }
 
-        [ForeignKey("IdAccountUser")]
+        [ForeignKey("IdAccountUserCustomer")]
         [InverseProperty("OrderBills")]
-        public virtual AccountUser? IdAccountUserNavigation { get; set; }
+        public virtual AccountUser? IdAccountUserCustomerNavigation { get; set; }
+        [ForeignKey("IdEmployee")]
+        [InverseProperty("OrderBills")]
+        public virtual Employee? IdEmployeeNavigation { get; set; }
         [ForeignKey("IdStatusOrder")]
         [InverseProperty("OrderBills")]
         public virtual StatusOrder? IdStatusOrderNavigation { get; set; }

@@ -11,6 +11,8 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public AccountUser()
         {
+            Customers = new HashSet<Customer>();
+            Employees = new HashSet<Employee>();
             News = new HashSet<News>();
             OrderBills = new HashSet<OrderBill>();
         }
@@ -47,8 +49,12 @@ namespace Phone_Ecommerce_Manage.Models
         [InverseProperty("AccountUsers")]
         public virtual Role? IdRoleNavigation { get; set; }
         [InverseProperty("IdAccountUserNavigation")]
-        public virtual ICollection<News> News { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
         [InverseProperty("IdAccountUserNavigation")]
+        public virtual ICollection<Employee> Employees { get; set; }
+        [InverseProperty("IdAccountUserNavigation")]
+        public virtual ICollection<News> News { get; set; }
+        [InverseProperty("IdAccountUserCustomerNavigation")]
         public virtual ICollection<OrderBill> OrderBills { get; set; }
     }
 }
