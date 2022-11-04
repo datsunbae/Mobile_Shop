@@ -17,19 +17,17 @@
                         <h2 class="text-center text-primary">Xoá thương hiệu sản phẩm</h2>
                     </div>
                     <form asp-action="Delete">
+                        <label asp-for="NameBrand"><h6>Tên thương hiệu</h6></label>
                         <div class="input-group custom">
                             <input asp-for="NameBrand" class="form-control form-control-lg"
                                    type="text" />
-                            <div class="input-group-append custom">
-                                <label asp-for="NameBrand" class="input-group-text">Tên thương hiệu</label>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
                                     <input type="hidden" asp-for="IdBrandMobile" />
-                                    <input type="submit" value="Xoá" class="btn btn-danger" /> &ensp;
-                                    <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+                                    <input type="submit" value="Xoá" class="btn btn-outline-danger" /> &ensp;
+                                    <a asp-action="Index" class="btn btn-outline-primary">Quay lại danh sách</a>
                                 </div>
                             </div>
                         </div>

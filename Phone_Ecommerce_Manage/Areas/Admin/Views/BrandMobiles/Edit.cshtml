@@ -18,13 +18,12 @@
                     </div>
                     <form asp-action="Edit">
                         <input type="hidden" asp-for="IdBrandMobile" />
+                        <label asp-for="NameBrand"><h6>Tên thương hiệu</h6></label>
                         <div class="input-group custom">
                             <input asp-for="NameBrand" class="form-control form-control-lg"
                                    type="text" />
-                            <div class="input-group-append custom">
-                                <label asp-for="NameBrand" class="input-group-text">Tên thương hiệu</label>
-                            </div>
                         </div>
+                        <label asp-for="ImgBrand"><h6>Hình ảnh</h6></label>
                         <div class="input-group custom">
                             <input asp-for="ImgBrand" class="form-control form-control-lg form-control-file"
                                    type="file" />
@@ -32,10 +31,17 @@
                         <div class="row pb-30">
                             <div class="col-6">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox"
+                                    @if(@Model.IsPublished == true){
+                                        <input type="checkbox"
                                            class="custom-control-input"
-                                           asp-for="@Model.IsPublished"
-                                           checked="true" />
+                                           checked="true"
+                                           asp-for="@Model.IsPublished" />
+                                    }
+                                    else{
+                                        <input type="checkbox"
+                                           class="custom-control-input"
+                                           asp-for="@Model.IsPublished" />
+                                    }
                                     <label asp-for="@Model.IsPublished" class="custom-control-label">Công khai</label>
                                 </div>
                             </div>

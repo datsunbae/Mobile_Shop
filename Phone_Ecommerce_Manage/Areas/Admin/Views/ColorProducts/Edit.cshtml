@@ -17,13 +17,11 @@
                         <h2 class="text-center text-primary">Cập nhật màu sản phẩm</h2>
                     </div>
                     <form asp-action="Edit">
+                        <label asp-for="NameColor"><h6>Tên màu</h6></label>
                         <input type="hidden" asp-for="IdColor" />
                         <div class="input-group custom">
                             <input asp-for="NameColor" class="form-control form-control-lg"
                                    type="text" />
-                            <div class="input-group-append custom">
-                                <label asp-for="NameColor" class="input-group-text">Tên màu</label>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">

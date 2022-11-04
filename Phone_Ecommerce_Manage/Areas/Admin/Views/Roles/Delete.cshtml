@@ -17,6 +17,7 @@
                         <h2 class="text-center text-primary">Xoá quyền truy cập</h2>
                     </div>
                     <form asp-action="Delete">
+                        <label asp-for="RoleName"><h6>Tên quyền truy cập</h6></label>
                         <div class="input-group custom">
                             <input asp-for="RoleName" class="form-control form-control-lg"
                                    type="text" />
@@ -28,8 +29,8 @@
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
                                     <input type="hidden" asp-for="IdRole" />
-                                    <input type="submit" value="Xoá" class="btn btn-danger" /> &ensp;
-                                    <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+                                    <input type="submit" value="Xoá" class="btn btn-outline-danger" /> &ensp;
+                                    <a asp-action="Index" class="btn btn-outline-primary">Quay lại danh sách</a>
                                 </div>
                             </div>
                         </div>
