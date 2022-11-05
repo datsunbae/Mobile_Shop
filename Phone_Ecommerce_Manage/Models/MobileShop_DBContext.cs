@@ -56,7 +56,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<AccountUser>(entity =>
             {
                 entity.HasKey(e => e.IdAccountUser)
-                    .HasName("PK__AccountU__76959AFBEF2AAFBF");
+                    .HasName("PK__AccountU__76959AFB87D94C1D");
 
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.AccountUsers)
@@ -67,7 +67,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<BrandMobile>(entity =>
             {
                 entity.HasKey(e => e.IdBrandMobile)
-                    .HasName("PK__BrandMob__3D412B03BF947A3D");
+                    .HasName("PK__BrandMob__3D412B03FACEF2EE");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
             });
@@ -75,19 +75,19 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CategoryNews>(entity =>
             {
                 entity.HasKey(e => e.IdCategoryNews)
-                    .HasName("PK__Category__002B75A52363687C");
+                    .HasName("PK__Category__002B75A5B4836944");
             });
 
             modelBuilder.Entity<ColorProduct>(entity =>
             {
                 entity.HasKey(e => e.IdColor)
-                    .HasName("PK__ColorPro__E83D55CBE70E9ED9");
+                    .HasName("PK__ColorPro__E83D55CB88CD4A24");
             });
 
             modelBuilder.Entity<CommentNews>(entity =>
             {
                 entity.HasKey(e => e.IdCommentNew)
-                    .HasName("PK__CommentN__708A0203D34226AF");
+                    .HasName("PK__CommentN__708A020314525018");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -101,7 +101,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CommentProduct>(entity =>
             {
                 entity.HasKey(e => e.IdCommentProduct)
-                    .HasName("PK__CommentP__542057BCA3CE99E3");
+                    .HasName("PK__CommentP__542057BC6AB23611");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -115,7 +115,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CommentRating>(entity =>
             {
                 entity.HasKey(e => e.IdCommentRating)
-                    .HasName("PK__CommentR__F4D21E303A02A9E5");
+                    .HasName("PK__CommentR__F4D21E30E827E942");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -129,7 +129,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.IdCustomer)
-                    .HasName("PK__Customer__DB43864A697F5EBE");
+                    .HasName("PK__Customer__DB43864A041885E0");
 
                 entity.HasOne(d => d.IdAccountUserNavigation)
                     .WithMany(p => p.Customers)
@@ -140,7 +140,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.HasKey(e => e.IdEmployee)
-                    .HasName("PK__Employee__51C8DD7AE5F59F5C");
+                    .HasName("PK__Employee__51C8DD7A44E4400A");
 
                 entity.HasOne(d => d.IdAccountUserNavigation)
                     .WithMany(p => p.Employees)
@@ -151,7 +151,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<EventSale>(entity =>
             {
                 entity.HasKey(e => e.IdEventSale)
-                    .HasName("PK__EventSal__520D189461600E44");
+                    .HasName("PK__EventSal__520D18949CDD7673");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
             });
@@ -174,13 +174,13 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.HasKey(e => e.IdLocation)
-                    .HasName("PK__Location__FB5FABA96140BCED");
+                    .HasName("PK__Location__FB5FABA94B050A08");
             });
 
             modelBuilder.Entity<News>(entity =>
             {
                 entity.HasKey(e => e.IdNews)
-                    .HasName("PK__News__4559C72D65A86FDE");
+                    .HasName("PK__News__4559C72D763F311A");
 
                 entity.HasOne(d => d.IdAccountUserNavigation)
                     .WithMany(p => p.News)
@@ -198,7 +198,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<OrderBill>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBill)
-                    .HasName("PK__OrderBil__251DF393AB175EA3");
+                    .HasName("PK__OrderBil__251DF3939918CECA");
 
                 entity.HasOne(d => d.IdAccountUserCustomerNavigation)
                     .WithMany(p => p.OrderBills)
@@ -222,7 +222,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<OrderBillDetail>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBillDetails)
-                    .HasName("PK__OrderBil__3748B2421C7C1FCF");
+                    .HasName("PK__OrderBil__3748B242CC16C4AD");
 
                 entity.HasOne(d => d.IdOrderBillNavigation)
                     .WithMany(p => p.OrderBillDetails)
@@ -239,7 +239,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.IdProduct)
-                    .HasName("PK__Product__2E8946D42B89A167");
+                    .HasName("PK__Product__2E8946D471DC5A36");
 
                 entity.Property(e => e.IsHot).HasDefaultValueSql("((0))");
 
@@ -255,7 +255,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductColor>(entity =>
             {
                 entity.HasKey(e => e.IdProductColor)
-                    .HasName("PK__ProductC__44B498FA6ED6DE5B");
+                    .HasName("PK__ProductC__44B498FAF6B101DD");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((1))");
 
@@ -280,7 +280,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductVersion>(entity =>
             {
                 entity.HasKey(e => e.IdProductVersion)
-                    .HasName("PK__ProductV__AD31AF69F78D11C5");
+                    .HasName("PK__ProductV__AD31AF6976ECA2A1");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -293,7 +293,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<PromotionProduct>(entity =>
             {
                 entity.HasKey(e => e.IdPromotionProduct)
-                    .HasName("PK__Promotio__2D9BA16808A254DF");
+                    .HasName("PK__Promotio__2D9BA168BA5A3B8F");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -324,25 +324,25 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Role__B4369054E27A5BF2");
+                    .HasName("PK__Role__B4369054A0E81108");
             });
 
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.IdStatusOrder)
-                    .HasName("PK__StatusOr__361588A8D99A6246");
+                    .HasName("PK__StatusOr__361588A8CB24B7CD");
             });
 
             modelBuilder.Entity<StatusProduct>(entity =>
             {
                 entity.HasKey(e => e.IdStatusProduct)
-                    .HasName("PK__StatusPr__D980E094F301C3EF");
+                    .HasName("PK__StatusPr__D980E0943D8AD4B4");
             });
 
             modelBuilder.Entity<Store>(entity =>
             {
                 entity.HasKey(e => e.IdStore)
-                    .HasName("PK__Stores__2A8EB278C16CBE8E");
+                    .HasName("PK__Stores__2A8EB278C50E8C7D");
 
                 entity.HasOne(d => d.IdLocationNavigation)
                     .WithMany(p => p.Stores)
