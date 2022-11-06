@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.Product
+﻿@model Phone_Ecommerce_Manage.Models.ProductViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -10,21 +10,21 @@
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-danger h4">Bạn có muốn xóa sản phẩm "@Model.NameProduct" không?</h4>
+                    <h4 class="text-danger h4">Bạn có muốn xóa sản phẩm "@Model.product.NameProduct" không?</h4>
                 </div>
                 <div class="wizard-content" style="margin-top: 40px">
                     <section class="mb-5">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for="@Model.NameProduct" class="control-label">Tên sản phẩm</label>
-                                    <input asp-for="@Model.NameProduct" class="form-control" disabled />
+                                    <label asp-for="@Model.product.NameProduct" class="control-label">Tên sản phẩm</label>
+                                    <input asp-for="@Model.product.NameProduct" class="form-control" disabled />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Thương hiệu</label>
-                                    <select asp-for="@Model.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles" disabled></select>
+                                    <select asp-for="@Model.product.IdBrandMobile" class="form-control" asp-items="ViewBag.ListBranchMobiles" disabled></select>
                                 </div>
                             </div>
                         </div>
@@ -32,25 +32,50 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox mb-5">
-                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot">
-                                        <label class="custom-control-label" asp-for="@Model.IsHot">Sản phẩm hot</label>
+                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsHot">
+                                        <label class="custom-control-label" asp-for="@Model.product.IsHot">Sản phẩm hot</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox mb-5">
-                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.IsPublished" checked="true">
-                                        <label class="custom-control-label" asp-for="@Model.IsPublished">Công khai</label>
+                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsPublished" checked="true">
+                                        <label class="custom-control-label" asp-for="@Model.product.IsPublished">Công khai</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @{
+                            var i = 0;
+                            foreach (var item in Model.productVersions)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label" asp-for="@item.NameProductVersion">Phiên bản</label>
+                                            <input class="form-control" asp-for="@item.NameProductVersion" disabled>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                if(i > 0)
+                                {
+                                    <form asp-action="DeleteVersion" method="post">
+                                    <input type="hidden" asp-for="@item.IdProductVersion" />
+                                    <button class="btn btn-danger" type="submit">Xóa phiên bản này</button>
+                                </form>
+                                }
+                                i++;
+                            }
+                        }
+
                     </section>
-                    <form asp-action="Delete">
-                        <input type="hidden" asp-for="@Model.IdProduct" />
-                        <input type="submit" value="Delete" class="btn btn-danger" /> 
-                        <button class="btn btn-primary" asp-action="Index">Back to List</button>
+                    <form asp-action="Delete" class="mt-5">
+                        <input type="hidden" asp-for="@Model.product.IdProduct" />
+                        <input type="submit" value="Xóa sản phẩm" class="btn btn-danger" />
+                        <button class="btn btn-primary" asp-action="Index">Quay về</button>
                     </form>
                 </div>
             </div>

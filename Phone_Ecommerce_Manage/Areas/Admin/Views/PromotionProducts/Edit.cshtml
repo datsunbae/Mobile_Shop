@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit Promotion";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int countPromotionDetails = @Model.promotionProductDetails.Count();
-    var count = countPromotionDetails;
+    int count = countPromotionDetails;
     Product product = ViewBag.Product;
 }
 
@@ -28,10 +28,13 @@
                             </div>
                         </div>
                     </div>
-                    <form asp-action="Create">
+                    <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <section class="mb-5">
+                        <input type="hidden" asp-for="@Model.promotionProduct.IdPromotionProduct" />
+                        <input type="hidden" asp-for="@Model.promotionProduct.IdProductVersion" />
 
+
+                        <section class="mb-5">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -66,10 +69,28 @@
                             </div>
                         </div>
                         <h5>Chi tiết khuyến mãi</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="control-label">Tên quà tặng</label>
+                                        <input asp-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[0].Urlpromotion" class="control-label">URL khuyến mãi</label>
+                                        <input asp-for="@Model.promotionProductDetails[0].Urlpromotion" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[0].Urlpromotion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                        </div>
                         <section class="mb-5">
-                            @for(var i = 0; i < countPromotionDetails; i++)
+                            @for(var i = 1; i < countPromotionDetails; i++)
                             {
+
                                 <div class="row">
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.promotionProductDetails[i].NamePromotionProduct" class="control-label">Tên quà tặng</label>
@@ -84,7 +105,12 @@
                                         <span asp-validation-for="@Model.promotionProductDetails[i].Urlpromotion" class="text-danger"></span>
                                     </div>
                                 </div>
+                                     <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
+                                                        id="DeleteRow" type="button">
+                                                    <i class="bi bi-trash "></i>Delete
+                                    </button>
                             </div>
+                                
                             }
                             <div class="newrow">
                             </div>

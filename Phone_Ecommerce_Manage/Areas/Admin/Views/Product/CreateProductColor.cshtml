@@ -115,7 +115,7 @@
                         </section>
 
                         <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Danh sách sản phẩm</button>
+                        <button asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Danh sách phiên bản màu</button>
                     </form>
                 </div>
             </div>
@@ -181,5 +181,7 @@
         
 </script>
 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
 }
+
 

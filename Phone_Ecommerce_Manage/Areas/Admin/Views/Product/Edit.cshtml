@@ -98,8 +98,10 @@
                             </div>
                         </section>
                         }
+                        
 
                         <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Quay về</button>
                     </form>
                 </div>
             </div>
@@ -118,6 +120,9 @@
         $('.summernote').summernote();
     });
 </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
+
 }
 
 

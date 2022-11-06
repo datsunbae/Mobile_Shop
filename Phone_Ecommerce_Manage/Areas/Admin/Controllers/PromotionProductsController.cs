@@ -141,11 +141,22 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            _context.Add(data.promotionProduct);
+            _context.Update(data.promotionProduct);
             await _context.SaveChangesAsync();
 
-            foreach(var item in data.promotionProductDetails)
+            var promotionProductDetails = await _context.PromotionProductDetails.Where(x => x.IdPromotionProduct == id).ToListAsync();
+            
+            //Remove all promotion product details
+            foreach(var item in promotionProductDetails)
             {
+                _context.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+
+            //Add promotion product details
+            foreach (var item in data.promotionProductDetails)
+            {
+                item.IdPromotionProduct = id;
                 _context.Add(item);
                 await _context.SaveChangesAsync();
             }

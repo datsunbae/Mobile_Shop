@@ -147,15 +147,11 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProductColor(ProductColor productColor)
-        {   
-            if(ModelState.IsValid)
-            {
-                productColor.CreateDate = DateTime.Now;
-                _context.Add(productColor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("CreateProductColor", "Product");
-            }
-            return RedirectToAction(nameof(Index));
+        {
+            productColor.CreateDate = DateTime.Now;
+            _context.Add(productColor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("CreateProductColor", "Product");
         }
 
         public IActionResult Filtter(int IdProduct = 0)
@@ -323,13 +319,17 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             var product = await _context.Products.Where(x => x.IdProduct == id).FirstOrDefaultAsync();
-            ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
             if (product == null)
             {
                 return NotFound();
             }
+            ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            ProductViewModel productViewModel = new ProductViewModel();
+            var productVersions = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
+            productViewModel.product = product;
+            productViewModel.productVersions = productVersions;
 
-            return View(product);
+            return View(productViewModel);
         }
 
         // POST: Admin/Product/Delete/5
@@ -349,6 +349,29 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteVersion([FromForm(Name = "item.IdProductVersion")] int IdProductVersion)
+        {
+            if (_context.ProductVersions == null)
+            {
+                return NotFound();
+            }
+
+            var productVersion = await _context.ProductVersions.Where(x => x.IdProductVersion == IdProductVersion).FirstOrDefaultAsync();
+            if (productVersion != null)
+            {
+                _context.Remove(productVersion);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Delete", new { id = productVersion.IdProduct });
         }
 
         public async Task<IActionResult> DeleteProductColor(int? id)

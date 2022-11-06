@@ -109,13 +109,18 @@
                         </section>
 
                         <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Danh sách sản phẩm</button>
+                        <button asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Quay về</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
+}
+
 
 
 

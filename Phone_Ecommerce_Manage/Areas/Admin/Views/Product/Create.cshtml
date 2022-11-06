@@ -101,6 +101,9 @@
                                 <span class="bi bi-plus-square-dotted">
                                 </span> Thêm phiên bản
                             </button>
+                             <button class="btn btn-danger" id="DeleteRow" type="button">
+                                                    <i class="bi bi-trash "></i>Xóa tất cả
+                                                </button>
                         <button type="submit" class="btn btn-primary">Lưu</button>
                     </form>
                 </div>
@@ -146,10 +149,6 @@
                                     </div>
                                 </div>
                             </div>
-                                <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
-                                                        id="DeleteRow" type="button">
-                                                    <i class="bi bi-trash "></i>Delete
-                                                </button>
                             </div>`;
 
 
@@ -163,7 +162,8 @@
     }
 
     $("body").on("click", "#DeleteRow", function () {
-        $(this).parents(".row-version").remove();
+        $(".row-version").remove();
+        i = @count;
     })
 
 </script>
@@ -177,7 +177,10 @@
         $('.summernote').summernote();
     });
 </script>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
 }
+
 
 
 
