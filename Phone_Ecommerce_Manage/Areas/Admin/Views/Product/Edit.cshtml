@@ -9,6 +9,7 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int countProductVerions = @Model.productVersions.Count();
+    int count = countProductVerions;
 }
 
 <div class="main-container">
@@ -97,9 +98,18 @@
                                 </div>
                             </div>
                         </section>
-                        }
                         
+                        }
 
+                        <div class="newrow">
+                            </div>
+                        
+                        <button id="rowAdder" type="button" onclick="hanleAdd()"
+                                    class="btn btn-dark mb-3">
+                                <span class="bi bi-plus-square-dotted">
+                                </span> Thêm phiên bản
+                            </button>
+                            <br />
                         <button type="submit" class="btn btn-primary">Lưu</button>
                         <button asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Quay về</button>
                     </form>
@@ -111,6 +121,56 @@
 
 
 
+<script type="text/javascript">
+    var i = @count;
+    function hanleAdd() {
+        newRowAdd = `<div class="row-version">
+        <div class="row">
+                                <div class="col-md-6 text-success h5">Phiên bản</div>
+                            </div>
+                            <div class="row form-version" style="margin-bottom:10px">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="productVersions_${i}__NameProductVersion">Tên phiên bản</label>
+                                        <input class="form-control" type="text" data-val="true" data-val-length="The field NameProductVersion must be a string with a maximum length of 255." data-val-length-max="255" data-val-required="The NameProductVersion field is required." id="productVersions_${i}__NameProductVersion" maxlength="255" name="productVersions[${i}].NameProductVersion" value="">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].NameProductVersion" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" checked="true" data-val="true" data-val-required="The IsPublished field is required." id="productVersions_${i}__IsPublished" name="productVersions[${i}].IsPublished" value="true">
+										<label class="custom-control-label" for="productVersions_${i}__IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="productVersions_${i}__Desciprtion">Mô tả</label>
+                                       <textarea class="summernote" id="productVersions_${i}__Desciprtion" name="productVersions[${i}].Desciprtion" style="display: none;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="productVersions_${i}__TechnicalParameters">Thông số kỹ thuật</label>
+                                        <textarea class="summernote" id="productVersions_${i}__TechnicalParameters" name="productVersions[${i}].TechnicalParameters" style="display: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>`;
+
+
+
+        $('.newrow').append(newRowAdd);
+        i++;
+        $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+
+    }
+
+</script>
+
 @section Scripts {
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
 <script src="~/adminasset/summernote/summernote-bs4.js"></script>
@@ -121,8 +181,7 @@
     });
 </script>
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
-
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
 }
 
 

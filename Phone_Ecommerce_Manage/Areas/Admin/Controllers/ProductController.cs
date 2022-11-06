@@ -222,19 +222,16 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                _context.Update(data.product);
-                await _context.SaveChangesAsync();
+            _context.Update(data.product);
+            await _context.SaveChangesAsync();
 
-                foreach (var item in data.productVersions)
-                {
-                    _context.Update(item);
-                    await _context.SaveChangesAsync();
-                }
-                return RedirectToAction(nameof(Index));
+            foreach (var item in data.productVersions)
+            {
+                item.IdProduct = id;
+                _context.Update(item);
+                await _context.SaveChangesAsync();
             }
-            return View(data);
+            return RedirectToAction(nameof(Index));
 
         }
 

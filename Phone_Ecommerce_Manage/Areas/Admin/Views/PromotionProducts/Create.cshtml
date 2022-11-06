@@ -100,10 +100,17 @@
                                 <span class="bi bi-plus-square-dotted">
                                 </span> Thêm quà tặng
                             </button>
+                            <button class="btn btn-danger mt-5"
+                                    id="DeleteRow" type="button">
+                                <i class="bi bi-trash "></i>Xóa tất cả
+                            </button>
                         </section>
 
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Lưu</button>
                         <button asp-area="Admin" asp-controller="PromotionProducts" asp-action="Index" class="btn btn-primary">Danh sách sản phẩm</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -112,14 +119,10 @@
 </div>
 
 
-
-
-
-
 <script type="text/javascript">
     var i = @count;
     function hanleAdd() {
-        newRowAdd = `<div class="row">
+        newRowAdd = `<div class="row row-promotion">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="promotionProductDetails_${i}__NamePromotionProduct">Tên quà tặng</label>
@@ -134,10 +137,7 @@
                                         <span class="text-danger field-validation-valid" data-valmsg-for="promotionProductDetails[${i}].Urlpromotion" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
-                                                        id="DeleteRow" type="button">
-                                                    <i class="bi bi-trash "></i>Delete
-                                </button>
+
                             </div>`;
 
 
@@ -151,7 +151,8 @@
     }
 
     $("body").on("click", "#DeleteRow", function () {
-        $(this).parents(".row").remove();
+         $(".row-promotion").remove();
+        i = @count;
     })
 
 </script>
@@ -182,7 +183,7 @@
             });
         });
 
-        
+
     });
 </script>
 

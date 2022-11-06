@@ -34,15 +34,20 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var promotionProduct = await _context.PromotionProducts
-                .Include(p => p.IdProductVersionNavigation)
-                .FirstOrDefaultAsync(m => m.IdPromotionProduct == id);
+            var promotionProduct = await _context.PromotionProducts.FindAsync(id);
             if (promotionProduct == null)
             {
                 return NotFound();
             }
+            PromotionProduct_PromotionProductDetails_Model model = new PromotionProduct_PromotionProductDetails_Model();
+            model.promotionProduct = promotionProduct;
 
-            return View(promotionProduct);
+            var promotionProductDetails = _context.PromotionProductDetails.Where(x => x.IdPromotionProduct == id).ToList();
+            model.promotionProductDetails = promotionProductDetails;
+            ViewData["ListProduct"] = new SelectList(await _context.Products.ToListAsync(), "IdProduct", "NameProduct");
+            ViewData["ListProductVersion"] = new SelectList(await _context.ProductVersions.ToListAsync(), "IdProductVersion", "NameProductVersion");
+            ViewBag.ProductVersion = await _context.ProductVersions.Where(x => x.IdProductVersion == promotionProduct.IdProductVersion).FirstOrDefaultAsync();
+            return View(model);
         }
 
             // GET: Admin/PromotionProducts/Create
@@ -127,7 +132,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             model.promotionProductDetails = promotionProductDetails;
             ViewData["ListProduct"] = new SelectList(await _context.Products.ToListAsync(), "IdProduct", "NameProduct");
             ViewData["ListProductVersion"] = new SelectList(await _context.ProductVersions.ToListAsync(), "IdProductVersion", "NameProductVersion");
-            ViewBag.Product = await _context.Products.Where(x => x.IdProduct == promotionProduct.IdProductVersion).FirstOrDefaultAsync();
+            ViewBag.ProductVersion = await _context.ProductVersions.Where(x => x.IdProductVersion == promotionProduct.IdProductVersion).FirstOrDefaultAsync();
             return View(model); 
         }
 
@@ -205,6 +210,28 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePromotionDetail([FromForm(Name = "item.Id")] int IdProductPromotionDetail)
+        {
+            if (_context.PromotionProductDetails == null)
+            {
+                return NotFound();
+            }
+
+            var productPromotionDetail = await _context.PromotionProductDetails.Where(x => x.Id == IdProductPromotionDetail).FirstOrDefaultAsync();
+            if (productPromotionDetail != null)
+            {
+                _context.Remove(productPromotionDetail);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Delete", new { id = productPromotionDetail.IdPromotionProduct });
         }
 
         private bool PromotionProductExists(int id)

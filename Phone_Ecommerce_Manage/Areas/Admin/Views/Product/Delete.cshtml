@@ -46,29 +46,22 @@
                                 </div>
                             </div>
                         </div>
-                        @{
-                            var i = 0;
-                            foreach (var item in Model.productVersions)
-                            {
+                        @foreach (var item in Model.productVersions)
+                        {
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label" asp-for="@item.NameProductVersion">Phiên bản</label>
-                                            <input class="form-control" asp-for="@item.NameProductVersion" disabled>
-                                        </div>
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" asp-for="@item.NameProductVersion">Phiên bản</label>
+                                        <input class="form-control" asp-for="@item.NameProductVersion" disabled>
                                     </div>
+
                                 </div>
-                                if(i > 0)
-                                {
-                                    <form asp-action="DeleteVersion" method="post">
-                                    <input type="hidden" asp-for="@item.IdProductVersion" />
-                                    <button class="btn btn-danger" type="submit">Xóa phiên bản này</button>
-                                </form>
-                                }
-                                i++;
-                            }
+                            </div>
+                            <form asp-action="DeleteVersion" method="post">
+                                <input type="hidden" asp-for="@item.IdProductVersion" />
+                                <button class="btn btn-danger" type="submit">Xóa phiên bản này</button>
+                            </form>
                         }
 
                     </section>

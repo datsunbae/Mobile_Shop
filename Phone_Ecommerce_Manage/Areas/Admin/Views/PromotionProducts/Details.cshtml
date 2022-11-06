@@ -1,49 +1,114 @@
-﻿@model Phone_Ecommerce_Manage.Models.PromotionProduct
+﻿@model Phone_Ecommerce_Manage.Models.PromotionProduct_PromotionProductDetails_Model
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details Promotion";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int countPromotionDetails = @Model.promotionProductDetails.Count();
+    ProductVersion productVersion = ViewBag.ProductVersion;
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>PromotionProduct</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsNoEndDay)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsNoEndDay)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPublished)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProductVersionNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProductVersionNavigation.IdProductVersion)
-        </dd>
-    </dl>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Chi tiết khuyến mãi của @productVersion.NameProductVersion</h4>
+                </div>
+                <div class="wizard-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Chọn sản phẩm</label>
+                                <select class="custom-select"  style="min-width: 200px;" asp-for="@productVersion.IdProduct" asp-items="ViewBag.ListProduct" disabled>
+                                    <option selected>Chọn danh mục</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Chọn phiên bản</label>
+                                        <select class="custom-select" style="min-width: 200px;" asp-for="@Model.promotionProduct.IdProductVersion" asp-items="ViewBag.ListProductVersion" disabled>
+                                                    <option selected>Chọn danh mục</option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </section>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@Model.promotionProduct.StartDateTime" class="control-label">Ngày bắt đầu</label>
+                                <input asp-for="@Model.promotionProduct.StartDateTime" class="form-control" />
+                                <span asp-validation-for="@Model.promotionProduct.StartDateTime" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.promotionProduct.EndDateTime" class="control-label">Ngày kết thúc</label>
+                                <input asp-for="@Model.promotionProduct.EndDateTime" class="form-control" />
+                                <span asp-validation-for="@Model.promotionProduct.EndDateTime" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox mb-5">
+                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.promotionProduct.IsNoEndDay" checked="true">
+                                        <label class="custom-control-label" asp-for="@Model.promotionProduct.IsNoEndDay">Không ngày kết thúc</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>Chi tiết khuyến mãi</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="control-label">Tên quà tặng</label>
+                                        <input asp-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[0].NamePromotionProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[0].Urlpromotion" class="control-label">URL khuyến mãi</label>
+                                        <input asp-for="@Model.promotionProductDetails[0].Urlpromotion" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[0].Urlpromotion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                        </div>
+                        <section class="mb-5">
+                            @for(var i = 1; i < countPromotionDetails; i++)
+                            {
+
+                                <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[i].NamePromotionProduct" class="control-label">Tên quà tặng</label>
+                                        <input asp-for="@Model.promotionProductDetails[i].NamePromotionProduct" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[i].NamePromotionProduct" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.promotionProductDetails[i].Urlpromotion" class="control-label">URL khuyến mãi</label>
+                                        <input asp-for="@Model.promotionProductDetails[i].Urlpromotion" class="form-control" />
+                                        <span asp-validation-for="@Model.promotionProductDetails[i].Urlpromotion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            }
+                             <a asp-area="Admin" asp-controller="PromotionProducts" asp-action="Index" class="btn btn-primary">Quay về</a>
+
+                        </section>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdPromotionProduct">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+

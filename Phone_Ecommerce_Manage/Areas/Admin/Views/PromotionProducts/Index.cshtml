@@ -5,56 +5,69 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsNoEndDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProductVersionNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsNoEndDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProductVersionNavigation.IdProductVersion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPromotionProduct">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPromotionProduct">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPromotionProduct">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="main-container">
+    <div>
+        <div class="min-height-200px">
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Danh khuyến mãi</h4>
+                    <a asp-area="Admin" asp-controller="PromotionProducts" asp-action="Create" type="button" class="btn btn-primary">
+                        Thêm khuyến mãi
+                    </a>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr>
+                                <th>Khuyến mãi cho phiên bản</th>
+                                <th>Thời gian bắt đầu</th>
+                                <th>Thời gian kết thúc</th>
+                                <th>Không ngày kết thúc</th>
+
+                                <th class="table-plus datatable-nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.IdProductVersionNavigation.NameProductVersion</td>
+                                    @if (item.StartDateTime == null)
+                                    {
+                                        <td>Không có</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.StartDateTime</td>
+                                    }
+                                    @if (item.EndDateTime == null)
+                                    {
+                                        <td>Không có</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.EndDateTime</td>
+                                    }
+                                    @if (item.IsNoEndDay == true)
+                                    {
+                                        <td>True</td>
+                                    }
+                                    else
+                                    {
+                                        <td>False</td>
+                                    }
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.IdPromotionProduct" class=" btn btn-success">Xem</a>
+                                        <a asp-action="Edit" asp-route-id="@item.IdPromotionProduct" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdPromotionProduct" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int countPromotionDetails = @Model.promotionProductDetails.Count();
     int count = countPromotionDetails;
-    Product product = ViewBag.Product;
+    ProductVersion productVersion = ViewBag.ProductVersion;
 }
 
 
@@ -15,14 +15,14 @@
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-blue h4">Thêm khuyến mãi</h4>
+                    <h4 class="text-blue h4">Sửa khuyến mãi của @productVersion.NameProductVersion</h4>
                 </div>
                 <div class="wizard-content">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Chọn sản phẩm</label>
-                                <select class="custom-select"  style="min-width: 200px;" asp-for="@product.IdProduct" asp-items="ViewBag.ListProduct" disabled>
+                                <select class="custom-select"  style="min-width: 200px;" asp-for="@productVersion.IdProduct" asp-items="ViewBag.ListProduct" disabled>
                                     <option selected>Chọn danh mục</option>
                                 </select>
                             </div>
@@ -105,10 +105,6 @@
                                         <span asp-validation-for="@Model.promotionProductDetails[i].Urlpromotion" class="text-danger"></span>
                                     </div>
                                 </div>
-                                     <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
-                                                        id="DeleteRow" type="button">
-                                                    <i class="bi bi-trash "></i>Delete
-                                    </button>
                             </div>
                                 
                             }
@@ -122,7 +118,7 @@
                         </section>
 
                         <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button asp-area="Admin" asp-controller="PromotionProducts" asp-action="Index" class="btn btn-primary">Danh sách sản phẩm</button>
+                        <button asp-area="Admin" asp-controller="PromotionProducts" asp-action="Index" class="btn btn-primary">Quay về</button>
                     </form>
                 </div>
             </div>
@@ -153,10 +149,6 @@
                                         <span class="text-danger field-validation-valid" data-valmsg-for="promotionProductDetails[${i}].Urlpromotion" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-danger ml-2 " style="margin-bottom:10px"
-                                                        id="DeleteRow" type="button">
-                                                    <i class="bi bi-trash "></i>Delete
-                                </button>
                             </div>`;
 
 
@@ -164,11 +156,6 @@
         $('.newrow').append(newRowAdd);
         i++;
 
-
     }
-
-    $("body").on("click", "#DeleteRow", function () {
-        $(this).parents(".row").remove();
-    })
 
 </script>
