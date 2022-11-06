@@ -1,0 +1,89 @@
+﻿@model Phone_Ecommerce_Manage.Models.News
+
+@section Styles{
+    <link href="~/adminasset/summernote/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/adminasset/summernote/summernote.css" rel="stylesheet" />
+}
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thêm sản phẩm</h4>
+                </div>
+                <div class="wizard-content">
+                    <form asp-action="Edit" asp-route-id="@Model.IdNews" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="@Model.IdNews" />
+                        <input type="hidden" asp-for="@Model.CreateDate" />
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Tiêu đề</label>
+                                        <input asp-for="@Model.Title" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Danh mục</label>
+                                        <select asp-for="@Model.IdCategoryNews" class="form-control" asp-items="ViewBag.ListCategoryNews"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot">
+											<label class="custom-control-label" asp-for="@Model.IsHot">Bài viết hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DescriptionNew">Mô tả</label>
+                                        <input asp-for="@Model.DescriptionNew" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Thumb" class="control-label">Hình ảnh</label>
+                                        <input name="fImage" asp-for="@Model.Thumb" class="form-control form-control-lg form-control-file"
+                                               type="file" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Content">Nội dung</label>
+                                        <textarea asp-for="@Model.Content" class="summernote"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button asp-area="Admin" asp-controller="News" asp-action="Index" class="btn btn-primary">Quay về</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+<script src="~/adminasset/summernote/summernote-bs4.js"></script>
+
+<script>
+        $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+</script>
+}

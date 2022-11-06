@@ -1,0 +1,135 @@
+﻿@model Phone_Ecommerce_Manage.Models.News
+
+@section Styles{
+    <link href="~/adminasset/summernote/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/adminasset/summernote/summernote.css" rel="stylesheet" />
+}
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thêm bài viết</h4>
+                </div>
+                <div class="wizard-content">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Title" class="control-label">Tên bài viết</label>
+                                        <input asp-for="@Model.Title" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Danh mục</label>
+                                        <select asp-for="@Model.IdCategoryNews" class="form-control" asp-items="ViewBag.ListCategoryNews"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot">
+                                            <label class="custom-control-label" asp-for="@Model.IsHot">Bài viết hot</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DescriptionNew" class="control-label">Tiêu đề</label>
+                                        <input asp-for="@Model.DescriptionNew" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Thumb" class="control-label">Hình ảnh</label>
+                                        <input name="fImage" asp-for="@Model.Thumb" class="form-control form-control-lg form-control-file"
+                                               type="file" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Content">Mô tả</label>
+                                        <textarea asp-for="@Model.Content" class="summernote"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Create</h1>
+
+<h4>News</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescriptionNew" class="control-label"></label>
+                <input asp-for="DescriptionNew" class="form-control" />
+                <span asp-validation-for="DescriptionNew" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Thumb" class="control-label"></label>
+                <input asp-for="Thumb" class="form-control" />
+                <span asp-validation-for="Thumb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsHot" class="control-label"></label>
+                <input asp-for="IsHot" class="form-control" />
+                <span asp-validation-for="IsHot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+<script src="~/adminasset/summernote/summernote-bs4.js"></script>
+
+<script>
+        $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+</script>
+}

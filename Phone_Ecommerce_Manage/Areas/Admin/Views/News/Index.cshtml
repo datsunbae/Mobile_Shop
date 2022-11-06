@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.News>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<CategoryNews> listCategoryNews = ViewBag.ListCategoryNews;
+}
+
+<div class="main-container">
+    <div>
+        <div class="min-height-200px">
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Danh sách sản phẩm</h4>
+                    <a asp-area="Admin" asp-controller="News" asp-action="Create" type="button" class="btn btn-primary">
+                        Thêm sản phẩm
+                    </a>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr>
+                                <th>Tên bài viết</th>
+                                <th>Hình ảnh</th>
+                                <th>Ngày đăng</th>
+                                <th>Danh mục</th>
+                                <td>Tin hot</td>
+                                <th class="table-plus datatable-nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td class="profile-photo" height="10px"><img src="@item.Thumb"/></td>
+                                    <td>@item.CreateDate</td>
+                                    @{
+                                        var categoryNews = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
+                                        <td>@categoryNews.NameCategory</td>
+									}
+                                    @if (item.IsHot)
+                                    {
+                                        <td>Có</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Không</td>
+                                    }
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.IdNews" class=" btn btn-success">Xem</a>
+                                        <a asp-action="Edit" asp-route-id="@item.IdNews" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdNews" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
