@@ -1,4 +1,6 @@
-﻿namespace Phone_Ecommerce_Manage.Models
+﻿using Phone_Ecommerce_Manage.Models;
+
+namespace Phone_Ecommerce_Manage.ModelViews
 {
     public class Customer_Employee_Account_Models
     {

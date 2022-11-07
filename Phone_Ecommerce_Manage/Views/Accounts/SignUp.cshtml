@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "SignUp";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,7 +14,7 @@
                     <ul class="breadcrumb__list">
                         <li class="has-separator">
 
-                            <a href="index.html">Home</a>
+                            <a href="index.html">@User.Identity.Name</a>
                         </li>
                         <li class="is-marked">
 

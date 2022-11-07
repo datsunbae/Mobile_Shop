@@ -1,11 +1,13 @@
-﻿@{
+﻿@model Phone_Ecommerce_Manage.Models.AccountUser
+
+@{
     ViewData["Title"] = "SignIn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--====== Section 1 ======-->
+
+
 <div class="u-s-p-y-60">
 
-    <!--====== Section Content ======-->
     <div class="section__content">
         <div class="container">
             <div class="breadcrumb">
@@ -13,11 +15,11 @@
                     <ul class="breadcrumb__list">
                         <li class="has-separator">
 
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li class="is-marked">
 
-                            <a href="signin.html">Đăng nhập tài khoản</a>
+                            <a href="/accounts/signin">Đăng nhập tài khoản  </a>
                         </li>
                     </ul>
                 </div>
@@ -25,11 +27,9 @@
         </div>
     </div>
 </div>
-<!--====== End - Section 1 ======-->
-<!--====== Section 2 ======-->
+
 <div class="u-s-p-b-60">
 
-    <!--====== Section Intro ======-->
     <div class="section__intro u-s-m-b-60">
         <div class="container">
             <div class="row">
@@ -41,8 +41,7 @@
             </div>
         </div>
     </div>
-    <!--====== End - Section Intro ======-->
-    <!--====== Section Content ======-->
+
     <div class="section__content">
         <div class="container">
             <div class="row row--center">
@@ -59,18 +58,18 @@
                             <h1 class="gl-h1">ĐĂNG NHẬP</h1>
 
                             <span class="gl-text u-s-m-b-30">Nếu bạn có tài khoản với chúng tôi, vui lòng đăng nhập..</span>
-                            <form class="l-f-o__form">
+                            <form class="l-f-o__form" asp-action="SignIn">
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="login-email">TÀI KHOẢN *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Nhập tài khoản">
+                                    <input class="input-text input-text--primary-style" type="text" placeholder="Nhập tài khoản" asp-for="@Model.UserName">
                                 </div>
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="login-password">MẬT KHẨU *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="login-password" placeholder="Nhập mật khẩu">
+                                    <input class="input-text input-text--primary-style" type="password"  placeholder="Nhập mật khẩu" asp-for="@Model.PasswordAccount">
                                 </div>
                                 <div class="gl-inline">
                                     <div class="u-s-m-b-30">
