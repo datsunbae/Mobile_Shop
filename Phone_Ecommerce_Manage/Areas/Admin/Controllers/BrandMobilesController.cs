@@ -57,10 +57,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdBrandMobile,NameBrand,ImgBrand,IsPublished")] BrandMobile brandMobile)
+        public async Task<IActionResult> Create([Bind("IdBrandMobile,NameBrand,ImgBrand,IsPublished")] BrandMobile brandMobile, Microsoft.AspNetCore.Http.IFormFile fImage)
         {
             if (ModelState.IsValid)
             {
+                if (fImage != null)
+                {
+                    brandMobile.ImgBrand = "/images/brandMobile/" + await Utilities.UploadFile.UploadImage(fImage, @"brandMobile");
+                }
                 _context.Add(brandMobile);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +93,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdBrandMobile,NameBrand,ImgBrand,IsPublished")] BrandMobile brandMobile)
+        public async Task<IActionResult> Edit(int id, [Bind("IdBrandMobile,NameBrand,ImgBrand,IsPublished")] BrandMobile brandMobile, Microsoft.AspNetCore.Http.IFormFile fImage)
         {
             if (id != brandMobile.IdBrandMobile)
             {
@@ -100,6 +104,10 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (fImage != null)
+                    {
+                        brandMobile.ImgBrand = "/images/brandMobile/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
+                    }
                     _context.Update(brandMobile);
                     await _context.SaveChangesAsync();
                 }

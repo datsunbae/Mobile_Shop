@@ -16,7 +16,7 @@
                     <div class="login-title">
                         <h2 class="text-center text-primary">Cập nhật thương hiệu</h2>
                     </div>
-                    <form asp-action="Edit">
+                    <form asp-action="Edit" asp-route-id="@Model.IdBrandMobile" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="IdBrandMobile" />
                         <label asp-for="NameBrand"><h6>Tên thương hiệu</h6></label>
                         <div class="input-group custom">
@@ -25,7 +25,7 @@
                         </div>
                         <label asp-for="ImgBrand"><h6>Hình ảnh</h6></label>
                         <div class="input-group custom">
-                            <input asp-for="ImgBrand" class="form-control form-control-lg form-control-file"
+                            <input name="fImage" asp-for="@Model.ImgBrand" class="form-control form-control-lg form-control-file"
                                    type="file" />
                         </div>
                         <div class="row pb-30">
