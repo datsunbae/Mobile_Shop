@@ -1,0 +1,199 @@
+﻿@model Phone_Ecommerce_Manage.Models.News
+@using Phone_Ecommerce_Manage.Models
+@{
+    ViewData["Title"] = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--====== Section 1 ======-->
+<div class="u-s-p-y-90">
+
+    <!--====== Detail Post ======-->
+    <div class="detail-post">
+        <form asp-action="Details">
+            <div class="bp-detail">
+                <div class="bp-detail__thumbnail">
+
+                    <!--====== Image Code ======-->
+                    <div class="aspect aspect--bg-grey aspect--1366-768">
+
+                        <img class="aspect__img" src="@Model.Thumb">
+                    </div>
+                    <!--====== End - Image Code ======-->
+                </div>
+                <div class="bp-detail__info-wrap">
+                    <div class="bp-detail__stat">
+
+                        <span class="bp-detail__stat-wrap">
+
+                            <span class="bp-detail__publish-date">
+
+                                <a href="blog-right-sidebar.html">
+
+                                    <span>@Model.CreateDate</span>
+                                </a>
+                            </span>
+                        </span>
+
+                        <span class="bp-detail__stat-wrap">
+
+                            <span class="bp-detail__author">
+
+                                <a href="blog-right-sidebar.html">Dayle</a>
+                            </span>
+                        </span>
+                    </div>
+
+                    <span class="bp-detail__h1">
+
+                        <a href="blog-detail.html">@Model.Title</a>
+                    </span>
+                    <div class="u-s-m-b-15">
+                        <p>@Html.Raw(Model.Content)</p>
+                    </div>
+                    
+                    <div class="post-center-wrap">
+                        <ul class="bp-detail__social-list">
+                            <li>
+
+                                <a class="s-fb--color" href="#"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+
+                                <a class="s-tw--color" href="#"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+
+                                <a class="s-insta--color" href="#"><i class="fab fa-instagram"></i></a>
+                            </li>
+                            <li>
+
+                                <a class="s-wa--color" href="#"><i class="fab fa-whatsapp"></i></a>
+                            </li>
+                            <li>
+
+                                <a class="s-gplus--color" href="#"><i class="fab fa-google-plus-g"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="gl-l-r bp-detail__postnp">
+                        <div>
+
+                            <a href="blog-detail.html">Previous Post</a>
+                        </div>
+                        <div>
+
+                            <a href="blog-detail.html">Next Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--====== End - Detail Post ======-->
+<div class="u-s-p-b-60">
+    <div class="d-meta">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-meta__comment-arena">
+
+                        <span class="d-meta__text u-s-m-b-36">6 thoughts on "Wait till is open"</span>
+                        <div class="d-meta__comments u-s-m-b-30">
+                            <ol>
+                                <li>
+
+                                    <!--====== Comment ======-->
+                                    <div class="d-meta__p-comment">
+                                        <div class="p-comment__wrap1">
+                                            <div class="aspect aspect--square p-comment__img-wrap">
+
+                                                <img src="~/asset/images/blog/avatar.jpg" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="p-comment__wrap2">
+
+                                            <span class="p-comment__author">Dayle</span>
+
+                                            <span class="p-comment__timestamp">
+
+                                                <a href="#">
+
+                                                    <span>25 March 2015 at 3:55pm</span>
+                                                </a>
+                                            </span>
+                                            <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                                            <a class="p-comment__reply" href="#">Reply</a>
+                                        </div>
+                                    </div>
+                                    <!--====== End - Comment ======-->
+                                    <ol class="comment-children">
+                                        <li>
+
+                                            <!--====== Comment ======-->
+                                            <div class="d-meta__p-comment">
+                                                <div class="p-comment__wrap1">
+                                                    <div class="aspect aspect--square p-comment__img-wrap">
+
+                                                        <img src="~/asset/images/blog/avatar-2.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="p-comment__wrap2">
+
+                                                    <span class="p-comment__author">Dayle</span>
+
+                                                    <span class="p-comment__timestamp">
+
+                                                        <a href="#">
+
+                                                            <span>25 March 2015 at 3:55pm</span>
+                                                        </a>
+                                                    </span>
+                                                    <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                                                    <a class="p-comment__reply" href="#">Reply</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <span class="d-meta__text-2 u-s-m-b-6">Join the Conversation</span>
+
+                        <span class="d-meta__text-3 u-s-m-b-16">Your email address will not be published. Required fields are marked *</span>
+                        <form class="respond__form">
+                            <div class="respond__group">
+                                <div class="u-s-m-b-15">
+
+                                    <label class="gl-label" for="comment">COMMENT *</label><textarea class="text-area text-area--primary-style" id="comment"></textarea>
+                                </div>
+                                <div>
+                                    <p class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="responder-name">NAME *</label>
+
+                                        <input class="input-text input-text--primary-style" type="text" id="responder-name">
+                                    </p>
+                                    <p class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="responder-email">EMAIL *</label>
+
+                                        <input class="input-text input-text--primary-style" type="text" id="responder-email">
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+
+                                <button class="btn btn--e-brand-shadow" type="submit">POST COMMENT</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Section 1 ======-->
