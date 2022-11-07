@@ -26,7 +26,7 @@ namespace Phone_Ecommerce_Manage.Models
         public string? Thumb { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateDate { get; set; }
-        public bool? IsHot { get; set; }
+        public bool IsHot { get; set; }
         public int? IdCategoryNews { get; set; }
         public int? IdAccountUser { get; set; }
 

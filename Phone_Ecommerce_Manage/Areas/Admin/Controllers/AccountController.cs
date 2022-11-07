@@ -53,7 +53,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
                         Employee employee = await _context.Employees.Where(p => p.IdAccountUser == accountUser.IdAccountUser).FirstOrDefaultAsync();
                         Role role = await _context.Roles.SingleOrDefaultAsync(x => x.IdRole == accountUser.IdRole);
-                        HttpContext.Session.SetString("AccountIdSession", employee.IdAccountUser.ToString());
+
+                        HttpContext.Session.Set("EmployeeSession", employee);
                         
                         var claims = new List<Claim>
                             {
@@ -79,8 +80,13 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
-            HttpContext.Session.Remove("AccountIdSession");
+            HttpContext.Session.Remove("EmployeeSession");
             return RedirectToAction("Login", "Account", new { Area = "Admin" });
+        }
+
+        public IActionResult Forbidden()
+        {
+            return View();
         }
 
     }

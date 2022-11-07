@@ -31,7 +31,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.Cookie.Name = "UserLoginCookie";
                     options.ExpireTimeSpan = TimeSpan.FromHours(1);
                     options.LoginPath = "/Admin/Account/Login/";
-                    options.AccessDeniedPath = "/Account/Forbidden/";
+                    options.AccessDeniedPath = "/Admin/Account/Forbidden/";
                 });
 
 var app = builder.Build();

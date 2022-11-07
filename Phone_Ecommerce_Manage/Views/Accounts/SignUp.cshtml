@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@model Phone_Ecommerce_Manage.ModelViews.RegisterViewModel
+@using Microsoft.AspNetCore.Http;
+
 @{
     ViewData["Title"] = "SignUp";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,7 +16,7 @@
                     <ul class="breadcrumb__list">
                         <li class="has-separator">
 
-                            <a href="index.html">@User.Identity.Name</a>
+                            <a href="/">Trang chủ</a>
                         </li>
                         <li class="is-marked">
 
@@ -51,77 +53,71 @@
                     <div class="l-f-o">
                         <div class="l-f-o__pad-box">
                             <h1 class="gl-h1">THÔNG TIN CÁ NHÂN</h1>
-                            <form class="l-f-o__form">
+                            <form class="l-f-o__form" asp-action="SignUp">
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="reg-fname">HỌ VÀ TÊN *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="reg-fname" placeholder="Nhập họ và tên">
+                                    <input class="input-text input-text--primary-style" type="text"  placeholder="Nhập họ và tên" asp-for="@Model.NameCustomer">
                                 </div>
-                                <div class="gl-inline">
-                                    <div class="u-s-m-b-30">
-
-                                        <!--====== Date of Birth Select-Box ======-->
-
-                                        <span class="gl-label">NGÀY THÁNG NĂM SINH</span>
-                                        <div class="gl-dob">
-                                            <select class="select-box select-box--primary-style">
-                                                <option selected>Tháng</option>
-                                                <option value="male">January</option>
-                                                <option value="male">February</option>
-                                                <option value="male">March</option>
-                                                <option value="male">April</option>
-                                            </select><select class="select-box select-box--primary-style">
-                                                <option selected>Ngày</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                            </select><select class="select-box select-box--primary-style">
-                                                <option selected>Năm</option>
-                                                <option value="1991">1991</option>
-                                                <option value="1992">1992</option>
-                                                <option value="1993">1993</option>
-                                                <option value="1994">1994</option>
-                                            </select>
-                                        </div>
-                                        <!--====== End - Date of Birth Select-Box ======-->
-                                    </div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="gender">GIỚI TÍNH</label><select class="select-box select-box--primary-style u-w-100" id="gender">
-                                            <option selected>Lựa chọn</option>
-                                            <option value="male">Nam</option>
-                                            <option value="male">Nữ</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <span asp-validation-for="@Model.NameCustomer" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+                                
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="reg-email">E-MAIL *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="reg-email" placeholder="Nhập E-mail">
+                                    <input class="input-text input-text--primary-style" type="text" placeholder="Nhập E-mail" asp-for="@Model.Email"> 
                                 </div>
+                                <span asp-validation-for="@Model.Email" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="reg-email">TÀI KHOẢN *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="reg-taikhoan" placeholder="Nhập tài khoản">
+                                    <input class="input-text input-text--primary-style" type="text"  placeholder="Nhập tài khoản" asp-for="@Model.Username">
                                 </div>
+                                <span asp-validation-for="@Model.Username" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
+                                <div class="u-s-m-b-30">
+
+                                    <label class="gl-label" for="reg-email">ĐIỆN THOẠI *</label>
+
+                                    <input class="input-text input-text--primary-style" type="text" id="reg-taikhoan" placeholder="Nhập điện thoại" asp-for="@Model.Phone">
+                                </div>
+                                <span asp-validation-for="@Model.Phone" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
+                                <div class="u-s-m-b-30">
+
+                                    <label class="gl-label" for="reg-email">ĐỊA CHỈ *</label>
+
+                                    <input class="input-text input-text--primary-style" type="text" placeholder="Nhập địa chỉ" asp-for="@Model.Address">
+                                </div>
+                                <span asp-validation-for="@Model.Address" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="reg-password">MẬT KHẨU *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Nhập mật khẩu">
+                                    <input class="input-text input-text--primary-style" type="password" id="reg-password" placeholder="Nhập mật khẩu" asp-for="@Model.Password">
                                 </div>
+                                <span asp-validation-for="@Model.Password" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
                                 <div class="u-s-m-b-30">
 
                                     <label class="gl-label" for="reg-password">NHẬP LẠI MẬT KHẨU *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Nhập mật khẩu">
+                                    <input class="input-text input-text--primary-style" type="password"  id="reg-password" placeholder="Nhập lại mật khẩu" asp-for="@Model.ConfirmPassword">
                                 </div>
-                                <div class="u-s-m-b-15">
-                                    <a class="btn btn--e-transparent-brand-b-2" href="/Accounts/SignIn">TẠO TÀI KHOẢN</a>
+                                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger text-danger" style="display: block;margin: -16px 0 20px;"></span>
+
+                                <div class="row">
+									<div class="col-sm-12" style="margin-bottom: 21px;text-align: center;">
+									<span class="text-danger">@ViewBag.Error</span>
+									</div>
+								</div>
+
+                                <div class="u-s-m-b-15 pt-3">
+                                    <button class="btn btn--e-transparent-brand-b-2 " type="submit">TẠO TÀI KHOẢN</button>
                                 </div>
 
                                 <a class="gl-link" href="/Home/Index">Quay lại cửa hàng</a>
@@ -135,3 +131,4 @@
     <!--====== End - Section Content ======-->
 </div>
 <!--====== End - Section 2 ======-->
+

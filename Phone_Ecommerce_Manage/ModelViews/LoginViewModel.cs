@@ -2,7 +2,7 @@
 
 namespace Phone_Ecommerce_Manage.ModelViews
 {
-    public class AdminLoginViewModel
+    public class LoginViewModel
     {
         [Key]
         [MaxLength(100)]
