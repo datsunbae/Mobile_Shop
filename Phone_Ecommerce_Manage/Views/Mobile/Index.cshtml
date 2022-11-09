@@ -1,6 +1,14 @@
-﻿@{
+﻿@using Phone_Ecommerce_Manage.Models;
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    MobileShop_DBContext contex = new MobileShop_DBContext();
+    var listMobile = 
+               from productVerion in contex.ProductVersions
+               join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
+               select new { ProductVersion = productVerion, ProductColor = productColor };
+   
+    List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
 }
 <div class="u-s-p-y-90">
     <div class="container">
@@ -386,20 +394,25 @@
                     </div>
                     <div class="shop-p__collection">
                         <div class="row is-grid-active">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            @{
+                                foreach(var item in listProductVersion)
+                                {
+                                    var product = listMobile.Where(x => x.ProductColor.IdProductVersion == item.IdProductVersion && x.ProductVersion.IsPublished == true).Take(1).FirstOrDefault();
+                                    if(product != null)
+                                    {
+                                        var img = (product.ProductColor.ImgProductColor).Split(", ")[0];
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product-m">
                                     <div class="product-m__thumb">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/Mobile/Product">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.ProductColor.IdProductColor">
 
-                                            <img class="aspect__img" src="~/asset/images/product/product-2.png"alt="">
+                                            <img class="aspect__img" src="@img"alt="">
                                         </a>
-                                        <div class="product-m__quick-look">
-
-                                            <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
+                                        
                                         <div class="product-m__add-cart">
 
-                                            <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
+                                            <a class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-cart">Thêm vào giỏ hàng</a></div>
                                     </div>
                                     <div class="product-m__content">
                                         <div class="product-m__category">
@@ -407,12 +420,17 @@
                                             <a href="shop-side-version-2.html">Điện thoại</a></div>
                                         <div class="product-m__name">
 
-                                            <a href="/Mobile/Product">IPhone 14 Pro Max 256GB</a>
+                                            <a href="/Mobile/Product">@product.ProductVersion.NameProductVersion</a>
                                         </div>
                                         <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
 
                                             <span class="product-m__review">(23)</span></div>
-                                        <div class="product-m__price">$125.00</div>
+                                        <div class="product-m__price">
+                                            @String.Format("{0:0,0}", product.ProductColor.PromotionPrice) VNĐ
+                                            <span style="color: #888888; text-decoration: line-through;">
+                                            @String.Format("{0:0,0}", product.ProductColor.Price) VNĐ
+                                            </span>
+                                        </div>
                                         <div class="product-m__hover">
                                             <div class="product-m__preview-description">
 
@@ -424,43 +442,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product-m">
-                                    <div class="product-m__thumb">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/product-1.jpg" alt=""></a>
-                                        <div class="product-m__quick-look">
-
-                                            <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                        <div class="product-m__add-cart">
-
-                                            <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                    </div>
-                                    <div class="product-m__content">
-                                        <div class="product-m__category">
-
-                                            <a href="shop-side-version-2.html">Điện thoại</a></div>
-                                        <div class="product-m__name">
-
-                                            <a href="/Mobile/Product">Samsung Galaxy S22 Ultra 5G</a>
-                                        </div>
-                                        <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-m__review">(23)</span></div>
-                                        <div class="product-m__price">$125.00</div>
-                                        <div class="product-m__hover">
-                                            <div class="product-m__preview-description">
-
-                                                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                            <div class="product-m__wishlist">
-
-                                                <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    }
+                                }
+                                
+                           }
                         </div>
                     </div>
                     <div class="u-s-p-y-60">

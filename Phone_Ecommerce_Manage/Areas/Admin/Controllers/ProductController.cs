@@ -149,8 +149,22 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // POST: Admin/Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProductColor(ProductColor productColor)
+        public async Task<IActionResult> CreateProductColor(ProductColor productColor, List<Microsoft.AspNetCore.Http.IFormFile> fImage)
         {
+            if (fImage != null)
+            {
+                int fImageSize = fImage.Count;
+                for (var i = 0; i < fImageSize; i++)
+                {
+                    productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product");
+                    if (i + 1 != fImage.Count)
+                    {
+                        productColor.ImgProductColor += ", ";
+                    }
+                }
+
+            }
+
             productColor.CreateDate = DateTime.Now;
             _context.Add(productColor);
             await _context.SaveChangesAsync();
@@ -225,6 +239,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            
+
             _context.Update(data.product);
             await _context.SaveChangesAsync();
 
@@ -293,7 +309,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // POST: Admin/Product/EditProductColor/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProductColor(int id, ProductColor productColor)
+        public async Task<IActionResult> EditProductColor(int id, ProductColor productColor, List<Microsoft.AspNetCore.Http.IFormFile> fImage)
         {
             if (id != productColor.IdProductColor)
             {
@@ -302,6 +318,21 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                if (fImage != null)
+                {
+                    int fImageSize = fImage.Count;
+                    productColor.ImgProductColor = "";
+                    for (var i = 0; i < fImageSize; i++)
+                    {
+                        productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product");
+                        if (i + 1 != fImage.Count)
+                        {
+                            productColor.ImgProductColor += ", ";
+                        }
+                    }
+
+                }
+
                 _context.Update(productColor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProductsColor", "Product");

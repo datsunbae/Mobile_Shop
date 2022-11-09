@@ -17,8 +17,6 @@ namespace Phone_Ecommerce_Manage.Controllers
     public class AccountsController : Controller
     {
         private readonly MobileShop_DBContext _context;
-        public string SessionCustomer = "_Customer";
-        public string SessionEmployee = "_Employee";
 
         public AccountsController(MobileShop_DBContext context)
         {

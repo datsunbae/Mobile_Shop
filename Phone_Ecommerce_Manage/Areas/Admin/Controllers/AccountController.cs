@@ -54,7 +54,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                         Employee employee = await _context.Employees.Where(p => p.IdAccountUser == accountUser.IdAccountUser).FirstOrDefaultAsync();
                         Role role = await _context.Roles.SingleOrDefaultAsync(x => x.IdRole == accountUser.IdRole);
 
-                        HttpContext.Session.Set("EmployeeSession", employee);
+                        Employee employeeSesstion = new Employee();
+                        employeeSesstion.IdAccountUser = employee.IdAccountUser;
+                        employeeSesstion.NameEmployee = employee.NameEmployee;
+
+                        //Add session
+                        HttpContext.Session.Set("EmployeeSession", employeeSesstion);
                         
                         var claims = new List<Claim>
                             {
