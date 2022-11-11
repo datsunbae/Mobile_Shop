@@ -25,7 +25,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/BrandMobiles
         public async Task<IActionResult> Index()
         {
-              return View(await _context.BrandMobiles.ToListAsync());
+            return View(await _context.BrandMobiles.ToListAsync());
         }
 
         // GET: Admin/BrandMobiles/Details/5
@@ -159,14 +159,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.BrandMobiles.Remove(brandMobile);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BrandMobileExists(int id)
         {
-          return _context.BrandMobiles.Any(e => e.IdBrandMobile == id);
+            return _context.BrandMobiles.Any(e => e.IdBrandMobile == id);
         }
     }
 }

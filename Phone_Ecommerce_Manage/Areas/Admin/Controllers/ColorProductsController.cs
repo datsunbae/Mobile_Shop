@@ -25,7 +25,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/ColorProducts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.ColorProducts.ToListAsync());
+            return View(await _context.ColorProducts.ToListAsync());
         }
 
         // GET: Admin/ColorProducts/Details/5
@@ -151,14 +151,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.ColorProducts.Remove(colorProduct);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ColorProductExists(int id)
         {
-          return _context.ColorProducts.Any(e => e.IdColor == id);
+            return _context.ColorProducts.Any(e => e.IdColor == id);
         }
     }
 }

@@ -24,6 +24,9 @@ namespace Phone_Ecommerce_Manage.Models
         public string NameProductVersion { get; set; } = null!;
         [Column(TypeName = "ntext")]
         public string? Desciprtion { get; set; }
+        public bool IsBestseller { get; set; }
+        public int Ram { get; set; }
+        public int Rom { get; set; }
         [Column("Technical_Parameters", TypeName = "ntext")]
         public string? TechnicalParameters { get; set; }
         public bool IsPublished { get; set; }

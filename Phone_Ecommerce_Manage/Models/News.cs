@@ -8,11 +8,6 @@ namespace Phone_Ecommerce_Manage.Models
 {
     public partial class News
     {
-        public News()
-        {
-            CommentNews = new HashSet<CommentNews>();
-        }
-
         [Key]
         public int IdNews { get; set; }
         [StringLength(255)]
@@ -28,15 +23,13 @@ namespace Phone_Ecommerce_Manage.Models
         public DateTime? CreateDate { get; set; }
         public bool IsHot { get; set; }
         public int? IdCategoryNews { get; set; }
-        public int? IdAccountUser { get; set; }
+        public int? IdManager { get; set; }
 
-        [ForeignKey("IdAccountUser")]
-        [InverseProperty("News")]
-        public virtual AccountUser? IdAccountUserNavigation { get; set; }
         [ForeignKey("IdCategoryNews")]
         [InverseProperty("News")]
         public virtual CategoryNews? IdCategoryNewsNavigation { get; set; }
-        [InverseProperty("IdNewsNavigation")]
-        public virtual ICollection<CommentNews> CommentNews { get; set; }
+        [ForeignKey("IdManager")]
+        [InverseProperty("News")]
+        public virtual Manager? IdManagerNavigation { get; set; }
     }
 }

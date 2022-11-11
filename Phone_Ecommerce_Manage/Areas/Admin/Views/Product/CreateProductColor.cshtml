@@ -89,11 +89,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label asp-for="@Model.PromotionPrice" class="control-label">Giá khuyến mãi</label>
-                                        <input asp-for="@Model.PromotionPrice" class="form-control" />
-                                        <span asp-validation-for="@Model.PromotionPrice" class="text-danger"></span>
+                                        <label asp-for="@Model.PercentPromotion" class="control-label">Phần trăm khuyến mãi</label>
+                                        <input asp-for="@Model.PercentPromotion" class="form-control" />
+                                        <span asp-validation-for="@Model.PercentPromotion" class="text-danger"></span>
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -124,7 +125,7 @@
                         </section>
 
                         <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Danh sách phiên bản màu</button>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="ProductsColor" class="btn btn-primary">Danh sách phiên bản màu</a>
                     </form>
                 </div>
             </div>

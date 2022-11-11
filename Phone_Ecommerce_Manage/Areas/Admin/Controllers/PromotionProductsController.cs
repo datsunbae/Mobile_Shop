@@ -53,11 +53,11 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             return View(model);
         }
 
-            // GET: Admin/PromotionProducts/Create
+        // GET: Admin/PromotionProducts/Create
         public IActionResult Create(int IdProduct = 0)
         {
             ViewData["ListProduct"] = new SelectList(_context.Products, "IdProduct", "NameProduct");
-            
+
             ViewBag.CurrentIDProduct = IdProduct;
             if (IdProduct != 0)
             {
@@ -88,7 +88,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             //Add promotion product
             PromotionProduct promotionProduct = new PromotionProduct();
-            if(data.promotionProduct.IsNoEndDay == true)
+            if (data.promotionProduct.IsNoEndDay == true)
             {
                 data.promotionProduct.StartDateTime = null;
                 data.promotionProduct.EndDateTime = null;
@@ -99,7 +99,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
 
             //Add promotion product details
-            foreach(var item in data.promotionProductDetails)
+            foreach (var item in data.promotionProductDetails)
             {
                 item.IdPromotionProduct = promotionProduct.IdPromotionProduct;
                 _context.Add(item);
@@ -136,7 +136,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             ViewData["ListProduct"] = new SelectList(await _context.Products.ToListAsync(), "IdProduct", "NameProduct");
             ViewData["ListProductVersion"] = new SelectList(await _context.ProductVersions.ToListAsync(), "IdProductVersion", "NameProductVersion");
             ViewBag.ProductVersion = await _context.ProductVersions.Where(x => x.IdProductVersion == promotionProduct.IdProductVersion).FirstOrDefaultAsync();
-            return View(model); 
+            return View(model);
         }
 
         // POST: Admin/PromotionProducts/Edit/5
@@ -153,9 +153,9 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
 
             var promotionProductDetails = await _context.PromotionProductDetails.Where(x => x.IdPromotionProduct == id).ToListAsync();
-            
+
             //Remove all promotion product details
-            foreach(var item in promotionProductDetails)
+            foreach (var item in promotionProductDetails)
             {
                 _context.Remove(item);
                 await _context.SaveChangesAsync();
@@ -210,7 +210,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.PromotionProducts.Remove(promotionProduct);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -239,7 +239,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
         private bool PromotionProductExists(int id)
         {
-          return _context.PromotionProducts.Any(e => e.IdPromotionProduct == id);
+            return _context.PromotionProducts.Any(e => e.IdPromotionProduct == id);
         }
     }
 }

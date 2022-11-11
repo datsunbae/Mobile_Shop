@@ -23,18 +23,25 @@ namespace Phone_Ecommerce_Manage.Models
         public double? Total { get; set; }
         public double? TotalDiscount { get; set; }
         public bool? IsPaid { get; set; }
+        public bool? IsVoucher { get; set; }
+        public double? PriceDiscountVoucher { get; set; }
         [StringLength(255)]
         public string? Note { get; set; }
         public int? IdStatusOrder { get; set; }
-        public int? IdAccountUserCustomer { get; set; }
-        public int? IdEmployee { get; set; }
+        public int? IdCustomer { get; set; }
+        public int? IdManager { get; set; }
+        public int? IdShipper { get; set; }
+        public bool? Type { get; set; }
 
-        [ForeignKey("IdAccountUserCustomer")]
+        [ForeignKey("IdCustomer")]
         [InverseProperty("OrderBills")]
-        public virtual AccountUser? IdAccountUserCustomerNavigation { get; set; }
-        [ForeignKey("IdEmployee")]
+        public virtual Customer? IdCustomerNavigation { get; set; }
+        [ForeignKey("IdManager")]
         [InverseProperty("OrderBills")]
-        public virtual Employee? IdEmployeeNavigation { get; set; }
+        public virtual Manager? IdManagerNavigation { get; set; }
+        [ForeignKey("IdShipper")]
+        [InverseProperty("OrderBills")]
+        public virtual Shipper? IdShipperNavigation { get; set; }
         [ForeignKey("IdStatusOrder")]
         [InverseProperty("OrderBills")]
         public virtual StatusOrder? IdStatusOrderNavigation { get; set; }

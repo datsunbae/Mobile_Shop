@@ -24,7 +24,6 @@
 								<th>Email</th>
 								<th>Địa chỉ</th>
 								<th>Tài khoản</th>
-								<th>Trạng thái</th>
 
 								<th class="table-plus datatable-nosort"></th>
 							</tr>
@@ -36,14 +35,8 @@
                                     <td>@item.Phone</td>
                                     <td>@item.Email</td>
                                     <td>@item.Address</td>
-									<td>@item.IdAccountUserNavigation.UserName</td>
-									@if (item.IdAccountUserNavigation.IsActive == true)
-									{
-										<td>Đang hoạt động</td>
-									}
-									else{
-										<td>Không hoạt động</td>
-									}
+									<td>@item.UserName</td>
+									
 
 									<td>
 										<a asp-action="Details" asp-route-id="@item.IdCustomer" class=" btn btn-success">Xem</a> 

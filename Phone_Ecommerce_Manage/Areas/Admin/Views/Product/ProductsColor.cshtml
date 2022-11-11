@@ -6,7 +6,6 @@
 	List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
 	List<ColorProduct> listColors = ViewBag.ListColors;
 	List<StatusProduct> statusProducts = ViewBag.StatusProducts;
-
 }
 
 <div class="main-container">
@@ -31,7 +30,7 @@
 								<th>Màu</th>
 								<th>Giá nhập</th>
 								<th>Giá bán</th>
-								<th>Giá khuyến mãi</th>
+								<th>Phần trăm khuyến mãi</th>
 								<th>Số lượng</th>
 								<th>Công khai</th>
 								<th>Trạng thái</th>
@@ -52,7 +51,7 @@
 
 									<td>@item.OrderPrice</td>
 									<td>@item.Price</td>
-									<td>@item.PromotionPrice</td>
+									<td>@item.PercentPromotion</td>
 									<td>@item.Quantity</td>
 
                                     @if (item.IsPublished)

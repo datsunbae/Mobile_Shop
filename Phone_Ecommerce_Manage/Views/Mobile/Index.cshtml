@@ -9,6 +9,9 @@
                select new { ProductVersion = productVerion, ProductColor = productColor };
    
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
+
+    var location = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}");
+     var url = location.AbsoluteUri;
 }
 <div class="u-s-p-y-90">
     <div class="container">
@@ -410,9 +413,12 @@
                                             <img class="aspect__img" src="@img"alt="">
                                         </a>
                                         
+                                        <form method="post">
                                         <div class="product-m__add-cart">
-
-                                            <a class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-cart">Thêm vào giỏ hàng</a></div>
+                                            
+                                            <button  type="submit" class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-cart" asp-controller="Cart" asp-action="AddCart" asp-route-id="@product.ProductColor.IdProductColor" asp-route-strURL="@url">Thêm vào giỏ hàng</button></div>
+                                            </form>
+                                        
                                     </div>
                                     <div class="product-m__content">
                                         <div class="product-m__category">
@@ -426,11 +432,18 @@
 
                                             <span class="product-m__review">(23)</span></div>
                                         <div class="product-m__price">
-                                            @String.Format("{0:0,0}", product.ProductColor.PromotionPrice) VNĐ
-                                            <span style="color: #888888; text-decoration: line-through;">
-                                            @String.Format("{0:0,0}", product.ProductColor.Price) VNĐ
-                                            </span>
-                                        </div>
+                                                        @if(product.ProductColor.PromotionPrice == null)
+                                                        {
+                                                            <span>@String.Format("{0:0,0}", product.ProductColor.Price)₫  </span>
+                                            
+                                                        }
+                                                        else{
+                                                            <span class="d-inline pr-1 ">@String.Format("{0:0,0}", product.ProductColor.PromotionPrice)₫</span>
+                                                            <span class="d-inline" style="color: #888888; text-decoration: line-through;">
+                                                                 @String.Format("{0:0,0}", product.ProductColor.Price)₫
+                                                            </span>
+                                                        }
+                                                    </div>
                                         <div class="product-m__hover">
                                             <div class="product-m__preview-description">
 

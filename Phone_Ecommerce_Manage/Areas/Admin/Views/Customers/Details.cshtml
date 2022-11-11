@@ -43,39 +43,31 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.IdAccountUserNavigation.UserName"  class="control-label">Tài khoản</label>
-                                        <input asp-for="@Model.IdAccountUserNavigation.UserName" class="form-control" disabled/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.IdAccountUserNavigation.CreateDate"  class="control-label">Ngày tạo</label>
-                                        <input asp-for="@Model.IdAccountUserNavigation.CreateDate" class="form-control" disabled/>
+                                        <label asp-for="@Model.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.UserName" class="form-control" disabled/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.IdAccountUserNavigation.IsActive"  class="control-label">
-                                            Trạng thái:
-                                            @if(Model.IdAccountUserNavigation.IsActive == true){
-                                                @Html.Raw("Đang hoạt động");
-                                                    }
-                                                else
-                                                {
-                                                     @Html.Raw("Không hoạt động");
-                                                }
-                                    </label>
+                                        <label asp-for="@Model.CreateDate"  class="control-label">Ngày tạo</label>
+                                        <input asp-for="@Model.CreateDate" class="form-control" disabled/>
                                     </div>
                                 </div>
-                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.LastLogin"  class="control-label">Lần đăng nhập cuối</label>
+                                        <input asp-for="@Model.LastLogin" class="form-control" disabled/>
+                                    </div>
                                 </div>
+                                
+                            </div>
                             </div>
                         </section>
-                          <a asp-action="Index" class="btn-primary btn">Danh sách khách hàng</a>
+                          <a asp-controller="Customers" asp-action="Index" class="btn-primary btn">Danh sách khách hàng</a>
                 </div>
             </div>
         </div>

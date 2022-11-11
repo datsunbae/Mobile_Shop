@@ -27,6 +27,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.ListBranchMobiles = await _context.BrandMobiles.ToListAsync();
+            ViewBag.ListOS = await _context.Os.ToListAsync();
             return View(await _context.Products.ToListAsync());
         }
 
@@ -48,6 +49,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             var product = await _context.Products.Where(x => x.IdProduct == id).FirstOrDefaultAsync();
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            ViewData["ListOS"] = new SelectList(_context.Os, "IdOs", "NameOs");
             ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
             if (product == null)
             {
@@ -84,6 +86,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            ViewData["ListOSs"] = new SelectList(_context.Os, "IdOs", "NameOs");
             return View();
         }
 
@@ -98,7 +101,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
 
             //Add version products
-            foreach(var item in data.productVersions)
+            foreach (var item in data.productVersions)
             {
                 item.IdProduct = product.IdProduct;
                 _context.Add(item);
@@ -120,21 +123,21 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
             else
             {
-                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions ,"IdProductVersion", "NameProductVersion");
+                ViewData["ListProductVersion"] = new SelectList(_context.ProductVersions, "IdProductVersion", "NameProductVersion");
             }
 
             if (IdProductVersion != 0)
             {
                 var listProductColor = _context.ProductColors.AsNoTracking().Where(x => x.IdProductVersion == IdProductVersion);
                 var colorProducts = from c in _context.ColorProducts
-                                      join p in listProductColor on c.IdColor equals p.IdColor into joinGroup
-                                      from gr in joinGroup.DefaultIfEmpty()
-                                      where gr.IdProductColor == null
-                                      select new
-                                      {
-                                          ColorProducts = c,
-                                          ProductColors = gr
-                                      };
+                                    join p in listProductColor on c.IdColor equals p.IdColor into joinGroup
+                                    from gr in joinGroup.DefaultIfEmpty()
+                                    where gr.IdProductColor == null
+                                    select new
+                                    {
+                                        ColorProducts = c,
+                                        ProductColors = gr
+                                    };
 
 
                 List<ColorProduct> colors = colorProducts.Select(x => x.ColorProducts).ToList();
@@ -154,15 +157,20 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             if (fImage != null)
             {
                 int fImageSize = fImage.Count;
-                for (var i = 0; i < fImageSize; i++)
+                if (fImageSize == 0)
                 {
-                    productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product");
-                    if (i + 1 != fImage.Count)
-                    {
-                        productColor.ImgProductColor += ", ";
-                    }
+                    productColor.ImgProductColor = "/imgges/product/default.png, ";
                 }
 
+                for (var i = 0; i < fImageSize; i++)
+                {
+                    productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product") + ", ";
+                }
+            }
+
+            if(productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
+            {
+                productColor.PromotionPrice = (productColor.Price * productColor.PercentPromotion) / 100;
             }
 
             productColor.CreateDate = DateTime.Now;
@@ -175,12 +183,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             IDProductFilter = IdProduct;
             var url = $"/Admin/Product/CreateProductColor?IdProduct={IdProduct}";
-            return Json(new { status = "success",  redirectUrl = url });
+            return Json(new { status = "success", redirectUrl = url });
         }
 
         public IActionResult FiltterColor(int IdProductVersion = 0, string currentURL = "")
         {
-            if(currentURL != "")
+            if (currentURL != "")
             {
                 if (currentURL.Contains("&IdProductVersion="))
                 {
@@ -192,7 +200,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 {
                     currentURL += $"&IdProductVersion={IdProductVersion}";
                 }
-                
+
             }
             else
             {
@@ -217,7 +225,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
-            
+            ViewData["ListOS"] = new SelectList(_context.Os, "IdOs", "NameOs");
+
             productViewModel.product = product;
 
             var listProductVerion = _context.ProductVersions.Where(x => x.IdProduct == id);
@@ -238,8 +247,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            
 
             _context.Update(data.product);
             await _context.SaveChangesAsync();
@@ -333,6 +340,11 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
                 }
 
+                if (productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
+                {
+                    productColor.PromotionPrice = (productColor.Price * productColor.PercentPromotion) / 100;
+                }
+
                 _context.Update(productColor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProductsColor", "Product");
@@ -355,6 +367,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
+            ViewData["ListOS"] = new SelectList(_context.Os, "IdOs", "NameOs");
             ProductViewModel productViewModel = new ProductViewModel();
             var productVersions = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
             productViewModel.product = product;
@@ -377,7 +390,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.Products.Remove(product);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -413,7 +426,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             var productColor = await _context.ProductColors.Where(x => x.IdProductColor == id).FirstOrDefaultAsync();
-            
+
             if (productColor == null)
             {
                 return NotFound();
@@ -449,7 +462,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
         private bool ProductColorExists(int id)
         {
-          return _context.ProductColors.Any(e => e.IdProductColor == id);
+            return _context.ProductColors.Any(e => e.IdProductColor == id);
         }
     }
 }

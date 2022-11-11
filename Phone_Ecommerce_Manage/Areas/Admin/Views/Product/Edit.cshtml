@@ -44,17 +44,17 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-5">
-                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsHot">
-											<label class="custom-control-label" asp-for="@Model.product.IsHot">Sản phẩm hot</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox mb-5">
                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsPublished" checked="true">
 										<label class="custom-control-label" asp-for="@Model.product.IsPublished">Công khai</label>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Hệ điều hành</label>
+                                        <select asp-for="@Model.product.IdOs" class="form-control" asp-items="ViewBag.ListOS"></select>
                                     </div>
                                 </div>
                             </div>
@@ -76,12 +76,18 @@
                                         <span asp-validation-for="@Model.productVersions[i].NameProductVersion" class="text-danger"></span>
                                     </div>
                                 </div>
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.productVersions[i].Ram" class="control-label">RAM</label>
+                                        <input asp-for="@Model.productVersions[i].Ram" class="form-control" />
+                                        <span asp-validation-for="@Model.productVersions[i].Ram" class="text-danger"></span>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                         <div class="custom-control custom-checkbox mb-5">
-                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.productVersions[i].IsPublished" checked="true">
-										<label class="custom-control-label" asp-for="@Model.productVersions[i].IsPublished">Công khai</label>
-                                        </div>
+                                        <label asp-for="@Model.productVersions[i].Rom" class="control-label">Bộ nhớ trong</label>
+                                        <input asp-for="@Model.productVersions[i].Rom" class="form-control" />
+                                        <span asp-validation-for="@Model.productVersions[i].Rom" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -94,6 +100,22 @@
                                     <div class="form-group">
                                         <label asp-for="@Model.productVersions[i].TechnicalParameters">Thông số kỹ thuật</label>
                                         <textarea asp-for="@Model.productVersions[i].TechnicalParameters" class="summernote"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.productVersions[i].IsPublished" >
+										<label class="custom-control-label" asp-for="@Model.productVersions[i].IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.productVersions[i].IsBestseller" >
+										<label class="custom-control-label" asp-for="@Model.productVersions[i].IsBestseller">Bestseller</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -138,10 +160,16 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                         <div class="custom-control custom-checkbox mb-5">
-                                         <input type="checkbox" class="custom-control-input" checked="true" data-val="true" data-val-required="The IsPublished field is required." id="productVersions_${i}__IsPublished" name="productVersions[${i}].IsPublished" value="true">
-										<label class="custom-control-label" for="productVersions_${i}__IsPublished">Công khai</label>
-                                        </div>
+                                        <label class="control-label" for="productVersions_${i}__Ram">RAM</label>
+                                        <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="productVersions_${i}__Ram" name="productVersions[${i}].Ram" value="">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].Ram" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="productVersions_${i}__Rom">Bộ nhớ trong</label>
+                                        <input class="form-control" type="number" data-val="true" data-val-required="The Rom field is required." id="productVersions_${i}__Rom" name="productVersions[${i}].Rom" value="">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].Rom" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -156,8 +184,25 @@
                                         <textarea class="summernote" id="productVersions_${i}__TechnicalParameters" name="productVersions[${i}].TechnicalParameters" style="display: none;"></textarea>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" checked="true" data-val="true" data-val-required="The IsPublished field is required." id="productVersions_${i}__IsPublished" name="productVersions[${i}].IsPublished" value="true">
+										<label class="custom-control-label" for="productVersions_${i}__IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                           <input type="checkbox" class="custom-control-input" data-val="true" data-val-required="The IsBestseller field is required." id="productVersions_${i}__IsBestseller" name="productVersions[${i}].IsBestseller" >
+											<label class="custom-control-label" for="productVersions_${i}__IsBestseller">Bestseller</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             </div>`;
+
 
 
 

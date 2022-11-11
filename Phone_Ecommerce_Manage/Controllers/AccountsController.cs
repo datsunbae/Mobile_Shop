@@ -27,7 +27,7 @@ namespace Phone_Ecommerce_Manage.Controllers
         public IActionResult SignIn()
         {
             var customer = HttpContext.Session.Get<Customer>("CustomerSession");
-           
+
             if (customer != null)
             {
                 return RedirectToAction("Index", "Home");
@@ -44,48 +44,26 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             if (ModelState.IsValid)
             {
-                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+                if(password != null)
                 {
-                    ViewBag.Error = "Vui lòng nhập đầy đủ thông tin";
+                    password = HashMD5.MD5Hash(password.Trim());
+                }
+                var accountUser = await _context.Customers.Where(x => x.UserName == userName && x.Password == password).FirstOrDefaultAsync();
+                if (accountUser != null)
+                {
+
+                    Customer customerSession = new Customer();
+                    customerSession.IdCustomer = accountUser.IdCustomer;
+                    customerSession.NameCustomer = accountUser.NameCustomer;
+
+                    //Add session
+                    HttpContext.Session.Set("CustomerSession", customerSession);
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
                 {
-                    password = HashMD5.MD5Hash(password.Trim());
-                    var accountUser = await _context.AccountUsers.Where(x => x.UserName == userName && x.PasswordAccount == password).FirstOrDefaultAsync();
-                    if (accountUser != null)
-                    {
-                        if (accountUser.IdRole == 1 || accountUser.IdRole == 2)
-                        {
-                            ViewBag.Error = "Thông tin tài khoản không chính xác";
-                            return View(loginVM);
-                        }
-
-                        Customer customer = await _context.Customers.Where(p => p.IdAccountUser == accountUser.IdAccountUser).FirstOrDefaultAsync();
-                        Role role = await _context.Roles.SingleOrDefaultAsync(x => x.IdRole == accountUser.IdRole);
-                        
-                        Customer customerSession = new Customer();
-                        customerSession.IdAccountUser = customer.IdAccountUser;
-                        customerSession.NameCustomer = customer.NameCustomer;
-                        
-                        //Add session
-                        HttpContext.Session.Set("CustomerSession", customerSession);
-
-                        //Claim identity
-                        var claims = new List<Claim>
-                            {
-                                new Claim(ClaimTypes.Name, customer.NameCustomer),
-                                new Claim(ClaimTypes.Role, role.RoleName)
-                            };
-                        var claimsIdentity = new ClaimsIdentity(claims, "IndentityUser");
-                        var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
-                        await HttpContext.SignInAsync(claimsPrincipal);
-
-                        return RedirectToAction("Index", "Home", new { area = "" });
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Thông tin tài khoản không chính xác";
-                    }
+                    ViewBag.Error = "Thông tin tài khoản không chính xác";
                 }
             }
 
@@ -106,8 +84,6 @@ namespace Phone_Ecommerce_Manage.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterViewModel registerVM)
         {
-            
-
             if (ModelState.IsValid)
             {
                 string userName = registerVM.Username;
@@ -117,69 +93,46 @@ namespace Phone_Ecommerce_Manage.Controllers
                 string address = registerVM.Address;
                 string nameCustomer = registerVM.NameCustomer;
 
-                var account = await _context.AccountUsers.SingleOrDefaultAsync(x => x.UserName == userName);
-                var customer = await _context.Customers.SingleOrDefaultAsync(x => x.Email == email);
+                var customer = await _context.Customers.SingleOrDefaultAsync(x => x.Email == email || x.UserName == userName);
 
-                if (account != null || customer != null)
+                if (customer != null)
                 {
                     ViewBag.Error = "Tài khoản đã tồn tại";
-
                 }
                 else
                 {
-                    password = HashMD5.MD5Hash(password);
+                    if(password != null)
+                    {
+                        password = HashMD5.MD5Hash(password);
+                    }
 
-                    AccountUser accountUser = new AccountUser();
                     Customer newCustomer = new Customer();
 
-                    accountUser.UserName = userName;
-                    accountUser.PasswordAccount = password;
-                    accountUser.IsActive = true;
-                    accountUser.CreateDate = DateTime.Now;
-                    accountUser.IdRole = 3;
-
-                    _context.Add(accountUser);
-                    await _context.SaveChangesAsync();
-
-                    newCustomer.IdAccountUser = accountUser.IdAccountUser;
                     newCustomer.NameCustomer = nameCustomer;
                     newCustomer.Address = address;
                     newCustomer.Phone = phone;
                     newCustomer.Email = email;
+                    newCustomer.UserName = userName;
+                    newCustomer.Password = password;
+                    newCustomer.CreateDate = DateTime.Now;
+                    newCustomer.LastLogin = DateTime.Now;
 
                     _context.Add(newCustomer);
                     await _context.SaveChangesAsync();
 
                     //Add session
-                    Role role = await _context.Roles.SingleOrDefaultAsync(x => x.IdRole == accountUser.IdRole);
                     Customer customerSession = new Customer();
-                    customerSession.IdAccountUser = newCustomer.IdAccountUser;
+                    customerSession.IdCustomer = newCustomer.IdCustomer;
                     customerSession.NameCustomer = newCustomer.NameCustomer;
                     HttpContext.Session.Set("CustomerSession", customerSession);
-
-                    //Claim identity
-                    var claims = new List<Claim>
-                            {
-                                new Claim(ClaimTypes.Name, customerSession.NameCustomer),
-                                new Claim(ClaimTypes.Role, role.RoleName)
-                            };
-                    var claimsIdentity = new ClaimsIdentity(claims, "IndentityUser");
-                    var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
-                    await HttpContext.SignInAsync(claimsPrincipal);
-
                     return RedirectToAction("Index", "Home", new { area = "" });
-
                 }
             }
-
-                
-
             return View(registerVM);
         }
 
         public IActionResult SignOut()
         {
-            HttpContext.SignOutAsync();
             HttpContext.Session.Remove("CustomerSession");
             return RedirectToAction("Index", "Home");
         }

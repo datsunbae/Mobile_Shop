@@ -6,43 +6,49 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Phone_Ecommerce_Manage.Models
 {
-    [Table("Customer")]
-    public partial class Customer
+    [Table("Manager")]
+    public partial class Manager
     {
-        public Customer()
+        public Manager()
         {
             CommentProducts = new HashSet<CommentProduct>();
             CommentRatings = new HashSet<CommentRating>();
+            News = new HashSet<News>();
             OrderBills = new HashSet<OrderBill>();
         }
 
         [Key]
-        public int IdCustomer { get; set; }
+        public int IdManager { get; set; }
         [StringLength(100)]
-        public string NameCustomer { get; set; } = null!;
+        public string FullName { get; set; } = null!;
+        [StringLength(100)]
+        [Unicode(false)]
+        public string UserName { get; set; } = null!;
         [StringLength(255)]
-        public string Address { get; set; } = null!;
+        [Unicode(false)]
+        public string PasswordAccount { get; set; } = null!;
         [StringLength(20)]
         [Unicode(false)]
         public string Phone { get; set; } = null!;
         [StringLength(255)]
         public string Email { get; set; } = null!;
-        [StringLength(100)]
-        [Unicode(false)]
-        public string? UserName { get; set; }
-        [StringLength(255)]
-        [Unicode(false)]
-        public string? Password { get; set; }
+        public bool? IsActive { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LastLogin { get; set; }
+        public int? IdRole { get; set; }
 
-        [InverseProperty("IdCustomerNavigation")]
+        [ForeignKey("IdRole")]
+        [InverseProperty("Managers")]
+        public virtual Role? IdRoleNavigation { get; set; }
+        [InverseProperty("IdManagerNavigation")]
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
-        [InverseProperty("IdCustomerNavigation")]
+        [InverseProperty("IdManagerNavigation")]
         public virtual ICollection<CommentRating> CommentRatings { get; set; }
-        [InverseProperty("IdCustomerNavigation")]
+        [InverseProperty("IdManagerNavigation")]
+        public virtual ICollection<News> News { get; set; }
+        [InverseProperty("IdManagerNavigation")]
         public virtual ICollection<OrderBill> OrderBills { get; set; }
     }
 }

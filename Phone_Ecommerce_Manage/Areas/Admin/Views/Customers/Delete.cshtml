@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Delete Customer";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    AccountUser account = ViewBag.InfoAccount;
 }
 
 <div class="main-container">
@@ -46,8 +45,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@account.UserName"  class="control-label">Tài khoản</label>
-                                        <input asp-for="@account.UserName" class="form-control" disabled/>
+                                        <label asp-for="@Model.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.UserName" class="form-control" disabled/>
                                     </div>
                                 </div>
                             </div>

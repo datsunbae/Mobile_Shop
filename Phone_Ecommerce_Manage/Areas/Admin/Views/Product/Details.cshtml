@@ -38,14 +38,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox mb-5">
-                                           <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot" >
-											<label class="custom-control-label" asp-for="@Model.IsHot">Sản phẩm hot</label>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-5">
@@ -69,12 +62,16 @@
                                         <input asp-for="@item.NameProductVersion" class="form-control" disabled/>
                                     </div>
                                 </div>
+                               <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@item.Ram" class="control-label">Tên phiên bản</label>
+                                        <input asp-for="@item.Ram" class="form-control" disabled/>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                         <div class="custom-control custom-checkbox mb-5">
-                                         <input type="checkbox" class="custom-control-input" asp-for="@item.IsPublished" checked="true" >
-										<label class="custom-control-label" asp-for="@item.IsPublished">Công khai</label>
-                                        </div>
+                                        <label asp-for="@item.Rom" class="control-label">Bộ nhớ trong</label>
+                                        <input asp-for="@item.Rom" class="form-control" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -83,10 +80,27 @@
                                         <textarea asp-for="@item.Desciprtion" class="summernote" disabled></textarea>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label asp-for="@item.TechnicalParameters">Thông số kỹ thuật</label>
                                         <textarea asp-for="@item.TechnicalParameters" class="summernote" disabled></textarea>
+                                    </div>
+                                </div>
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@item.IsPublished" >
+										<label class="custom-control-label" asp-for="@item.IsPublished">Công khai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                         <div class="custom-control custom-checkbox mb-5">
+                                         <input type="checkbox" class="custom-control-input" asp-for="@item.IsBestseller" >
+										<label class="custom-control-label" asp-for="@item.IsBestseller">Bestseller</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

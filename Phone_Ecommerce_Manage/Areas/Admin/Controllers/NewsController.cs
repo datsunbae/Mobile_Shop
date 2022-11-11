@@ -36,7 +36,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
             }
 
             var news = await _context.News
-                .Include(n => n.IdAccountUserNavigation)
+                .Include(n => n.IdManagerNavigation)
                 .Include(n => n.IdCategoryNewsNavigation)
                 .FirstOrDefaultAsync(m => m.IdNews == id);
             if (news == null)
@@ -51,7 +51,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
         public IActionResult Create()
         {
             ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory");
-            ViewData["IdAccountUser"] = new SelectList(_context.AccountUsers, "IdAccountUser", "IdAccountUser");
+            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager");
             ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews");
             return View();
         }
@@ -70,12 +70,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                     news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
                 }
                 news.CreateDate = DateTime.Now;
-                news.IdAccountUser = 8;
+                news.IdManager = 8;
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAccountUser"] = new SelectList(_context.AccountUsers, "IdAccountUser", "IdAccountUser", news.IdAccountUser);
+            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager", news.IdManager);
             ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews", news.IdCategoryNews);
             return View(news);
         }
@@ -94,7 +94,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 return NotFound();
             }
             ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory");
-            ViewData["IdAccountUser"] = new SelectList(_context.AccountUsers, "IdAccountUser", "IdAccountUser", news.IdAccountUser);
+            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager", news.IdManager);
             ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews", news.IdCategoryNews);
             return View(news);
         }
@@ -136,7 +136,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory");
-            ViewData["IdAccountUser"] = new SelectList(_context.AccountUsers, "IdAccountUser", "IdAccountUser", news.IdAccountUser);
+            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager", news.IdManager);
             ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews", news.IdCategoryNews);
             return View(news);
         }
@@ -150,7 +150,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
             }
 
             var news = await _context.News
-                .Include(n => n.IdAccountUserNavigation)
+                .Include(n => n.IdManagerNavigation)
                 .Include(n => n.IdCategoryNewsNavigation)
                 .FirstOrDefaultAsync(m => m.IdNews == id);
             if (news == null)
@@ -182,7 +182,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
 
         private bool NewsExists(int id)
         {
-          return _context.News.Any(e => e.IdNews == id);
+            return _context.News.Any(e => e.IdNews == id);
         }
     }
 }

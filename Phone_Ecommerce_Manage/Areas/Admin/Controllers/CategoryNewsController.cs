@@ -25,7 +25,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/CategoryNews
         public async Task<IActionResult> Index()
         {
-              return View(await _context.CategoryNews.ToListAsync());
+            return View(await _context.CategoryNews.ToListAsync());
         }
 
         // GET: Admin/CategoryNews/Details/5
@@ -151,14 +151,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.CategoryNews.Remove(categoryNews);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryNewsExists(int id)
         {
-          return _context.CategoryNews.Any(e => e.IdCategoryNews == id);
+            return _context.CategoryNews.Any(e => e.IdCategoryNews == id);
         }
     }
 }

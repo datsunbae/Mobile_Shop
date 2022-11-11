@@ -4,6 +4,8 @@
 	ViewData["Title"] = "Index";
 	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 	List<BrandMobile> listBranchMobiles = ViewBag.ListBranchMobiles;
+	List<O> listOS = ViewBag.ListOS;
+
 }
 
 <div class="main-container">
@@ -24,7 +26,7 @@
 						<thead>
 							<tr>
 								<th>Tên sản phẩm</th>
-								<th>Hot</th>
+								<th>Hệ điều hành</th>
 								<th>Công khai</th>
 								<th>Thương hiệu</th>
 
@@ -32,16 +34,13 @@
 							</tr>
 						</thead>
 						<tbody>
+							
 							@foreach (var item in Model) {
                                 <tr>
-                                    <td>@item.NameProduct</td>
-                                    @if (item.IsHot)
-									{
-										<td>Có</td>
-									}
-									else
-									{
-										<td>Không</td>
+									<td>@item.NameProduct</td>
+									@{
+										var os = listOS.Where(x => x.IdOs == item.IdOs).FirstOrDefault();
+										<td>@os.NameOs</td>
 									}
 									@if (item.IsPublished)
 									{

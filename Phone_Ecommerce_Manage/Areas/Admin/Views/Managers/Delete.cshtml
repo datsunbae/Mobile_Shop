@@ -1,9 +1,9 @@
-﻿@model Phone_Ecommerce_Manage.Models.Employee
+﻿@model Phone_Ecommerce_Manage.Models.Manager
 
 @{
-    ViewData["Title"] = "Delete Employee";
+    ViewData["Title"] = "Delete Manager";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    AccountUser account = ViewBag.InfoAccount;
+    
 }
 
 <div class="main-container">
@@ -11,15 +11,15 @@
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-danger h4">Bạn có muốn xóa nhân viên: @Model.NameEmployee không?</h4>
+                    <h4 class="text-danger h4">Bạn có muốn xóa nhân viên: @Model.FullName không?</h4>
                 </div>
                 <div class="wizard-content">
                     <section class="mb-5">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.NameEmployee"  class="control-label">Tên nhân viên</label>
-                                        <input asp-for="@Model.NameEmployee" class="form-control" disabled/>
+                                        <label asp-for="@Model.FullName"  class="control-label">Tên nhân viên</label>
+                                        <input asp-for="@Model.FullName" class="form-control" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -38,23 +38,23 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.Address"  class="control-label">Địa chỉ</label>
-                                        <input asp-for="@Model.Address" class="form-control" disabled/>
+                                        <label class="control-label">Quyền</label>
+                                        <select asp-for="@Model.IdRole" class="form-control" asp-items="ViewBag.Roles" disabled></select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@account.UserName"  class="control-label">Tài khoản</label>
-                                        <input asp-for="@account.UserName" class="form-control" disabled/>
+                                        <label asp-for="@Model.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.UserName" class="form-control" disabled/>
                                     </div>
                                 </div>
                             </div>
             
                         </section>
                          <form asp-action="Delete">
-                            <input type="hidden" asp-for="@Model.IdEmployee" />
+                            <input type="hidden" asp-for="@Model.IdManager" />
                             <input type="submit" value="Delete" class="btn btn-danger" /> 
                             <button class="btn btn-primary" asp-action="Index">Back to List</button>
                          </form>

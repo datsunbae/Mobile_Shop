@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.ModelViews.Customer_Employee_Account_Models
+﻿@model Phone_Ecommerce_Manage.Models.Customer
 
 @{
     ViewData["Title"] = "Create";
@@ -21,48 +21,48 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.customer.NameCustomer"  class="control-label">Tên khách hàng</label>
-                                        <input asp-for="@Model.customer.NameCustomer" class="form-control" />
-                                        <span asp-validation-for="@Model.customer.NameCustomer" class="text-danger"></span>
+                                        <label asp-for="@Model.NameCustomer"  class="control-label">Tên khách hàng</label>
+                                        <input asp-for="@Model.NameCustomer" class="form-control" />
+                                        <span asp-validation-for="@Model.NameCustomer" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.customer.Phone"  class="control-label">Số điện thoại</label>
-                                        <input asp-for="@Model.customer.Phone" class="form-control" />
-                                        <span asp-validation-for="@Model.customer.Phone" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.customer.Email"  class="control-label">Email</label>
-                                        <input asp-for="@Model.customer.Email" class="form-control" />
-                                        <span asp-validation-for="@Model.customer.Email" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.customer.Address"  class="control-label">Địa chỉ</label>
-                                        <input asp-for="@Model.customer.Address" class="form-control" />
-                                        <span asp-validation-for="@Model.customer.Address" class="text-danger"></span>
+                                        <label asp-for="@Model.Phone"  class="control-label">Số điện thoại</label>
+                                        <input asp-for="@Model.Phone" class="form-control" />
+                                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.accountUser.UserName"  class="control-label">Tài khoản</label>
-                                        <input asp-for="@Model.accountUser.UserName" class="form-control" />
-                                        <span asp-validation-for="@Model.accountUser.UserName" class="text-danger"></span>
+                                        <label asp-for="@Model.Email"  class="control-label">Email</label>
+                                        <input asp-for="@Model.Email" class="form-control" />
+                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.accountUser.PasswordAccount" class="control-label">Mật khẩu</label>
-                                        <input asp-for="@Model.accountUser.PasswordAccount" class="form-control" type="password"/>
-                                        <span asp-validation-for="@Model.accountUser.PasswordAccount" class="text-danger"></span>
+                                        <label asp-for="@Model.Address"  class="control-label">Địa chỉ</label>
+                                        <input asp-for="@Model.Address" class="form-control" />
+                                        <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.UserName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Password" class="control-label">Mật khẩu</label>
+                                        <input asp-for="@Model.Password" class="form-control" type="password"/>
+                                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +76,3 @@
 </div>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

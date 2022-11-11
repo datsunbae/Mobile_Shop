@@ -1,8 +1,9 @@
-﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Employee>
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Manager>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	List<Role> roles =  ViewBag.Roles;
 }
 
 <div class="main-container">
@@ -11,7 +12,7 @@
 			<div class="card-box mb-30">
 				<div class="pd-20">
 					<h4 class="text-blue h4">Danh sách nhân viên</h4>
-					<a asp-area="Admin" asp-controller="Employees" asp-action="Create" type="button" class="btn btn-primary">
+					<a asp-area="Admin" asp-controller="Managers" asp-action="Create" type="button" class="btn btn-primary">
 						Thêm nhân viên
 					</a>
 				</div>
@@ -22,8 +23,8 @@
 								<th>Tên nhân viên</th>
 								<th>Số điện thoại</th>
 								<th>Email</th>
-								<th>Địa chỉ</th>
 								<th>Tài khoản</th>
+								<th>Quyền</th>
 								<th>Trạng thái</th>
 
 								<th class="table-plus datatable-nosort"></th>
@@ -32,12 +33,15 @@
 						<tbody>
 							@foreach (var item in Model) {
                                 <tr>
-                                    <td>@item.NameEmployee</td>
+                                    <td>@item.FullName</td>
                                     <td>@item.Phone</td>
                                     <td>@item.Email</td>
-                                    <td>@item.Address</td>
-									<td>@item.IdAccountUserNavigation.UserName</td>
-									@if (item.IdAccountUserNavigation.IsActive == true)
+									<td>@item.UserName</td>
+									@{
+										var role = roles.Where(x => x.IdRole == item.IdRole).FirstOrDefault();
+										<td>@role.RoleName</td>
+									}
+									@if (item.IsActive == true)
 									{
 										<td>Đang hoạt động</td>
 									}
@@ -46,9 +50,9 @@
 									}
 
 									<td>
-										<a asp-action="Details" asp-route-id="@item.IdEmployee" class=" btn btn-success">Xem</a> 
-                                        <a asp-action="Edit" asp-route-id="@item.IdEmployee" class="btn btn-primary">Sửa</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdEmployee" class="btn btn-danger">Xóa</a>
+										<a asp-action="Details" asp-route-id="@item.IdManager" class=" btn btn-success">Xem</a> 
+                                        <a asp-action="Edit" asp-route-id="@item.IdManager" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdManager" class="btn btn-danger">Xóa</a>
                                     </td>
                                 </tr>
 							}

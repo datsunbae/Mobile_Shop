@@ -19,7 +19,8 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(255)]
         [Unicode(false)]
         public string? ImgProductColor { get; set; }
-        public double? Price { get; set; }
+        public double Price { get; set; }
+        public int? PercentPromotion { get; set; }
         public double? PromotionPrice { get; set; }
         public double? OrderPrice { get; set; }
         public int? Quantity { get; set; }

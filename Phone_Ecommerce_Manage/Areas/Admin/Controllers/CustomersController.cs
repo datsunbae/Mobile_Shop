@@ -27,8 +27,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/Customers
         public async Task<IActionResult> Index()
         {
-            var mobileShop_DBContext = _context.Customers.Include(c => c.IdAccountUserNavigation);
-            return View(await mobileShop_DBContext.ToListAsync());
+            var customers = await _context.Customers.ToListAsync();
+            return View(customers);
         }
 
         // GET: Admin/Customers/Details/5
@@ -40,7 +40,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             var customer = await _context.Customers
-                .Include(c => c.IdAccountUserNavigation)
                 .FirstOrDefaultAsync(m => m.IdCustomer == id);
             if (customer == null)
             {
@@ -59,33 +58,38 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // POST: Admin/Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Customer_Employee_Account_Models data)
+        public async Task<IActionResult> Create(Customer customer)
         {
-
-            if(data.customer == null && data.accountUser == null)
+            if (customer == null)
             {
-                return View(data);
+                return View(customer);
             }
 
-            AccountUser account = new AccountUser();
-            account = data.accountUser;
-            account.CreateDate = DateTime.Now;
-            account.IdRole = 3;
-            account.PasswordAccount = HashMD5.MD5Hash(account.PasswordAccount.ToString());
-            //Add account
+            var checkCustomer = _context.Customers.Where(x => x.UserName == customer.UserName || x.Email == customer.Email).FirstOrDefault();
 
-            _context.Add(account);
-            await _context.SaveChangesAsync();
+            if(checkCustomer != null)
+            {
+                ViewBag.Error = "Tài khoản đã tồn tại";
+                return View(customer);
+            }
 
-            //Add customer
-            data.customer.IdAccountUser = account.IdAccountUser;
-            _context.Add(data.customer);
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                customer.CreateDate = DateTime.Now;
+                if(customer.Password != null)
+                {
+                    customer.Password = HashMD5.MD5Hash(customer.Password.ToString());
+                }
 
-            return RedirectToAction(nameof(Index));
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(customer);
         }
 
-        // GET: Admin/Customers/Edit/5
+        // GET: Admin/Customers/Edit/   5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Customers == null)
@@ -94,25 +98,21 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             var customer = await _context.Customers.FindAsync(id);
-            
+
             if (customer == null)
             {
                 return NotFound();
             }
 
-            Customer_Employee_Account_Models customer_Employee_Account_Models = new Customer_Employee_Account_Models();
-            customer_Employee_Account_Models.customer = customer;
-            customer_Employee_Account_Models.accountUser = await _context.AccountUsers.FindAsync(customer.IdAccountUser);
-
-            return View(customer_Employee_Account_Models);
+            return View(customer);
         }
 
         // POST: Admin/Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customer_Employee_Account_Models data)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
-            if (id != data.customer.IdCustomer)
+            if (id != customer.IdCustomer)
             {
                 return NotFound();
             }
@@ -120,26 +120,23 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //Update Account
-                if (data.accountUser.PasswordAccount == null)
+                if (customer.Password == null)
                 {
-                    var account = await _context.AccountUsers.AsNoTracking().Where(x => x.IdAccountUser == data.accountUser.IdAccountUser).FirstOrDefaultAsync();
-                    data.accountUser.PasswordAccount = account.PasswordAccount;
+                    var customerCurrent = await _context.Customers.AsNoTracking().Where(x => x.IdCustomer == customer.IdCustomer).FirstOrDefaultAsync();
+                    customer.Password = customerCurrent.Password;
                 }
                 else
                 {
-                    data.accountUser.PasswordAccount = HashMD5.MD5Hash(data.accountUser.PasswordAccount.ToString());
+                    customer.Password = HashMD5.MD5Hash(customer.Password.ToString());
                 }
 
-                _context.Update(data.accountUser);
+                _context.Update(customer);
                 await _context.SaveChangesAsync();
 
-                //Update Customer
-                _context.Update(data.customer);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(data);
+            return View(customer);
         }
 
         // GET: Admin/Customers/Delete/5
@@ -155,8 +152,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            ViewBag.InfoAccount = await _context.AccountUsers.AsNoTracking().Where(x => x.IdAccountUser == customer.IdAccountUser).FirstOrDefaultAsync();
 
             return View(customer);
         }
@@ -174,8 +169,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             if (customer != null)
             {
                 _context.Customers.Remove(customer);
-                var account = await _context.AccountUsers.AsNoTracking().Where(x => x.IdAccountUser == customer.IdAccountUser).FirstOrDefaultAsync();
-                _context.AccountUsers.Remove(account);
             }
 
             await _context.SaveChangesAsync();
@@ -184,7 +177,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
         private bool CustomerExists(int id)
         {
-          return _context.Customers.Any(e => e.IdCustomer == id);
+            return _context.Customers.Any(e => e.IdCustomer == id);
         }
     }
 }

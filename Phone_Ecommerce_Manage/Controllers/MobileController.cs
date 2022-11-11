@@ -15,8 +15,8 @@ namespace Phone_Ecommerce_Manage.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var query = 
-               from productVerion in  _context.ProductVersions
+            var query =
+               from productVerion in _context.ProductVersions
                join productColor in _context.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
                select new { ProductVersion = productVerion, ProductColor = productColor };
             ViewBag.ListMobile = query;
@@ -31,24 +31,30 @@ namespace Phone_Ecommerce_Manage.Controllers
                 return NotFound();
             }
 
-            var productVersion =  _context.ProductVersions.Where(x => x.IdProductVersion == id).FirstOrDefault();
+            var productVersion = _context.ProductVersions.Where(x => x.IdProductVersion == id).FirstOrDefault();
+            ProductColor productColor = _context.ProductColors.Where(x => x.IdProductVersion == productVersion.IdProductVersion && x.IdProductColor == color).FirstOrDefault();
 
-            if (productVersion == null)
+            if (productVersion == null || productColor == null)
             {
+
                 return NotFound();
             }
 
-            ProductColor productColor = _context.ProductColors.Where(x => x.IdProductColor == color).FirstOrDefault();
-            ViewBag.AllProductColor = _context.ProductColors.ToList();
+            List<ProductVersion> productVersions = _context.ProductVersions.ToList();
+            ViewBag.AllProductVersion = productVersions;
+            List<ProductColor> productColors = _context.ProductColors.ToList();
+            ViewBag.AllProductColor = productColors;
             ViewBag.ProductColor = productColor;
-            ViewBag.ListProductVersion = _context.ProductVersions.Where(x => x.IdProduct == productVersion.IdProduct).ToList();
-            ViewBag.ListProductColor = _context.ProductColors.Where(x => x.IdProductVersion == productVersion.IdProductVersion).ToList();
+            ViewBag.ListProductVersion = productVersions.Where(x => x.IdProduct == productVersion.IdProduct).ToList();
+            ViewBag.ListProductColor = productColors.Where(x => x.IdProductVersion == productVersion.IdProductVersion).ToList();
             ViewBag.ListColorProduct = _context.ColorProducts.ToList();
+
             var listImgProduct = productColor.ImgProductColor.Split(", ");
             ViewBag.ListImg = listImgProduct;
+
             PromotionProduct productPromotion = _context.PromotionProducts.Where(x => x.IdProductVersion == productVersion.IdProductVersion).FirstOrDefault();
             ViewBag.ListPromotion = null;
-            if(productPromotion != null)
+            if (productPromotion != null)
             {
                 ViewBag.ListPromotion = _context.PromotionProductDetails.Where(x => x.IdPromotionProduct == productPromotion.IdPromotionProduct).ToList();
             }

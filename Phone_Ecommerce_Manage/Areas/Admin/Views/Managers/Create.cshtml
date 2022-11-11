@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.ModelViews.Customer_Employee_Account_Models
+﻿@model Phone_Ecommerce_Manage.Models.Manager
 
 @{
     ViewData["Title"] = "Create Employee";
@@ -21,48 +21,47 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.employee.NameEmployee"  class="control-label">Tên nhân viên</label>
-                                        <input asp-for="@Model.employee.NameEmployee" class="form-control" />
-                                        <span asp-validation-for="@Model.employee.NameEmployee" class="text-danger"></span>
+                                        <label asp-for="@Model.FullName"  class="control-label">Tên nhân viên</label>
+                                        <input asp-for="@Model.FullName" class="form-control" />
+                                        <span asp-validation-for="@Model.FullName" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.employee.Phone"  class="control-label">Số điện thoại</label>
-                                        <input asp-for="@Model.employee.Phone" class="form-control" />
-                                        <span asp-validation-for="@Model.employee.Phone" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.employee.Email"  class="control-label">Email</label>
-                                        <input asp-for="@Model.employee.Email" class="form-control" />
-                                        <span asp-validation-for="@Model.employee.Email" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.employee.Address"  class="control-label">Địa chỉ</label>
-                                        <input asp-for="@Model.employee.Address" class="form-control" />
-                                        <span asp-validation-for="@Model.employee.Address" class="text-danger"></span>
+                                        <label asp-for="@Model.Phone"  class="control-label">Số điện thoại</label>
+                                        <input asp-for="@Model.Phone" class="form-control" />
+                                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.accountUser.UserName"  class="control-label">Tài khoản</label>
-                                        <input asp-for="@Model.accountUser.UserName" class="form-control" />
-                                        <span asp-validation-for="@Model.accountUser.UserName" class="text-danger"></span>
+                                        <label asp-for="@Model.Email"  class="control-label">Email</label>
+                                        <input asp-for="@Model.Email" class="form-control" />
+                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.accountUser.PasswordAccount" class="control-label">Mật khẩu</label>
-                                        <input asp-for="@Model.accountUser.PasswordAccount" class="form-control" type="password"/>
-                                        <span asp-validation-for="@Model.accountUser.PasswordAccount" class="text-danger"></span>
+                                        <label class="control-label">Quyền</label>
+                                        <select asp-for="@Model.IdRole" class="form-control" asp-items="ViewBag.Roles"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.UserName"  class="control-label">Tài khoản</label>
+                                        <input asp-for="@Model.UserName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PasswordAccount" class="control-label">Mật khẩu</label>
+                                        <input asp-for="@Model.PasswordAccount" class="form-control" type="password"/>
+                                        <span asp-validation-for="@Model.PasswordAccount" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>

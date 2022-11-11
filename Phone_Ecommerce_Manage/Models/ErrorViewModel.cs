@@ -1,4 +1,4 @@
-namespace Phone_Ecommerce_Manage.Models
+﻿namespace Phone_Ecommerce_Manage.Models
 {
     public class ErrorViewModel
     {

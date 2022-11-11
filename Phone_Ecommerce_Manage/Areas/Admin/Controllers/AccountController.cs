@@ -31,7 +31,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             string userName = loginVM.UserName;
             string password = loginVM.Password;
-           
 
             if (ModelState.IsValid)
             {
@@ -42,28 +41,22 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 else
                 {
                     password = HashMD5.MD5Hash(password.Trim());
-                    var accountUser = await _context.AccountUsers.Where(x => x.UserName == userName && x.PasswordAccount == password).FirstOrDefaultAsync();
+                    var accountUser = await _context.Managers.Where(x => x.UserName == userName && x.PasswordAccount == password).FirstOrDefaultAsync();
                     if (accountUser != null)
                     {
-                        if (accountUser.IdRole != 1 && accountUser.IdRole != 2)
-                        {
-                            ViewBag.Error = "Warning! Bạn không có quyền truy cập hệ thống.";
-                            return View(loginVM);
-                        }
-
-                        Employee employee = await _context.Employees.Where(p => p.IdAccountUser == accountUser.IdAccountUser).FirstOrDefaultAsync();
+                        Manager manager = await _context.Managers.Where(p => p.IdManager == accountUser.IdManager).FirstOrDefaultAsync();
                         Role role = await _context.Roles.SingleOrDefaultAsync(x => x.IdRole == accountUser.IdRole);
 
-                        Employee employeeSesstion = new Employee();
-                        employeeSesstion.IdAccountUser = employee.IdAccountUser;
-                        employeeSesstion.NameEmployee = employee.NameEmployee;
+                        Manager managerSesstion = new Manager();
+                        managerSesstion.IdManager = manager.IdManager;
+                        managerSesstion.FullName = manager.FullName;
 
                         //Add session
-                        HttpContext.Session.Set("EmployeeSession", employeeSesstion);
-                        
+                        HttpContext.Session.Set("ManagerSession", managerSesstion);
+
                         var claims = new List<Claim>
                             {
-                                new Claim(ClaimTypes.Name, employee.NameEmployee),
+                                new Claim(ClaimTypes.Name, manager.FullName),
                                 new Claim(ClaimTypes.Role, role.RoleName)
                             };
                         var claimsIdentity = new ClaimsIdentity(claims, "IndentityUser");
@@ -85,7 +78,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
-            HttpContext.Session.Remove("EmployeeSession");
+            HttpContext.Session.Remove("ManagerSession");
             return RedirectToAction("Login", "Account", new { Area = "Admin" });
         }
 

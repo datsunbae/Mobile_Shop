@@ -29,20 +29,22 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox mb-5">
-                                        <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsHot">
-                                        <label class="custom-control-label" asp-for="@Model.product.IsHot">Sản phẩm hot</label>
-                                    </div>
-                                </div>
-                            </div>
+  
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox mb-5">
                                         <input type="checkbox" class="custom-control-input" asp-for="@Model.product.IsPublished" checked="true">
                                         <label class="custom-control-label" asp-for="@Model.product.IsPublished">Công khai</label>
                                     </div>
+                                </div>
+                            </div>
+                             
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Thương hiệu</label>
+                                    <select asp-for="@Model.product.IdOs" class="form-control" asp-items="ViewBag.ListOS" disabled></select>
                                 </div>
                             </div>
                         </div>

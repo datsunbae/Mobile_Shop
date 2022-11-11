@@ -11,7 +11,7 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public Role()
         {
-            AccountUsers = new HashSet<AccountUser>();
+            Managers = new HashSet<Manager>();
         }
 
         [Key]
@@ -20,6 +20,6 @@ namespace Phone_Ecommerce_Manage.Models
         public string RoleName { get; set; } = null!;
 
         [InverseProperty("IdRoleNavigation")]
-        public virtual ICollection<AccountUser> AccountUsers { get; set; }
+        public virtual ICollection<Manager> Managers { get; set; }
     }
 }

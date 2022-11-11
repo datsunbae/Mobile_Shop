@@ -24,7 +24,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // GET: Admin/AdminRoles
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Roles.ToListAsync());
+            return View(await _context.Roles.ToListAsync());
         }
 
         // GET: Admin/AdminRoles/Details/5
@@ -147,14 +147,14 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 _context.Roles.Remove(role);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Roles");
         }
 
         private bool RoleExists(int id)
         {
-          return _context.Roles.Any(e => e.IdRole == id);
+            return _context.Roles.Any(e => e.IdRole == id);
         }
     }
 }

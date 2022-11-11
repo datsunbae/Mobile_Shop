@@ -16,17 +16,16 @@ namespace Phone_Ecommerce_Manage.Models
         public int? ParentComment { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateDate { get; set; }
-        public int? IdUser { get; set; }
-        [StringLength(255)]
-        public string? OptionFullName { get; set; }
-        [StringLength(255)]
-        [Unicode(false)]
-        public string? OptionEmail { get; set; }
-        [StringLength(20)]
-        [Unicode(false)]
-        public string? OptionPhone { get; set; }
+        public int? IdManager { get; set; }
+        public int? IdCustomer { get; set; }
         public int? IdProductVersion { get; set; }
 
+        [ForeignKey("IdCustomer")]
+        [InverseProperty("CommentProducts")]
+        public virtual Customer? IdCustomerNavigation { get; set; }
+        [ForeignKey("IdManager")]
+        [InverseProperty("CommentProducts")]
+        public virtual Manager? IdManagerNavigation { get; set; }
         [ForeignKey("IdProductVersion")]
         [InverseProperty("CommentProducts")]
         public virtual ProductVersion? IdProductVersionNavigation { get; set; }

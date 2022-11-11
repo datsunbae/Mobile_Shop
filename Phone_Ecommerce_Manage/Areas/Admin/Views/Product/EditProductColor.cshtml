@@ -22,7 +22,6 @@
                                 <label class="control-label">Chọn sản phẩm</label>
                                 <select class="custom-select" asp-for="@productVersion.IdProduct" style="min-width: 200px;" asp-items="ViewBag.ListProduct" disabled>
                                     <option selected>Chọn danh mục</option>
-
                                 </select>
                             </div>
                         </div>
@@ -32,10 +31,9 @@
                         <input type="hidden" asp-for="@Model.IdProductColor" />
                         <input type="hidden" asp-for="@Model.IdProductVersion" />
                         <input type="hidden" asp-for="@Model.CreateDate" />
-
+                        <input type="hidden" asp-for="@Model.PromotionPrice" />
 
                         <section class="mb-5">
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -63,7 +61,6 @@
                                             
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
@@ -83,9 +80,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label asp-for="@Model.PromotionPrice" class="control-label">Giá khuyến mãi</label>
-                                        <input asp-for="@Model.PromotionPrice" class="form-control" />
-                                        <span asp-validation-for="@Model.PromotionPrice" class="text-danger"></span>
+                                        <label asp-for="@Model.PercentPromotion" class="control-label">Phần trăm khuyến mãi</label>
+                                        <input asp-for="@Model.PercentPromotion" class="form-control" />
+                                        <span asp-validation-for="@Model.PercentPromotion" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
