@@ -10,5 +10,7 @@ namespace Phone_Ecommerce_Manage.ModelViews
         public bool typePayment { get; set; }
         public string voucher { get; set; }
 
+        public bool isVoucherValid { get; set; }
+
     }
 }

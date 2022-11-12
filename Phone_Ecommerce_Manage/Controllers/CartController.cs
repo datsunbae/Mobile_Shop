@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Phone_Ecommerce_Manage.Models;
 using Phone_Ecommerce_Manage.ModelViews;
 using Phone_Ecommerce_Manage.Utilities;
@@ -57,8 +58,6 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             List<Cart> listCard = getCart();
             Cart product = listCard.SingleOrDefault(x => x.id == id);
-
-
 
             if (product != null)
             {
@@ -193,6 +192,7 @@ namespace Phone_Ecommerce_Manage.Controllers
                 return RedirectToAction("EmptyCart", "Cart");
             }
 
+
             var customer = HttpContext.Session.Get<Customer>("CustomerSession");
            
             OrderBill orderbill = new OrderBill();
@@ -212,11 +212,36 @@ namespace Phone_Ecommerce_Manage.Controllers
             }
 
             orderbill.OrderDate = DateTime.Now;
-            orderbill.Total = Total();
-            /*if (checkout.voucher != null || checkout.voucher != "")
-            {
 
-            }*/
+            Voucher voucher = _context.Vouchers.SingleOrDefault(x => x.CodeVoucher == checkout.voucher);
+
+            if(voucher != null && ((DateTime.Now >= voucher.CreateDate && DateTime.Now <= voucher.EndDate) || voucher.IsNoEndDay == true) 
+                && (voucher.Quantity > 0 || voucher.IsUnLimit == true) && Total() >= voucher.IncreasePrice)
+            {
+                if (voucher.TypeVoucher == true)
+                {
+                    orderbill.DiscountVoucher = voucher.PriceDiscount;
+                    orderbill.Total = Total() - voucher.PriceDiscount;
+                }
+                else
+                {
+                    orderbill.DiscountVoucher = (Total() * voucher.PriceDiscount) / 100;
+                    orderbill.Total = Total() - (Total() * voucher.PriceDiscount) / 100;
+                }
+
+                if (voucher.IsUnLimit == false || voucher.IsUnLimit == null)
+                {
+                    voucher.Quantity--;
+                    _context.Update(voucher);
+                    await _context.SaveChangesAsync();
+                }
+
+            }
+            else
+            {
+                orderbill.Total = Total();
+            }
+
             orderbill.IsPaid = false;
             orderbill.Note = checkout.note;
             orderbill.IdStatusOrder = 1; // wait check order
@@ -237,8 +262,19 @@ namespace Phone_Ecommerce_Manage.Controllers
             _context.Add(orderbill);
             await _context.SaveChangesAsync();
 
-            
-            foreach(var item in listCard)
+            //Add details voucher
+            if(voucher != null)
+            {
+                VoucherDetail voucherDetail = new VoucherDetail();
+                voucherDetail.Idvoucher = voucher.Idvoucher;
+                voucherDetail.IdOrderBill = orderbill.IdOrderBill;
+                _context.Add(voucherDetail);
+                await _context.SaveChangesAsync();
+            }
+
+
+            //Add order bill details
+            foreach (var item in listCard)
             {
                 OrderBillDetail orderBillDetail = new OrderBillDetail();
                 orderBillDetail.IdOrderBill = orderbill.IdOrderBill;
@@ -248,14 +284,51 @@ namespace Phone_Ecommerce_Manage.Controllers
                 _context.Add(orderBillDetail);
                 
             }
-
-
-            //Add order bill details
             await _context.SaveChangesAsync();
-
 
             DeleteAllItem();
             return RedirectToAction("OrderSuccess", "Cart");
+        }
+
+        public async Task<IActionResult> CheckVoucher(string voucher)
+        {
+            if(voucher == null)
+            {
+                return View();
+            }
+
+            var checkVoucher = await _context.Vouchers.Where(x => x.CodeVoucher.Equals(voucher)).FirstOrDefaultAsync();
+            if (checkVoucher != null && ((DateTime.Now >= checkVoucher.CreateDate && DateTime.Now <= checkVoucher.EndDate) || checkVoucher.IsNoEndDay == true)
+                && (checkVoucher.Quantity > 0 || checkVoucher.IsUnLimit == true) && Total() >= checkVoucher.IncreasePrice)
+            {
+                if (checkVoucher.TypeVoucher == true)
+                {
+                    return Json(new
+                    {
+                        status = "Success",
+                        discount = String.Format("{0:0,0}", checkVoucher.PriceDiscount),
+                        total = String.Format("{0:0,0}", Total() - checkVoucher.PriceDiscount),
+                    });
+                }
+
+                return Json(new
+                {
+                    status = "Success",
+                    discount = String.Format("{0:0,0}", (Total() * checkVoucher.PercentDiscount) / 100),
+                    total = String.Format("{0:0,0}", Total() - (Total() * checkVoucher.PercentDiscount) / 100),
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = "Failed",
+                    message = "Mã giảm giá không hợp lệ"
+                });
+
+                
+
+            }
         }
 
         public IActionResult OrderSuccess()

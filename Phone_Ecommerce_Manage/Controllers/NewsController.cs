@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Phone_Ecommerce_Manage.Models;
-using Phone_Ecommerce_Manage.ModelViews;
 
 namespace Phone_Ecommerce_Manage.Controllers
 {
@@ -16,15 +15,8 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            HomeProductViewModel model = new HomeProductViewModel();
-            var news = _context.News
-                    .AsNoTracking()
-                    .Where(x => x.IsHot == true)
-                    .OrderByDescending(x => x.CreateDate)
-                    .Take(1)
-                    .ToList();
-            model.listNews = news;
-            return View(model);
+            List<News> news = await _context.News.ToListAsync();
+            return View(news);
         }
         public async Task<IActionResult> Details(int? id)
         {
@@ -33,10 +25,7 @@ namespace Phone_Ecommerce_Manage.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .Include(n => n.IdAccountUserNavigation)
-                .Include(n => n.IdCategoryNewsNavigation)
-                .FirstOrDefaultAsync(m => m.IdNews == id);
+            var news =  _context.News.SingleOrDefault(x => x.IdNews == id); 
             if (news == null)
             {
                 return NotFound();

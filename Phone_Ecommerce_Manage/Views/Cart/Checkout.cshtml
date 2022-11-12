@@ -9,6 +9,7 @@
     var customer = Context.Session.Get<Customer>("CustomerSession");
     var ui = customer == null ? "col-lg-6" : "col-lg-12";
     List<Cart> listCards = Context.Session.Get<List<Cart>>("Cart");
+
 }
 
 <div class="u-s-p-y-60">
@@ -215,7 +216,9 @@
                             <div class="u-s-m-b-15">
 
                                     <label class="gl-label" for="billing-street">MÃ GIẢM GIÁ  <a class="gl-link" href="#create-account" data-toggle="collapse">(Lấy mã giảm giá)</a></label> 
-                                    <input style="height: 60px; font-size: 14px" class="input-text input-text--primary-style" type="text" id="billing-street" placeholder="NHẬP MÃ GIẢM GIÁ NẾU CÓ..." asp-for="@Model.voucher">
+                                    <input style="height: 60px; font-size: 14px" class="input-text input-text--primary-style code-voucher" type="text" id="billing-street" placeholder="NHẬP MÃ GIẢM GIÁ NẾU CÓ..." asp-for="@Model.voucher">
+                                    <span class="faild-voucher" style="display: block; padding: 8px 0; color: #ff4500;"></span>
+                                    <button type="button" class="btn btn--e-brand-b-2 btn-check-voucher">XÁC NHẬN VOUCHER</button>
                                 </div>
 
                             <div class="o-summary__section u-s-m-b-30">
@@ -224,15 +227,19 @@
                                         <tbody>
                                              <tr>
                                                 <td>TẠM TÍNH</td>
-                                                <td>@String.Format("{0:0,0}", ViewBag.Total)₫</td>
+                                                @if(ViewBag.Total != null){
+                                                     <td>@String.Format("{0:0,0}", ViewBag.Total)₫</td>
+                                                }
                                             </tr>
                                             <tr>
                                                 <td>GIẢM GIÁ</td>
-                                                <td>0₫</td>
+                                                <td class="discount-price">0₫</td>
                                             </tr>
                                             <tr>
                                                 <td>TỔNG TIỀN PHẢI TRẢ</td>
-                                                <td>@String.Format("{0:0,0}", ViewBag.Total)₫</td>
+                                                 @if(ViewBag.Total != null){
+                                                    <td class="total-payments">@String.Format("{0:0,0}", ViewBag.Total)₫</td>
+                                                }
                                             </tr>
                                         </tbody>
                                     </table>
@@ -252,3 +259,37 @@
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");   }
 }
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $(".btn-check-voucher").click(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: "/Cart/CheckVoucher",
+                    type: "GET",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        voucher: $(".code-voucher").val()
+                    },
+                     success: function(data){    
+                       if(data.status == "Success"){
+                             $(".discount-price").text(data.discount);
+                            $(".total-payments").text(data.total);
+                            $(".faild-voucher").text("");
+                       }
+                       if(data.status == "Failed"){
+    
+                           $(".faild-voucher").text(data.message);
+                       }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+            })
+        })
+    </script>
+}
+

@@ -38,6 +38,7 @@ namespace Phone_Ecommerce_Manage.Models
         public virtual DbSet<StatusOrder> StatusOrders { get; set; } = null!;
         public virtual DbSet<StatusProduct> StatusProducts { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
+        public virtual DbSet<VoucherDetail> VoucherDetails { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,7 +54,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<BrandMobile>(entity =>
             {
                 entity.HasKey(e => e.IdBrandMobile)
-                    .HasName("PK__BrandMob__3D412B03BB83D8F5");
+                    .HasName("PK__BrandMob__3D412B0320BC2BBB");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
             });
@@ -61,19 +62,19 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CategoryNews>(entity =>
             {
                 entity.HasKey(e => e.IdCategoryNews)
-                    .HasName("PK__Category__002B75A5B66A69A9");
+                    .HasName("PK__Category__002B75A5B2867A7C");
             });
 
             modelBuilder.Entity<ColorProduct>(entity =>
             {
                 entity.HasKey(e => e.IdColor)
-                    .HasName("PK__ColorPro__E83D55CB7A7EA10F");
+                    .HasName("PK__ColorPro__E83D55CB00AAFDF1");
             });
 
             modelBuilder.Entity<CommentProduct>(entity =>
             {
                 entity.HasKey(e => e.IdCommentProduct)
-                    .HasName("PK__CommentP__542057BCED34C416");
+                    .HasName("PK__CommentP__542057BCC73B29E7");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -99,7 +100,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<CommentRating>(entity =>
             {
                 entity.HasKey(e => e.IdCommentRating)
-                    .HasName("PK__CommentR__F4D21E3099078FCE");
+                    .HasName("PK__CommentR__F4D21E3030D12D3D");
 
                 entity.Property(e => e.ParentComment).HasDefaultValueSql("((0))");
 
@@ -125,13 +126,13 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.IdCustomer)
-                    .HasName("PK__Customer__DB43864AA14AAFE3");
+                    .HasName("PK__Customer__DB43864AD60F6DFD");
             });
 
             modelBuilder.Entity<Manager>(entity =>
             {
                 entity.HasKey(e => e.IdManager)
-                    .HasName("PK__Manager__ABC3516E5919E9BB");
+                    .HasName("PK__Manager__ABC3516E84FC4F61");
 
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.Managers)
@@ -142,7 +143,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<News>(entity =>
             {
                 entity.HasKey(e => e.IdNews)
-                    .HasName("PK__News__4559C72D0DAFA3E3");
+                    .HasName("PK__News__4559C72DC8B41A95");
 
                 entity.HasOne(d => d.IdCategoryNewsNavigation)
                     .WithMany(p => p.News)
@@ -160,13 +161,13 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<O>(entity =>
             {
                 entity.HasKey(e => e.IdOs)
-                    .HasName("PK__OS__B770330FEB0B0408");
+                    .HasName("PK__OS__B770330F1B99CDA7");
             });
 
             modelBuilder.Entity<OrderBill>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBill)
-                    .HasName("PK__OrderBil__251DF3936C2C194C");
+                    .HasName("PK__OrderBil__251DF3936539AE2E");
 
                 entity.HasOne(d => d.IdCustomerNavigation)
                     .WithMany(p => p.OrderBills)
@@ -196,7 +197,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<OrderBillDetail>(entity =>
             {
                 entity.HasKey(e => e.IdOrderBillDetails)
-                    .HasName("PK__OrderBil__3748B2425EE7F302");
+                    .HasName("PK__OrderBil__3748B242359FFB2C");
 
                 entity.HasOne(d => d.IdOrderBillNavigation)
                     .WithMany(p => p.OrderBillDetails)
@@ -213,13 +214,13 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<PaymentsType>(entity =>
             {
                 entity.HasKey(e => e.IdPaymentType)
-                    .HasName("PK__Payments__3F36DF716CA39AED");
+                    .HasName("PK__Payments__3F36DF711CA81D6D");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.IdProduct)
-                    .HasName("PK__Product__2E8946D4D5EDDB46");
+                    .HasName("PK__Product__2E8946D4A1CBB64E");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -238,7 +239,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductColor>(entity =>
             {
                 entity.HasKey(e => e.IdProductColor)
-                    .HasName("PK__ProductC__44B498FA8AAB76BF");
+                    .HasName("PK__ProductC__44B498FA59655D82");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((1))");
 
@@ -263,7 +264,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<ProductVersion>(entity =>
             {
                 entity.HasKey(e => e.IdProductVersion)
-                    .HasName("PK__ProductV__AD31AF699DDEA117");
+                    .HasName("PK__ProductV__AD31AF6974D6C5DA");
 
                 entity.Property(e => e.IsBestseller).HasDefaultValueSql("((0))");
 
@@ -278,7 +279,7 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<PromotionProduct>(entity =>
             {
                 entity.HasKey(e => e.IdPromotionProduct)
-                    .HasName("PK__Promotio__2D9BA168306BF9C8");
+                    .HasName("PK__Promotio__2D9BA1681B8F30D9");
 
                 entity.Property(e => e.IsPublished).HasDefaultValueSql("((0))");
 
@@ -309,25 +310,43 @@ namespace Phone_Ecommerce_Manage.Models
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Role__B4369054ED0590D7");
+                    .HasName("PK__Role__B43690549F5CB7D6");
             });
 
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.IdStatusOrder)
-                    .HasName("PK__StatusOr__361588A8E0E9DA90");
+                    .HasName("PK__StatusOr__361588A8D493A63E");
             });
 
             modelBuilder.Entity<StatusProduct>(entity =>
             {
                 entity.HasKey(e => e.IdStatusProduct)
-                    .HasName("PK__StatusPr__D980E094682BCA92");
+                    .HasName("PK__StatusPr__D980E0949BBBEF90");
             });
 
             modelBuilder.Entity<Voucher>(entity =>
             {
                 entity.HasKey(e => e.Idvoucher)
-                    .HasName("PK__Vouchers__50249A27AD333DEF");
+                    .HasName("PK__Vouchers__50249A273ED0231E");
+            });
+
+            modelBuilder.Entity<VoucherDetail>(entity =>
+            {
+                entity.HasKey(e => e.IdvoucherDetails)
+                    .HasName("PK__VoucherD__116412D5CC132D1C");
+
+                entity.HasOne(d => d.IdOrderBillNavigation)
+                    .WithMany(p => p.VoucherDetails)
+                    .HasForeignKey(d => d.IdOrderBill)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_IdOrderBill_VoucherDetails");
+
+                entity.HasOne(d => d.IdvoucherNavigation)
+                    .WithMany(p => p.VoucherDetails)
+                    .HasForeignKey(d => d.Idvoucher)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_IDVoucher_VoucherDetails");
             });
 
             OnModelCreatingPartial(modelBuilder);

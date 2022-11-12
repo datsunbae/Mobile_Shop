@@ -1,5 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.ModelViews.HomeProductViewModel
-@using Phone_Ecommerce_Manage.Models
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.News>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,7 +71,7 @@
 
                             <span class="blog-w__h">BÀI VIẾT GẦN ĐÂY</span>
                             <ul class="blog-w__b-l">
-                                @foreach (var item in Model.listNews)
+                                @foreach (var item in Model)
                                 {
                                     <li>
                                         <div class="b-l__block">
@@ -152,7 +151,7 @@
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12">
                 <div class="bp bp--img u-s-m-b-30">
-                    @foreach (var item in Model.listNews)
+                    @foreach (var item in Model)
                     {
                         <div class="bp__wrap">
                             <div class="bp__thumbnail">

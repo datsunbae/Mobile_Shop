@@ -12,6 +12,7 @@ namespace Phone_Ecommerce_Manage.Models
         public OrderBill()
         {
             OrderBillDetails = new HashSet<OrderBillDetail>();
+            VoucherDetails = new HashSet<VoucherDetail>();
         }
 
         [Key]
@@ -46,5 +47,7 @@ namespace Phone_Ecommerce_Manage.Models
         public virtual StatusOrder? IdStatusOrderNavigation { get; set; }
         [InverseProperty("IdOrderBillNavigation")]
         public virtual ICollection<OrderBillDetail> OrderBillDetails { get; set; }
+        [InverseProperty("IdOrderBillNavigation")]
+        public virtual ICollection<VoucherDetail> VoucherDetails { get; set; }
     }
 }
