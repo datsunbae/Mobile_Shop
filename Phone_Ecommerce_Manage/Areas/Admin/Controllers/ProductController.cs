@@ -170,7 +170,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             if(productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
             {
-                productColor.PromotionPrice = (productColor.Price * productColor.PercentPromotion) / 100;
+                productColor.PromotionPrice = productColor.Price - (productColor.Price * productColor.PercentPromotion) / 100;
             }
 
             productColor.CreateDate = DateTime.Now;

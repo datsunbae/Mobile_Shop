@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Phone_Ecommerce_Manage.Models;
 using Phone_Ecommerce_Manage.ModelViews;
 using Phone_Ecommerce_Manage.Utilities;
@@ -42,13 +43,7 @@ namespace Phone_Ecommerce_Manage.Controllers
                 product.quantity++;
                 HttpContext.Session.Set("Cart", listCard);
             }
-            /*return Json(new
-            {
-                id = id,
-                amoutProducts = listCard.Count,
-                quantity = product.quantity,
-                totalsum = String.Format("{0:0,0}", Total()),
-            });*/
+            
 
             return PartialView("_MiniCartPartialView");
         }
@@ -170,7 +165,100 @@ namespace Phone_Ecommerce_Manage.Controllers
             
             return View();
         }
+        [HttpGet]
         public IActionResult Checkout()
+        {
+            List<Cart> listCard = getCart();
+
+            if (listCard.Count == 0)
+            {
+                return RedirectToAction("EmptyCart", "Cart");
+            }
+
+            ViewBag.Total = Total();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Checkout(Checkout checkout)
+        {
+            if(checkout == null)
+            {
+                return View();
+            }
+
+            List<Cart> listCard = getCart();
+
+            if (listCard.Count == 0)
+            {
+                return RedirectToAction("EmptyCart", "Cart");
+            }
+
+            var customer = HttpContext.Session.Get<Customer>("CustomerSession");
+           
+            OrderBill orderbill = new OrderBill();
+
+            if (customer == null)
+            {
+                Customer newCustomer = new Customer();
+                newCustomer = checkout.customer;
+                _context.Add(newCustomer);
+                await _context.SaveChangesAsync();
+
+                orderbill.IdCustomer = newCustomer.IdCustomer;
+            }
+            else
+            {
+                orderbill.IdCustomer = customer.IdCustomer;
+            }
+
+            orderbill.OrderDate = DateTime.Now;
+            orderbill.Total = Total();
+            /*if (checkout.voucher != null || checkout.voucher != "")
+            {
+
+            }*/
+            orderbill.IsPaid = false;
+            orderbill.Note = checkout.note;
+            orderbill.IdStatusOrder = 1; // wait check order
+            
+            // 0: Receive at shop - 1: Shipping 
+            orderbill.TypeReceive = checkout.typeReceive;
+            //HASH
+            if(checkout.typePayment == true)
+            {
+                orderbill.IdPaymentType = 1;
+            }
+            else
+            {
+                orderbill.IdPaymentType = 2;
+            }
+
+            //Add order bill
+            _context.Add(orderbill);
+            await _context.SaveChangesAsync();
+
+            
+            foreach(var item in listCard)
+            {
+                OrderBillDetail orderBillDetail = new OrderBillDetail();
+                orderBillDetail.IdOrderBill = orderbill.IdOrderBill;
+                orderBillDetail.IdProductColor = item.id;
+                orderBillDetail.QuantityProduct = item.quantity;
+                orderBillDetail.SubTotal = item.total;
+                _context.Add(orderBillDetail);
+                
+            }
+
+
+            //Add order bill details
+            await _context.SaveChangesAsync();
+
+
+            DeleteAllItem();
+            return RedirectToAction("OrderSuccess", "Cart");
+        }
+
+        public IActionResult OrderSuccess()
         {
             return View();
         }

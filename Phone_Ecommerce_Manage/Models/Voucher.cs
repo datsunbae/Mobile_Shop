@@ -14,7 +14,8 @@ namespace Phone_Ecommerce_Manage.Models
         [StringLength(100)]
         public string? NameVoucher { get; set; }
         public double IncreasePrice { get; set; }
-        public int PercentVoucher { get; set; }
+        public int? PercentDiscount { get; set; }
+        public int? PriceDiscount { get; set; }
         public int? Quantity { get; set; }
         public bool IsUnLimit { get; set; }
         [Column(TypeName = "datetime")]
@@ -22,5 +23,6 @@ namespace Phone_Ecommerce_Manage.Models
         [Column(TypeName = "datetime")]
         public DateTime? EndDate { get; set; }
         public bool IsNoEndDay { get; set; }
+        public bool TypeVoucher { get; set; }
     }
 }

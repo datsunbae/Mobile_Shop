@@ -7,6 +7,7 @@ namespace Phone_Ecommerce_Manage.ModelViews
         MobileShop_DBContext context = new MobileShop_DBContext();
         public int id { get; set; }
         public string name { get; set; }
+        public int idProductColor { get; set; }
         public string color { get; set; }
         public string img { get; set; }
         public double price { get; set; }
@@ -25,6 +26,7 @@ namespace Phone_Ecommerce_Manage.ModelViews
             ColorProduct colorProduct = context.ColorProducts.SingleOrDefault(x => x.IdColor == product.IdColor);
             name = productVersion.NameProductVersion;
             color = colorProduct.NameColor;
+            idProductColor = product.IdProductColor;
             img = product.ImgProductColor.Split(", ")[0];
             if (product.PromotionPrice != null)
             {

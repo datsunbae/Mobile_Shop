@@ -11,8 +11,7 @@ namespace Phone_Ecommerce_Manage.Models
         [Key]
         public int IdOrderBillDetails { get; set; }
         public int? QuantityProduct { get; set; }
-        public double? Total { get; set; }
-        public double? Discount { get; set; }
+        public double? SubTotal { get; set; }
         public int? IdOrderBill { get; set; }
         public int? IdProductColor { get; set; }
 

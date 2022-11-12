@@ -21,17 +21,16 @@ namespace Phone_Ecommerce_Manage.Models
         [Column(TypeName = "datetime")]
         public DateTime? ShipDate { get; set; }
         public double? Total { get; set; }
-        public double? TotalDiscount { get; set; }
+        public double? DiscountProduct { get; set; }
+        public double? DiscountVoucher { get; set; }
         public bool? IsPaid { get; set; }
-        public bool? IsVoucher { get; set; }
-        public double? PriceDiscountVoucher { get; set; }
         [StringLength(255)]
         public string? Note { get; set; }
         public int? IdStatusOrder { get; set; }
         public int? IdCustomer { get; set; }
         public int? IdManager { get; set; }
-        public int? IdShipper { get; set; }
-        public bool? Type { get; set; }
+        public bool? TypeReceive { get; set; }
+        public int? IdPaymentType { get; set; }
 
         [ForeignKey("IdCustomer")]
         [InverseProperty("OrderBills")]
@@ -39,9 +38,9 @@ namespace Phone_Ecommerce_Manage.Models
         [ForeignKey("IdManager")]
         [InverseProperty("OrderBills")]
         public virtual Manager? IdManagerNavigation { get; set; }
-        [ForeignKey("IdShipper")]
+        [ForeignKey("IdPaymentType")]
         [InverseProperty("OrderBills")]
-        public virtual Shipper? IdShipperNavigation { get; set; }
+        public virtual PaymentsType? IdPaymentTypeNavigation { get; set; }
         [ForeignKey("IdStatusOrder")]
         [InverseProperty("OrderBills")]
         public virtual StatusOrder? IdStatusOrderNavigation { get; set; }
