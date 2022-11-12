@@ -25,7 +25,7 @@ namespace Phone_Ecommerce_Manage.ModelViews
             ColorProduct colorProduct = context.ColorProducts.SingleOrDefault(x => x.IdColor == product.IdColor);
             name = productVersion.NameProductVersion;
             color = colorProduct.NameColor;
-            img = product.ImgProductColor;
+            img = product.ImgProductColor.Split(", ")[0];
             if (product.PromotionPrice != null)
             {
                 price = double.Parse(product.PromotionPrice.ToString());

@@ -1,10 +1,11 @@
 ﻿@model List<Phone_Ecommerce_Manage.ModelViews.Cart>
+
+
 @{
     ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var location = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}");
     var url = location.AbsoluteUri;
-    double total = ViewBag.Total;
 }
 
 <!--====== Section 1 ======-->
@@ -68,7 +69,7 @@
                                 {
                                     foreach (var item in Model)
                                     {
-                                        <tr>
+                                        <tr data-id="@item.id">
                                     <td>
                                         <div class="table-p__box">
                                             <div class="table-p__img-wrap">
@@ -79,7 +80,7 @@
 
                                                 <span class="table-p__name">
 
-                                                    <a href="product-detail.html">@item.name</a>
+                                                    <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.id">@item.name</a>
                                                 </span>
 
                                                 <span class="table-p__category">
@@ -98,22 +99,23 @@
                                             <!--====== Input Counter ======-->
                                             <div class="input-counter">
 
-                                                <span class="input-counter__minus fas fa-minus"></span>
+                                                <span class="input-counter__minus fas fa-minus decrease-ajax" data-id="@item.id"></span>
 
-                                                <input class="input-counter__text input-counter--text-primary-style" type="number" value="@item.quantity" data-min="1" data-max="1000">
+                                                <input class="input-counter__text input-counter--text-primary-style"  type="number" value="@item.quantity" data-min="1" data-max="1000">
 
-                                                <span class="input-counter__plus fas fa-plus"></span>
+                                                <span class="input-counter__plus fas fa-plus increase-ajax" data-id="@item.id"></span>
                                             </div>
                                             <!--====== End - Input Counter ======-->
                                         </div>
                                     </td>
                                     <td>
 
-                                        <span class="table-p__price">@String.Format("{0:0,0}",item.total)₫</span>
+                                        <div class="total-item delete-item">
+                                            <span class="table-p__price" data-id="@item.id">@String.Format("{0:0,0}",item.total)₫</span>
+                                        </div>
                                     </td>
                                     <td>
-                                        <div class="table-p__del-wrap">
-
+                                        <div class="table-p__del-wrap delete-item" data-id="@item.id">
                                             <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
                                         </div>
                                     </td>
@@ -129,7 +131,7 @@
                     <div class="route-box">
                         <div class="route-box__g1">
 
-                            <a class="route-box__link" href="shop-side-version-2.html">
+                            <a class="route-box__link" asp-controller="Mobile" asp-action="Index">
                                 <i class="fas fa-long-arrow-alt-left"></i>
 
                                 <span>CONTINUE SHOPPING</span>
@@ -137,17 +139,12 @@
                         </div>
                         <div class="route-box__g2">
 
-                            <a class="route-box__link" href="cart.html">
+                            <a class="route-box__link" asp-action="DeleteAllItem">
                                 <i class="fas fa-trash"></i>
 
-                                <span>CLEAR CART</span>
+                                <span>Xóa tất cả sản phẩm</span>
                             </a>
 
-                            <a class="route-box__link" href="cart.html">
-                                <i class="fas fa-sync"></i>
-
-                                <span>UPDATE CART</span>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -174,7 +171,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>TỔNG TIỀN</td>
-                                                    <td>@String.Format("{0:0,0}",total)₫</td>
+                                                    <td class="total-sum">@String.Format("{0:0,0}",ViewBag.Total)₫</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -193,3 +190,86 @@
     <!--====== End - Section Content ======-->
 </div>
 <!--====== End - Section 3 ======-->
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $(".increase-ajax").click(function() {
+                
+                $.ajax({
+                    url: "/Cart/UpdateCart",
+                    type: "GET",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                        type: "increase"
+                    },
+                     success: function(data){    
+                        $(".total-item span[data-id ="+ data.id + "]").text(data.total);
+                        $(".total-sum").text(data.sumtotal);
+                        $("#mini-card-id" ).load("@Url.Action("MiniCartPartialView","Cart")");
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+            })
+
+            $(".decrease-ajax").click(function() {
+                
+                $.ajax({
+                    url: "/Cart/UpdateCart",
+                    type: "GET",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                        type: "decrease"
+                    },
+                     success: function(data){    
+                        $(".total-item span[data-id ="+ data.id + "]").text(data.total);
+                        $(".total-sum").text(data.sumtotal);
+                        $("#mini-card-id" ).load("@Url.Action("MiniCartPartialView","Cart")");
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+            })
+
+            $(".delete-item").click(function() {
+                
+                $.ajax({
+                    url: "/Cart/DeleteCartItem",
+                    type: "GET",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                     success: function(data){    
+                        $(".table-p tr[data-id ="+ data.id + "]").remove();
+                            $(".total-sum").text(data.sumtotal);
+                            $("#mini-card-id" ).load("@Url.Action("MiniCartPartialView","Cart")");
+                            if(data.sumtotal == 0){
+                                var url = '@Url.Action("EmptyCart", "Cart")';
+                                window.location.href = url;
+                            }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+            })
+
+            
+
+        })
+
+        
+    </script>
+}
+
+
+

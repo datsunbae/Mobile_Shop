@@ -129,6 +129,10 @@
                                 @foreach (var item in listProductVersion)
                                 {
                                     ProductColor pc = allProductColor.Where(x => x.IdProductVersion == item.IdProductVersion).Take(1).FirstOrDefault();
+                                    if(pc == null)
+                                    {
+                                         continue;
+                                    }
                                     if (item.IdProductVersion == Model.IdProductVersion)
                                     {
                                         <a class="gl-tag btn--e-brand-b-2 text-white" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@pc.IdProductColor">@item.NameProductVersion</a>
@@ -862,13 +866,16 @@
                         foreach(var item in productAlsoLike)
                         {
                             ProductColor pc = allProductColor.Where(x => x.IdProductVersion == item.IdProductVersion && x.IsPublished).FirstOrDefault();
+                            if(pc == null){
+                                continue;
+                            }
                             <div class="u-s-m-b-30">
                         <div class="product-o product-o--hover-on">
                             <div class="product-o__wrap">
 
                                 <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@pc.IdColor">
 
-                                    <img class="aspect__img" src="@pc.ImgProductColor" alt="">
+                                    <img class="aspect__img" src="@pc.ImgProductColor.Split(", ")[0]" alt="">
                                 </a>
                                 <div class="product-o__action-wrap">
                                     <ul class="product-o__action-list">

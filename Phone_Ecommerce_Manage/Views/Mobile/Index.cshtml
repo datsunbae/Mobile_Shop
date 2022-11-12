@@ -413,11 +413,9 @@
                                             <img class="aspect__img" src="@img"alt="">
                                         </a>
                                         
-                                        <form method="post">
                                         <div class="product-m__add-cart">
                                             
-                                            <button  type="submit" class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-cart" asp-controller="Cart" asp-action="AddCart" asp-route-id="@product.ProductColor.IdProductColor" asp-route-strURL="@url">Thêm vào giỏ hàng</button></div>
-                                            </form>
+                                            <button  class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.ProductColor.IdProductColor">Thêm vào giỏ hàng</button></div>
                                         
                                     </div>
                                     <div class="product-m__content">
@@ -483,3 +481,29 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $(".btn-add-to-card").click(function(){
+
+                $.ajax({
+                    url: "/Cart/AddCart",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         $('#mini-card-id').html(data);
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            })
+        })
+    </script>
+}

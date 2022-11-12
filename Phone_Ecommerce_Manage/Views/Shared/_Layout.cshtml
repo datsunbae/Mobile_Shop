@@ -59,5 +59,35 @@
 
     <!--====== App ======-->
     <script src="~/asset/js/app.js"></script>
+
+     <!--====== SweetAlert2 ======-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @await RenderSectionAsync("Scripts", required: false);
 </body>
 </html>
+
+
+    
+<script>
+    $(document).on('click','.delete-item-mini-carts',function (e) {
+            $.ajax({
+                    url: "/Cart/DeleteCartItem",
+                    type: "GET",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                    async: true,
+                     success: function(data){
+                        $(".mini-product-container card-mini-product[data-id ="+ data.id + "]").remove();
+                        $("#mini-card-id" ).load("@Url.Action("MiniCartPartialView","Cart")");
+                        
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+         })
+</script>

@@ -27,7 +27,7 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCart(int id, string strURL)
+        public ActionResult AddCart(int id)
         {
             List<Cart> listCard = getCart();
             Cart product = listCard.SingleOrDefault(x => x.id == id);
@@ -42,10 +42,96 @@ namespace Phone_Ecommerce_Manage.Controllers
                 product.quantity++;
                 HttpContext.Session.Set("Cart", listCard);
             }
-            return Redirect(strURL);
+            /*return Json(new
+            {
+                id = id,
+                amoutProducts = listCard.Count,
+                quantity = product.quantity,
+                totalsum = String.Format("{0:0,0}", Total()),
+            });*/
+
+            return PartialView("_MiniCartPartialView");
         }
 
-        private int AmoutProduct()
+        public ActionResult UpdateCart(int id, string type = "")
+        {
+            if(id == null || type == "")
+            {
+                return View();
+            }
+
+            List<Cart> listCard = getCart();
+            Cart product = listCard.SingleOrDefault(x => x.id == id);
+
+
+
+            if (product != null)
+            {
+                switch (type)
+                {
+                    case "increase":
+                        product.quantity++;
+                        HttpContext.Session.Set("Cart", listCard);
+                        break;
+                    case "decrease":
+                        if(product.quantity >= 2)
+                        {
+                            product.quantity--;
+                            HttpContext.Session.Set("Cart", listCard);
+                        }
+                        break;
+                    default:
+                        return View();
+                }
+               
+                return Json(new
+                {
+                    id = id,
+                    total = String.Format("{0:0,0}", product.total),
+                    sumtotal = String.Format("{0:0,0}", Total()),
+                    
+                });
+            }
+
+            return View();
+        } 
+
+        public IActionResult MiniCartPartialView()
+        {
+            return PartialView("_MiniCartPartialView");
+        }
+
+        public IActionResult DeleteCartItem(int id)
+        {
+            List<Cart> listCard = getCart();
+
+            if (id == null || listCard.Count == 0)
+            {
+                return View();
+            }
+
+
+            Cart product = listCard.SingleOrDefault(x => x.id == id);
+            listCard.Remove(product);
+            HttpContext.Session.Set("Cart", listCard);
+
+            return Json(new
+            {
+                id = id,
+                sumtotal = String.Format("{0:0,0}", Total()),
+            });
+
+        }
+
+        public IActionResult DeleteAllItem()
+        {
+            List<Cart> listCard = getCart();
+            listCard.Clear();
+            HttpContext.Session.Set("Cart", listCard);
+            return RedirectToAction("EmptyCart", "Cart");
+        }
+
+        public int AmoutProduct()
         {
             int amout = 0;
             List<Cart> listCard = getCart();
@@ -60,6 +146,10 @@ namespace Phone_Ecommerce_Manage.Controllers
         public IActionResult ViewCart()
         {
             List<Cart> listCard = getCart();
+            if(listCard == null || listCard.Count == 0)
+            {
+                return RedirectToAction("EmptyCart", "Cart");
+            }
             ViewBag.Total = Total();
             return View(listCard);
         }

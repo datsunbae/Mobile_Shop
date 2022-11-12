@@ -1,0 +1,102 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Phone_Ecommerce_Manage.Controllers
+@using Phone_Ecommerce_Manage.ModelViews
+@using Phone_Ecommerce_Manage.Utilities;
+@{
+    List<Cart> listCards = Context.Session.Get<List<Cart>>("Cart");
+    double total = 0;
+    if (listCards != null)
+    {
+       total = listCards.Sum(x => x.total);
+    }
+}
+                                <a class="mini-cart-shop-link">
+                                    <i class="fas fa-shopping-bag"></i>
+
+                                    <span id="amout-product-card" class="total-item-round">
+                                        @if(listCards != null)
+                                        {
+                                            @listCards.Count
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            <span>0</span>
+                                        }
+                                    </span>
+                                </a>
+
+                                <!--====== Dropdown ======-->
+
+                                <span class="js-menu-toggle"></span>
+                                <div class="mini-cart text-center">
+
+                                    <!--====== Mini Product Container ======-->
+                                    <div class="mini-product-container gl-scroll u-s-m-b-15" >
+
+                                     @if(listCards != null && listCards.Count != 0){
+                                         @foreach(var item in listCards)
+                                         {
+                                               <!--====== Card for mini cart ======-->
+                                        <div class="card-mini-product" data-id="@item.id">
+                                            <div class="mini-product">
+                                                <div class="mini-product__image-wrapper">
+
+                                                    <a class="mini-product__link" href="product-detail.html">
+
+                                                        <img class="u-img-fluid" src="@item.img" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="mini-product__info-wrapper">
+
+                                                    <span class="mini-product__category">
+
+                                                        <a href="shop-side-version-2.html">Điện thoại</a>
+                                                    </span>
+
+                                                    <span class="mini-product__name">
+
+                                                        <a href="product-detail.html">@item.name</a>
+                                                    </span>
+
+                                                    <span class="mini-product__quantity">@item.quantity x</span>
+
+                                                    <span class="mini-product__price">@String.Format("{0:0,0}", item.price)₫</span>
+                                                </div>
+                                            </div>
+
+                                            <div style="padding:10px; cursor: pointer"  data-id="@item.id" class="delete-item-mini-carts mini-product__delete-link far fa-trash-alt"></div>
+                                        </div>
+                                        <!--====== End - Card for mini cart ======-->    
+                                         
+                                         }
+
+                                         <!--====== Mini Product Statistics ======-->
+                                    <div class="mini-product-stat">
+                                        <div class="mini-total">
+
+                                            <span class="subtotal-text">TỔNG TIỀN</span>
+
+                                            <span class="subtotal-value">@String.Format("{0:0,0}",total)₫</span>
+                                        </div>
+                                        <div class="mini-action">
+
+                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">TIẾN HÀNH THANH TOÁN</a>
+
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" asp-controller="Cart" asp-action="ViewCart">VÀO GIỎ HÀNG</a>
+                                        </div>
+                                    </div>
+                                    <!--====== End - Mini Product Statistics ======-->
+                                     }
+                                     else{
+                                          <span >GIỎ HÀNG TRỐNG</span>
+                                     }                                             
+                                    </div>
+                                    <!--====== End - Mini Product Container ======-->                                 
+                                </div>
+                                <!--====== End - Dropdown ======-->
+
+
+
+
+
