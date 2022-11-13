@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.OrderBill>
+
+@{
+    ViewData["Title"] = "Order Bills";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	List<Customer> listCustomer = ViewBag.ListCustomer;
+	List<StatusOrder> listStatusOder = ViewBag.ListStatusOrder;
+	List<PaymentsType> listPaymentType = ViewBag.ListPaymentType;
+
+}
+
+<div class="main-container">
+	<div >
+		<div class="min-height-200px">
+			<div class="card-box mb-30">
+				<div class="pd-20">
+					<h4 class="text-blue h4">Danh sách đơn hàng</h4>
+					
+				</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>Số hóa đơn</th>
+								<th>Ngày đặt</th>
+								<th>Tổng tiền</th>
+								<th>Thanh toán</th>
+								<th>Tên khách hàng</th>
+								<th>Hình thức nhận hàng</th>
+								
+								<th>Tình trạng đơn hàng</th>
+								<th class="table-plus datatable-nosort"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model) {
+                                <tr>
+                                    <td>@item.IdOrderBill</td>
+                                    <td>@item.OrderDate</td>
+                                    <td>@String.Format("{0:0,0}", item.Total)₫</td>
+									@if(item.IsPaid == true){
+										<td>Đã thanh toán</td>
+									}
+									else
+									{
+										<td>Chưa thanh toán</td>
+									}
+									@{
+										var customer = listCustomer.Where(x => x.IdCustomer == item.IdCustomer).FirstOrDefault();
+										<td>@customer.NameCustomer</td>
+									}
+									@if(item.TypeReceive == true)
+									{
+										<td>Giao hàng tận nơi</td>
+									}
+									else
+									{
+										<td>Nhận hàng tại shop</td>
+									}
+									@{
+										
+										var statusOrder = listStatusOder.Where(x => x.IdStatusOrder == item.IdStatusOrder).FirstOrDefault();
+										<td>@statusOrder.NameStatus</td>
+									}
+
+									<td>
+										@{
+											switch (item.IdStatusOrder)
+											{
+												case 1:
+													<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Xác nhận</a> 
+													<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
+													break;
+												case 2:
+													if(item.TypeReceive == true)
+													{
+														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Giao hàng</a> 
+														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
+													}
+													else
+													{
+														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Chờ khách đến</a> 
+														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
+													}
+													break;
+												case 3:
+													<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Hoàn thành</a> 
+													break;
+												case 4:
+													<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Hoàn thành</a> 
+													<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
+													break;
+												default:
+													break;
+
+											}
+										}
+                                        <a asp-action="Details" asp-route-id="@item.IdOrderBill" class="btn btn-danger">Chi tiết đơn hàng</a>
+                                    </td>
+                                </tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

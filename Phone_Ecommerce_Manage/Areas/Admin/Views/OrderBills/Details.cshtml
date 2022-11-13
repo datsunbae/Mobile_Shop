@@ -1,0 +1,211 @@
+﻿@model Phone_Ecommerce_Manage.Models.OrderBill
+
+@{
+	ViewData["Title"] = "Details Order Bills";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	Customer customer = ViewBag.Customer;
+	List<OrderBillDetail> orderBillDetails = ViewBag.ListOrderDetails;
+	List<ProductColor> listProductColors = ViewBag.ListProductColors;
+	List <ProductVersion> listProductVersion = ViewBag.ListProductVersion;
+	List <ColorProduct> listColorProduct = ViewBag.ListColorProduct;
+
+}
+
+<div class="main-container">
+	<div >
+		<div class="min-height-200px">
+			<div class="card-box mb-30">
+				<div class="pd-20">
+					<h4 class="text-blue h4 text-center">CHI TIẾT ĐƠN HÀNG: @Model.IdOrderBill</h4>
+				</div>
+
+				<div style="padding: 20px">
+				<section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.OrderDate"  class="control-label">Ngày đặt</label>
+                                        <input asp-for="@Model.OrderDate" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ShipDate"  class="control-label">Ngày giao hàng</label>
+                                        <input asp-for="@Model.ShipDate" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Total"  class="control-label">Tổng tiền</label>
+                                        <input asp-for="@Model.Total" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DiscountProduct"  class="control-label">Tiền khuyến mãi sản phẩm</label>
+                                        <input asp-for="@Model.DiscountProduct" class="form-control" disabled/>
+                                    </div>
+                                </div>
+								<div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DiscountVoucher"  class="control-label">Giảm giá</label>
+                                        <input asp-for="@Model.DiscountVoucher" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsPaid">
+                                            <label class="custom-control-label" asp-for="@Model.IsPaid">Đã thanh toán</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Note"  class="control-label">Ghi chú</label>
+                                        <input asp-for="@Model.Note" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+
+ 
+							<div class="row">
+								<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IdCustomer"  class="control-label">Mã khách hàng</label>
+                                        <input asp-for="@Model.IdCustomer" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Khách hàng</label>
+                                        <select asp-for="@Model.IdCustomer" class="form-control" asp-items="ViewBag.ListCustomer" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+							<div class="row">
+								<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label  class="control-label">Số điện thoại</label>
+                                        <input class="form-control" disabled value="@customer.Phone"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label  class="control-label">Địa chỉ giao hàng</label>
+                                        <input class="form-control" disabled value="@customer.Address"/>
+                                    </div>
+                                </div>
+								
+                            </div>
+
+				
+							<div class="row">
+								<div class="col-md-6">
+                                    <div class="form-group">
+										<label asp-for="@Model.IdCustomer"  class="control-label">Hình thức nhận hàng</label>
+                                        @if(Model.TypeReceive == true){
+											<input  class="form-control" disabled value="Giao hàng tận nơi"/>
+										}
+										else
+										{
+											<input  class="form-control" disabled value="Nhận hàng tại cửa hàng"/>
+
+										}
+							</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Hình thức thanh toán</label>
+                                        <select asp-for="@Model.IdPaymentType" class="form-control" asp-items="ViewBag.ListPaymentsType" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+
+							<div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IdStatusOrder"  class="control-label">Trạng thái đơn hàng</label>
+                                         <select asp-for="@Model.IdStatusOrder" class="form-control" asp-items="ViewBag.ListStatusOrder" disabled></select>
+                                    </div>
+                                </div>
+								<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Nhân viên xác nhận</label>
+                                         <select asp-for="@Model.IdManager" class="form-control" asp-items="ViewBag.ListManager" disabled>
+											 <option>Chưa có nhân viên nào xác nhận</option>
+										 </select>
+                                    </div>
+                                </div>
+                                 
+                            </div>
+
+                            </div>
+                        </section>
+				</div>
+
+
+                <h5 class="text-blue pb-2">CHI TIẾT HOÁ ĐƠN</h5>
+				<div class="card-box  pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>Số thứ tự</th>
+								<th>Tên sản phẩm</th>
+								<th>Màu sắc</th>
+								<th>Giá</th>
+								<th>Số lượng</th>
+								<th>Thành tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+						@{
+							int i = 0;
+						}
+							@foreach (var item in orderBillDetails) {
+                                <tr>
+                                    <td>@i</td>
+									@{
+										var productColor = listProductColors.Where(x => x.IdProductColor == item.IdProductColor).FirstOrDefault();
+										var productVersion = listProductVersion.Where(x => x.IdProductVersion == productColor.IdProductVersion).FirstOrDefault();
+										var color = listColorProduct.Where(x => x.IdColor == productColor.IdColor).FirstOrDefault();
+										<td>@productVersion.NameProductVersion</td>
+									<td>@color.NameColor</td>
+									if(productColor.PromotionPrice != 0 || productColor.PromotionPrice != null || !productColor.PromotionPrice.Equals(""))
+									{
+										<td>@productColor.PromotionPrice</td>
+									}
+									else
+									{
+										<td>@productColor.Price</td>
+
+									}
+                                    <td>@item.QuantityProduct</td>
+                                    <td>@item.SubTotal</td>
+                                    i++;
+									}
+                                </tr>
+							}
+						</tbody>
+					</table>
+				</div>
+                <a asp-controller="OrderBills" asp-action="Index" class="btn-primary btn mt-3">Quay lại</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+   

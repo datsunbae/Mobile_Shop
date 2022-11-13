@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Phone_Ecommerce_Manage.Models;
 namespace Phone_Ecommerce_Manage.Areas.Admin
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class NewsController : Controller
     {
         private readonly MobileShop_DBContext _context;
