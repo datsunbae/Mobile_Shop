@@ -1,7 +1,11 @@
-﻿
+﻿@model Phone_Ecommerce_Manage.Models.Customer;
+
 @{
     ViewData["Title"] = "ManageAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<OrderBill> orderBills = ViewBag.ListOrderBill;
+    List<StatusOrder> statusOrders = ViewBag.ListStatusOrder;
+
 }
 <!--====== Section 1 ======-->
 <div class="u-s-p-y-60">
@@ -41,7 +45,7 @@
                         <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                             <div class="dash__pad-1">
 
-                                <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                <span class="dash__text u-s-m-b-16">Xin chào, @Model.NameCustomer</span>
                                 <ul class="dash__f-list">
                                     <li>
                                         <a class="dash-active" href="/Accounts/ManageAccount">Quản lý tài khoản</a>
@@ -75,7 +79,13 @@
 
                                             <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
 
-                                            <span class="dash__w-text">4</span>
+                                            @if(orderBills.Count == 0 || orderBills == null){
+                                                <span class="dash__w-text">0</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="dash__w-text">@orderBills.Count</span>
+                                            }
 
                                             <span class="dash__w-name">Đơn hàng đã đặt</span>
                                         </div>
@@ -108,11 +118,10 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                             <div class="dash__pad-2">
-                                <h1 class="dash__h1 u-s-m-b-14">Quản lý tài khoản</h1>
+                                <h1 class="dash__h1 u-s-m-b-14 mb-4">Quản lý tài khoản</h1>
 
-                                <span class="dash__text u-s-m-b-30">From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</span>
                                 <div class="row">
-                                    <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="col-lg-6 u-s-m-b-30">
                                         <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
                                             <div class="dash__pad-3">
                                                 <h2 class="dash__h2 u-s-m-b-8">THÔNG TIN CÁ NHÂN</h2>
@@ -121,9 +130,9 @@
                                                     <a href="/Accounts/EditAccounts">Chỉnh sửa</a>
                                                 </div>
 
-                                                <span class="dash__text">John Doe</span>
+                                                <span class="dash__text">@Model.NameCustomer</span>
 
-                                                <span class="dash__text">johndoe@domain.com</span>
+                                                <span class="dash__text">@Model.Email</span>
                                                 <div class="dash__link dash__link--secondary u-s-m-t-8">
 
                                                     <a data-modal="modal" data-modal-id="#dash-newsletter">Đăng ký nhận thông tin mới</a>
@@ -131,7 +140,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="col-lg-6 u-s-m-b-30">
                                         <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
                                             <div class="dash__pad-3">
                                                 <h2 class="dash__h2 u-s-m-b-8">ĐỊA CHỈ GIAO HÀNG</h2>
@@ -142,129 +151,56 @@
                                                     <a href="/Accounts/AddressBook">Chỉnh sửa</a>
                                                 </div>
 
-                                                <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+                                                <span class="dash__text">@Model.Address</span>
 
-                                                <span class="dash__text">(+0) 900901904</span>
+                                                <span class="dash__text">@Model.Phone</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 u-s-m-b-30">
-                                        <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
-                                            <div class="dash__pad-3">
-                                                <h2 class="dash__h2 u-s-m-b-8">ĐỊA CHỈ THANH TOÁN</h2>
-
-                                                <span class="dash__text-2 u-s-m-b-8">Địa chỉ thanh toán mặc định</span>
-
-                                                <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
-
-                                                <span class="dash__text">(+0) 900901904</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius">
-                            <h2 class="dash__h2 u-s-p-xy-20">ĐƠN HÀNG GẦN ĐÂY</h2>
+                        <h2 class="dash__h2 u-s-p-xy-20">ĐƠN HÀNG GẦN ĐÂY</h2>
+                        @if(orderBills.Count == 0 || orderBills == null)
+                        {
+                             <div class="dash__h2 u-s-p-xy-20 mb-3">Chưa có đơn hàng nào</div>
+                           
+                            
+                        }
+                        else
+                        {
                             <div class="dash__table-wrap gl-scroll">
                                 <table class="dash__table">
                                     <thead>
                                         <tr>
                                             <th>Mã đơn hàng #</th>
                                             <th>Ngày đặt</th>
-                                            <th>Sản phẩm</th>
-                                            <th>Số lượng</th>
+                                            <th>Tình trạng đơn hàng</th>
                                             <th>Tổng tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>3054231326</td>
-                                            <td>26/13/2016</td>
-                                            <td>
-                                                <div class="dash__table-img-wrap">
-
-                                                    <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="dash__table-total">
-
-                                                    <span>$126.00</span>
-                                                    <div class="dash__link dash__link--brand">
-
-                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                        @foreach(var item in orderBills)
+                                        {
+                                            <tr>
+                                            <td>@item.IdOrderBill</td>
+                                            <td>@item.OrderDate</td>
+                                              @{
+                                                    var statusOrder = statusOrders.Where(x => x.IdStatusOrder == item.IdStatusOrder).FirstOrDefault();
+                                                    <td>@statusOrder.NameStatus</td>
+                                                }
+                                            <td>@String.Format("{0:0,0}", item.Total)₫,</td>
+                                            
                                         </tr>
-                                        <tr>
-                                            <td>3054231326</td>
-                                            <td>26/13/2016</td>
-                                            <td>
-                                                <div class="dash__table-img-wrap">
-
-                                                    <img class="u-img-fluid" src="images/product/electronic/product14.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="dash__table-total">
-
-                                                    <span>$126.00</span>
-                                                    <div class="dash__link dash__link--brand">
-
-                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3054231326</td>
-                                            <td>26/13/2016</td>
-                                            <td>
-                                                <div class="dash__table-img-wrap">
-
-                                                    <img class="u-img-fluid" src="images/product/men/product8.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="dash__table-total">
-
-                                                    <span>$126.00</span>
-                                                    <div class="dash__link dash__link--brand">
-
-                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3054231326</td>
-                                            <td>26/13/2016</td>
-                                            <td>
-                                                <div class="dash__table-img-wrap">
-
-                                                    <img class="u-img-fluid" src="images/product/women/product10.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="dash__table-total">
-
-                                                    <span>$126.00</span>
-                                                    <div class="dash__link dash__link--brand">
-
-                                                        <a href="/Accounts/ManageOrder">Chi tiết</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        }
+                                        
+                                        
                                     </tbody>
                                 </table>
                             </div>
+                        }
                         </div>
                     </div>
                 </div>

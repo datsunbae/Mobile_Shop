@@ -7,19 +7,44 @@
                from productVerion in contex.ProductVersions
                join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
                select new { ProductVersion = productVerion, ProductColor = productColor };
-   
+
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
+    List<BrandMobile> listBrands = ViewBag.ListBrand;
+    List<O> listOs = ViewBag.ListOS;
+    List<Ram> listRam = ViewBag.Ram;
+    List<Rom> listRom = ViewBag.Rom;
+
 
     var location = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}");
      var url = location.AbsoluteUri;
 }
+
+
 <div class="u-s-p-y-90">
+
+
+
     <div class="container">
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                
+                            <form class="tool-style__form-wrap" style="width: 50%">
+
+                    <label for="main-search"></label>
+
+                    <input class="key-search-product  input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search"/>
+
+                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
+                </form>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <div class="shop-w-master">
                     <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
-                        <span>FILTERS</span></h1>
+                        <span>BỘ LỌC</span></h1>
                     <div class="shop-w-master__sidebar">
                         <div class="u-s-m-b-30">
                             <div class="shop-w shop-w--style">
@@ -30,56 +55,47 @@
                                 </div>
                                 <div class="shop-w__wrap collapse show" id="s-manufacturer">
                                     <ul class="shop-w__list-2">
-                                        <li>
+                                        @foreach(var item in listBrands){
+                                            <li>
                                             <div class="list__content">
 
-                                                <input type="checkbox" checked>
-                                                <span>Apple</span>
-                                            </div>
-                                            <span class="shop-w__total-text">(23)</span>
-                                        </li>
-                                        <li>
-                                            <div class="list__content">
+                                                <input type="checkbox" class="input-brandMobile" data-id="@item.IdBrandMobile">
 
-                                                <input type="checkbox">
-                                                <span>Samsung</span>
-                                            </div>
-                                            <span class="shop-w__total-text">(2)</span>
-                                        </li>
-                                        <li>
-                                            <div class="list__content">
-
-                                                <input type="checkbox">
-
-                                                <span>Xiaomi</span>
+                                                <span>@item.NameBrand</span>
                                             </div>
 
-                                            <span class="shop-w__total-text">(2)</span>
+                                            @*<span class="shop-w__total-text">(3)</span>*@
                                         </li>
-                                        <li>
-                                            <div class="list__content">
-
-                                                <input type="checkbox">
-
-                                                <span>Oppo</span>
-                                            </div>
-
-                                            <span class="shop-w__total-text">(9)</span>
-                                        </li>
-                                        <li>
-                                            <div class="list__content">
-
-                                                <input type="checkbox">
-
-                                                <span>Vivo</span>
-                                            </div>
-
-                                            <span class="shop-w__total-text">(3)</span>
-                                        </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w shop-w--style">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">HỆ ĐIỀU HÀNH</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap collapse show" id="s-manufacturer">
+                                    <ul class="shop-w__list-2">
+                                        @foreach(var item in listOs){
+                                            <li>
+                                            <div class="list__content">
+                                                <input type="checkbox" class="input-os" data-id="@item.IdOs">
+                                                <span>@item.NameOs</span>
+                                            </div>
+
+                                           
+                                        </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="u-s-m-b-30">
                             <div class="shop-w shop-w--style">
                                 <div class="shop-w__intro-wrap">
@@ -91,43 +107,42 @@
                                     <ul class="shop-w__category-list gl-scroll">
                                         <li class="has-list">
 
-                                            <a href="#">Loại điện thoại</a>
+                                            <a href="#">RAM</a>
 
-                                            <span class="category-list__text u-s-m-l-6">(23)</span>
 
-                                            <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
-                                            <ul style="display:block">
-                                                <li class="has-list">
-                                                    <a href="#">Android</a>
+                                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
+                                            <ul>
+                                                @foreach(var item in listRam){
+                                                <li class="has-list li-ram" data-id="@item.IdRam">
+                                                    <a href="#">@item.NameRam</a>
                                                 </li>
-                                                <li class="has-list">
-                                                    <a href="#">IOS</a>
-                                                </li>
+                                               
+                                                }
                                             </ul>
                                         </li>
                                         <li class="has-list">
 
-                                            <a href="#">Tính năng camera</a>
+                                            <a href="#">BỘ NHỚ TRONG</a>
 
-                                            <span class="category-list__text u-s-m-l-6">(5)</span>
 
                                             <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
                                             <ul>
-                                                <li class="has-list">
-                                                    <a href="#">Chụp xoá phông</a>
+                                                @foreach(var item in listRom){
+                                                <li class="has-list li-rom" data-id="@item.IdRom">
+                                                    <a href="#">@item.NameRom</a>
                                                 </li>
-                                                <li class="has-list">
-                                                    <a href="#">Chụp góc rộng</a>
-                                                </li>
+                                               
+                                                }
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#">Food & Supplies</a>
-                                            <span class="category-list__text u-s-m-l-6">(0)</span></li>
+                                        
+                                            
                                     </ul>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="u-s-m-b-30">
                             <div class="shop-w shop-w--style">
                                 <div class="shop-w__intro-wrap">
@@ -222,148 +237,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="u-s-m-b-30">
-                            <div class="shop-w shop-w--style">
-                                <div class="shop-w__intro-wrap">
-                                    <h1 class="shop-w__h">MÀU SẮC</h1>
-
-                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-color" data-toggle="collapse"></span>
-                                </div>
-                                <div class="shop-w__wrap collapse show" id="s-color">
-                                    <ul class="shop-w__list gl-scroll">
-                                        <li>
-                                            <div class="color__check">
-
-                                                <input type="checkbox" id="jet">
-
-                                                <label class="color__check-label" for="jet" style="background-color: #333333"></label></div>
-
-                                            <span class="shop-w__total-text">(2)</span>
-                                        </li>
-                                        <li>
-                                            <div class="color__check">
-
-                                                <input type="checkbox" id="folly">
-
-                                                <label class="color__check-label" for="folly" style="background-color: #FF0055"></label></div>
-
-                                            <span class="shop-w__total-text">(4)</span>
-                                        </li>
-                                        <li>
-                                            <div class="color__check">
-
-                                                <input type="checkbox" id="yellow">
-
-                                                <label class="color__check-label" for="yellow" style="background-color: #FFFF00"></label></div>
-
-                                            <span class="shop-w__total-text">(6)</span>
-                                        </li>
-                                        <li>
-                                            <div class="color__check">
-
-                                                <input type="checkbox" id="granite-gray">
-
-                                                <label class="color__check-label" for="granite-gray" style="background-color: #605F5E"></label></div>
-
-                                            <span class="shop-w__total-text">(8)</span>
-                                        </li>
-                                        <li>
-                                            <div class="color__check">
-
-                                                <input type="checkbox" id="space-cadet">
-
-                                                <label class="color__check-label" for="space-cadet" style="background-color: #1D3461"></label></div>
-
-                                            <span class="shop-w__total-text">(10)</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="shop-w shop-w--style">
-                                <div class="shop-w__intro-wrap">
-                                    <h1 class="shop-w__h">RAM</h1>
-
-                                    <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
-                                </div>
-                                <div class="shop-w__wrap collapse" id="s-size">
-                                    <ul class="shop-w__list gl-scroll">
-                                        <li>
-
-                                            <!--====== Check Box ======-->
-                                            <div class="check-box">
-
-                                                <input type="checkbox" id="xs">
-                                                <div class="check-box__state check-box__state--primary">
-
-                                                    <label class="check-box__label" for="xs">4GB</label></div>
-                                            </div>
-                                            <!--====== End - Check Box ======-->
-
-                                            <span class="shop-w__total-text">(2)</span>
-                                        </li>
-                                        <li>
-
-                                            <!--====== Check Box ======-->
-                                            <div class="check-box">
-
-                                                <input type="checkbox" id="small">
-                                                <div class="check-box__state check-box__state--primary">
-
-                                                    <label class="check-box__label" for="small">6GB</label></div>
-                                            </div>
-                                            <!--====== End - Check Box ======-->
-
-                                            <span class="shop-w__total-text">(4)</span>
-                                        </li>
-                                        <li>
-
-                                            <!--====== Check Box ======-->
-                                            <div class="check-box">
-
-                                                <input type="checkbox" id="medium">
-                                                <div class="check-box__state check-box__state--primary">
-
-                                                    <label class="check-box__label" for="medium">8GB</label></div>
-                                            </div>
-                                            <!--====== End - Check Box ======-->
-
-                                            <span class="shop-w__total-text">(6)</span>
-                                        </li>
-                                        <li>
-
-                                            <!--====== Check Box ======-->
-                                            <div class="check-box">
-
-                                                <input type="checkbox" id="large">
-                                                <div class="check-box__state check-box__state--primary">
-
-                                                    <label class="check-box__label" for="large">12GB</label></div>
-                                            </div>
-                                            <!--====== End - Check Box ======-->
-
-                                            <span class="shop-w__total-text">(8)</span>
-                                        </li>
-                                        <li>
-
-                                            <!--====== Check Box ======-->
-                                            <div class="check-box">
-
-                                                <input type="checkbox" id="xl">
-                                                <div class="check-box__state check-box__state--primary">
-
-                                                    <label class="check-box__label" for="xl">16GB</label></div>
-                                            </div>
-                                            <!--====== End - Check Box ======-->
-
-                                            <span class="shop-w__total-text">(10)</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -373,29 +246,27 @@
                         <div class="shop-p__tool-style">
                             <div class="tool-style__group u-s-m-b-8">
 
-                                <span class="js-shop-grid-target is-active">Dạng lưới</span>
+                                <span class="js-shop-grid-target is-active">Dạng lưới</span>    
 
                                 <span class="js-shop-list-target">Dạng danh sách</span></div>
+
+                             
                             <form>
                                 <div class="tool-style__form-wrap">
-                                    <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2">
-                                            <option>Hiển thị: 8</option>
-                                            <option selected>Hiển thị: 12</option>
-                                            <option>Hiển thị: 16</option>
-                                            <option>Hiển thị: 28</option>
-                                        </select></div>
+                                    
                                     <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2">
                                             <option selected>Sắp xếp theo: Mới nhất</option>
-                                            <option>Sắp xếp theo: Bán chạy nhất</option>
-                                            <option>Sắp xếp theo: Xếp hạng tốt nhất</option>
                                             <option>Sắp xếp theo: Giá từ thấp đến cao</option>
                                             <option>Sắp xếp theo: Giá từ cao đến thấp</option>
                                         </select></div>
                                 </div>
                             </form>
+
+
+
                         </div>
                     </div>
-                    <div class="shop-p__collection">
+                    <div  id="products-list-ajax" class="shop-p__collection">
                         <div class="row is-grid-active">
                             @{
                                 foreach(var item in listProductVersion)
@@ -446,7 +317,7 @@
                                             <div class="product-m__preview-description">
 
                                                 <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                            <div class="product-m__wishlist">
+                                            <div class="product-m__wishlist" data-id="@product.ProductColor.IdProductColor">
 
                                                 <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
                                         </div>
@@ -504,6 +375,149 @@
                 })
                 
             })
+
+
+            $(".input-brandMobile").click(function(){
+
+                 $.ajax({
+                    url: "/Mobile/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        IdBrandMobile: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            })
+
+
+            $(".input-os").click(function(){
+
+                 $.ajax({
+                    url: "/Mobile/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        idOS: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            })
+
+            $(".li-ram").click(function(){
+
+                 $.ajax({
+                    url: "/Mobile/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        IdRam: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            })
+
+            $(".li-rom").click(function(){
+
+                 $.ajax({
+                    url: "/Mobile/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        IdRom: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+            $(".product-m__wishlist").click(function(){
+
+                 $.ajax({
+                    url: "/FavoriteProducts/AddFavoriteProduct",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        IdProductColor: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            Swal.fire({
+                              position: 'top-center',
+                              icon: 'success',
+                              title: 'Đã thêm sản phẩm vào danh sách yêu thích',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+            
+
+
+            $(".key-search-product").keyup(function () {
+                var strkeyword = $('.key-search-product').val();
+                $.ajax({
+                    url: '/Mobile/FindProduct/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keySearch: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#products-list-ajax").html("");
+                        $("#products-list-ajax").html(results);
+                    },
+                });
+            });
+
+
+
         })
     </script>
 }
+
+
+
+

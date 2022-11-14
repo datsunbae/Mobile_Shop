@@ -13,14 +13,55 @@ namespace Phone_Ecommerce_Manage.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0)
         {
             var query =
                from productVerion in _context.ProductVersions
                join productColor in _context.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
                select new { ProductVersion = productVerion, ProductColor = productColor };
             ViewBag.ListMobile = query;
-            ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
+            ViewBag.ListBrand = await _context.BrandMobiles.ToListAsync();
+            ViewBag.ListOS = await _context.Os.ToListAsync();
+            ViewBag.Ram = await _context.Rams.ToListAsync();
+            ViewBag.Rom = await _context.Roms.ToListAsync();
+
+            if (IdBrandMobile != 0)
+            {
+                var listProduct = await _context.Products.Where(x => x.IdBrandMobile == IdBrandMobile).ToListAsync();
+                List<ProductVersion> listProductVersion = new List<ProductVersion>();
+                foreach (var item in listProduct)
+                {
+                    List<ProductVersion> productVersions = await _context.ProductVersions.Where(x => x.IdProduct == item.IdProduct).ToListAsync();
+                    listProductVersion.AddRange(productVersions);
+                }
+
+                ViewBag.ListProductVersion = listProductVersion;
+            }
+            else if (idOS != 0)
+            {
+                var listProduct = await _context.Products.Where(x => x.IdOs == idOS).ToListAsync();
+                List<ProductVersion> listProductVersion = new List<ProductVersion>();
+                foreach (var item in listProduct)
+                {
+                    List<ProductVersion> productVersions = await _context.ProductVersions.Where(x => x.IdProduct == item.IdProduct).ToListAsync();
+                    listProductVersion.AddRange(productVersions);
+                }
+
+                ViewBag.ListProductVersion = listProductVersion;
+            }
+            else if (IdRam != 0)
+            {
+                ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdRam == IdRam).ToListAsync();
+            }
+            else if (IdRom != 0)
+            {
+                ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdRom == IdRom).ToListAsync();
+            }
+            else
+            {
+                ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
+            }
+
 
             return View();
         }
@@ -61,6 +102,49 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             return View(productVersion);
         }
+
+        [HttpPost]
+        public IActionResult Filtter(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0)
+        {
+            var url = "";
+            if (IdBrandMobile != 0)
+            {
+                url = $"/Mobile?IdBrandMobile={IdBrandMobile}";
+            }
+
+            if (idOS != 0)
+            {
+                url = $"/Mobile?idOS={idOS}";
+            }
+
+            if (IdRam != 0)
+            {
+                url = $"/Mobile?IdRam={IdRam}";
+            }
+
+            if (IdRom != 0)
+            {
+                url = $"/Mobile?IdRom={IdRom}";
+            }
+
+            return Json(new { status = "success", redirectUrl = url });
+        }
+
+        [HttpPost]
+        public IActionResult FindProduct(string keySearch)
+        {
+            List<ProductVersion> ls = new List<ProductVersion>();
+            ls = _context.ProductVersions.AsNoTracking().Where(x => x.NameProductVersion.Contains(keySearch)).ToList();
+            if (string.IsNullOrEmpty(keySearch) || ls == null)
+            {
+                ls = _context.ProductVersions.ToList();
+                return PartialView("_ProductsSearchPartialView", ls);
+            }
+
+            return PartialView("_ProductsSearchPartialView", ls);
+
+        }
+
         public IActionResult EmptySearch()
         {
             return View();

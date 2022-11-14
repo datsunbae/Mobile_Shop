@@ -4,22 +4,39 @@
     ViewData["Title"] = "Blog";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="u-s-p-y-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="breadcrumb">
+                <div class="breadcrumb__wrap">
+                    <ul class="breadcrumb__list">
+                        <li class="has-separator">
+
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="is-marked">
+
+                            <a asp-controller="News" asp-action="Index" >News</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--====== Section 1 ======-->
 <div class="u-s-p-y-90">
 
     <!--====== Detail Post ======-->
-    <div class="detail-post">
+    <div class="detail-post" style="margin-top: -100px;">
+
         <form asp-action="Details">
             <div class="bp-detail">
-                <div class="bp-detail__thumbnail">
-
-                    <!--====== Image Code ======-->
-                    <div class="aspect aspect--bg-grey aspect--1366-768">
-
-                        <img class="aspect__img" src="@Model.Thumb">
-                    </div>
-                    <!--====== End - Image Code ======-->
-                </div>
+               
                 <div class="bp-detail__info-wrap">
                     <div class="bp-detail__stat">
 

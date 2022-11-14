@@ -70,16 +70,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.productVersions[0].Ram" class="control-label">RAM</label>
-                                        <input asp-for="@Model.productVersions[0].Ram" class="form-control" />
-                                        <span asp-validation-for="@Model.productVersions[0].Ram" class="text-danger"></span>
+                                        <label class="control-label">Ram</label>
+                                        <select asp-for="@Model.productVersions[0].IdRam" class="form-control" asp-items="ViewBag.ListRAM"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.productVersions[0].Rom" class="control-label">Bộ nhớ trong</label>
-                                        <input asp-for="@Model.productVersions[0].Rom" class="form-control" />
-                                        <span asp-validation-for="@Model.productVersions[0].Rom" class="text-danger"></span>
+                                        <label class="control-label">Bộ nhớ trong</label>
+                                        <select asp-for="@Model.productVersions[0].IdRom" class="form-control" asp-items="ViewBag.ListROM"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -150,16 +148,26 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="productVersions_${i}__Ram">RAM</label>
-                                        <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="productVersions_${i}__Ram" name="productVersions[${i}].Ram" value="">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].Ram" data-valmsg-replace="true"></span>
+                                        <label class="control-label">Ram</label>
+                                        <select class="form-control valid" id="productVersions_${i}__IdRam" name="productVersions[${i}].IdRam" aria-invalid="false"><option value="1">2 GB</option>
+                                        <option value="2">3 GB</option>
+                                        <option value="3">4 GB</option>
+                                        <option value="4">6 GB</option>
+                                        <option value="5">8 GB</option>
+                                        <option value="6">12 GB</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="productVersions_${i}__Rom">Bộ nhớ trong</label>
-                                        <input class="form-control" type="number" data-val="true" data-val-required="The Rom field is required." id="productVersions_${i}__Rom" name="productVersions[${i}].Rom" value="">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="productVersions[${i}].Rom" data-valmsg-replace="true"></span>
+                                        <label class="control-label">Bộ nhớ trong</label>
+                                        <select class="form-control valid" id="productVersions_${i}__IdRom" name="productVersions[${i}].IdRom" aria-invalid="false"><option value="1">32 GB</option>
+                                        <option value="2">64 GB</option>
+                                        <option value="3">128 GB</option>
+                                        <option value="4">256 GB</option>
+                                        <option value="5">512 GB</option>
+                                        <option value="6">1 TB</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

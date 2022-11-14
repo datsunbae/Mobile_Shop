@@ -1,0 +1,154 @@
+﻿@model List<Phone_Ecommerce_Manage.ModelViews.FavoriteProduct>
+@using Microsoft.AspNetCore.Http;
+@using Phone_Ecommerce_Manage.ModelViews
+@using Phone_Ecommerce_Manage.Utilities;
+
+
+
+<!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="/">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="wishlist.html">Wishlist</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary">DANH SÁCH SẢN PHẨM YÊU THÍCH</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                @foreach(var item in Model){
+                                    <!--====== Wishlist Product ======-->
+                                <div class="w-r u-s-m-b-30">
+                                    <div class="w-r__container">
+                                        <div class="w-r__wrap-1">
+                                            <div class="w-r__img-wrap">
+
+                                                <img class="u-img-fluid" src="@item.img" alt=""></div>
+                                            <div class="w-r__info">
+
+                                                <span class="w-r__name">
+
+                                                    <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.id" asp-route-color="@item.idProductColor">@item.name</a></span>
+
+                                                <span class="w-r__category">
+
+                                                    <a href="shop-side-version-2.html">Màu: @item.color</a></span>
+
+                                                <span class="w-r__price">@String.Format("{0:0,0}", item.price)₫</span>
+                                                    </div>
+                                        </div>
+                                        <div class="w-r__wrap-2">
+
+                                            <a class="w-r__link btn--e-brand-b-2 text-white btn-add-to-card"  data-id="@item.id">THÊM VÀO GIỎ HẢNG</a>
+
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" asp-controller="Mobile" asp-action="Details" asp-route-id="@item.id" asp-route-color="@item.idProductColor">XEM</a>
+
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" asp-controller="FavoriteProducts" asp-action="DeleteFavoriteItem" asp-route-id="@item.id" >XÓA</a></div>
+                                    </div>
+                                </div>
+                                <!--====== End - Wishlist Product ======-->
+                                }
+                                }
+
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="route-box">
+                                    <div class="route-box__g">
+
+                                        <a class="route-box__link" href="shop-side-version-2.html"><i class="fas fa-long-arrow-alt-left" ></i>
+
+                                            <span>TIẾP TỤC MUA SẮM</span></a></div>
+                                    <div class="route-box__g">
+
+                                        <a class="route-box__link" asp-controller="FavoriteProducts" asp-action="DeleteAllItem"><i class="fas fa-trash"></i>
+
+                                            <span>XÓA TẤT CẢ</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $(".btn-add-to-card").click(function(){
+
+                $.ajax({
+                    url: "/Cart/AddCart",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                     success: function(data){ 
+                         $('#mini-card-id').html(data);
+                         Swal.fire({
+                              position: 'top-center',
+                              icon: 'success',
+                              title: 'Đã thêm sản phẩm vào giỏ hàng',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            })
+        })
+    </script>
+}
+
+
+

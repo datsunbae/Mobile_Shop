@@ -50,6 +50,9 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             var product = await _context.Products.Where(x => x.IdProduct == id).FirstOrDefaultAsync();
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
             ViewData["ListOS"] = new SelectList(_context.Os, "IdOs", "NameOs");
+            ViewData["ListRAM"] = new SelectList(_context.Rams, "IdRam", "NameRam");
+            ViewData["ListROM"] = new SelectList(_context.Roms, "IdRom", "NameRom");
+
             ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
             if (product == null)
             {
@@ -87,6 +90,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
             ViewData["ListOSs"] = new SelectList(_context.Os, "IdOs", "NameOs");
+            ViewData["ListRAM"] = new SelectList(_context.Rams, "IdRam", "NameRam");
+            ViewData["ListROM"] = new SelectList(_context.Roms, "IdRom", "NameRom");
             return View();
         }
 
@@ -226,6 +231,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             ViewData["ListBranchMobiles"] = new SelectList(_context.BrandMobiles, "IdBrandMobile", "NameBrand");
             ViewData["ListOS"] = new SelectList(_context.Os, "IdOs", "NameOs");
+            ViewData["ListRAM"] = new SelectList(_context.Rams, "IdRam", "NameRam");
+            ViewData["ListROM"] = new SelectList(_context.Roms, "IdRom", "NameRom");
 
             productViewModel.product = product;
 

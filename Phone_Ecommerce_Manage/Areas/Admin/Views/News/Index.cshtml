@@ -11,9 +11,9 @@
         <div class="min-height-200px">
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Danh sách sản phẩm</h4>
+                    <h4 class="text-blue h4">Danh sách bài viết</h4>
                     <a asp-area="Admin" asp-controller="News" asp-action="Create" type="button" class="btn btn-primary">
-                        Thêm sản phẩm
+                        Thêm bài viết
                     </a>
                 </div>
                 <div class="pb-20">
@@ -48,7 +48,6 @@
                                         <td>Không</td>
                                     }
                                     <td>
-                                        <a asp-action="Details" asp-route-id="@item.IdNews" class=" btn btn-success">Xem</a>
                                         <a asp-action="Edit" asp-route-id="@item.IdNews" class="btn btn-primary">Sửa</a>
                                         <a asp-action="Delete" asp-route-id="@item.IdNews" class="btn btn-danger">Xóa</a>
                                     </td>

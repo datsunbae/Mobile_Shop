@@ -29,25 +29,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
             return View(await _context.News.ToListAsync());
         }
 
-        // GET: Admin/News/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.News == null)
-            {
-                return NotFound();
-            }
-
-            var news = await _context.News
-                .Include(n => n.IdManagerNavigation)
-                .Include(n => n.IdCategoryNewsNavigation)
-                .FirstOrDefaultAsync(m => m.IdNews == id);
-            if (news == null)
-            {
-                return NotFound();
-            }
-
-            return View(news);
-        }
+        
 
         // GET: Admin/News/Create
         public IActionResult Create()
@@ -72,7 +54,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                     news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
                 }
                 news.CreateDate = DateTime.Now;
-                news.IdManager = 8;
+                news.IdManager = 1;
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -113,13 +95,21 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 return NotFound();
             }
 
+            var blog = await _context.News.Where(x => x.IdNews == news.IdNews).FirstOrDefaultAsync();
+
             if (ModelState.IsValid)
             {
+                
+
                 try
                 {
                     if (fImage != null)
                     {
                         news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
+                    }
+                    else
+                    {
+                        news.Thumb = blog?.Thumb;
                     }
                     _context.Update(news);
                     await _context.SaveChangesAsync();
@@ -173,6 +163,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 return Problem("Entity set 'MobileShop_DBContext.News'  is null.");
             }
             var news = await _context.News.FindAsync(id);
+            
             if (news != null)
             {
                 _context.News.Remove(news);

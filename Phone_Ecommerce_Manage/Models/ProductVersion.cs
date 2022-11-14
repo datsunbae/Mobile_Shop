@@ -25,16 +25,24 @@ namespace Phone_Ecommerce_Manage.Models
         [Column(TypeName = "ntext")]
         public string? Desciprtion { get; set; }
         public bool IsBestseller { get; set; }
-        public int Ram { get; set; }
-        public int Rom { get; set; }
         [Column("Technical_Parameters", TypeName = "ntext")]
         public string? TechnicalParameters { get; set; }
         public bool IsPublished { get; set; }
         public int IdProduct { get; set; }
+        [Column("IdRAM")]
+        public int? IdRam { get; set; }
+        [Column("IdROM")]
+        public int? IdRom { get; set; }
 
         [ForeignKey("IdProduct")]
         [InverseProperty("ProductVersions")]
         public virtual Product IdProductNavigation { get; set; } = null!;
+        [ForeignKey("IdRam")]
+        [InverseProperty("ProductVersions")]
+        public virtual Ram? IdRamNavigation { get; set; }
+        [ForeignKey("IdRom")]
+        [InverseProperty("ProductVersions")]
+        public virtual Rom? IdRomNavigation { get; set; }
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdProductVersionNavigation")]

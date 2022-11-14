@@ -151,11 +151,54 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
         public IActionResult EditAccount()
         {
-            return View();
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
+            return View(customer);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditAccount([Bind("NameCustomer", "Phone", "Email", "Address")] Customer customerBlind)
+        {
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            
+
+            var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
+
+            customer.NameCustomer = customerBlind.NameCustomer;
+            customer.Phone = customerBlind.Phone;
+            customer.Email = customerBlind.Email;
+            customer.Address = customerBlind.Address;
+
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ManageAccount", "Accounts");
         }
         public IActionResult ManageAccount()
         {
-            return View();
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
+            ViewBag.ListStatusOrder = _context.StatusOrders.ToList();
+            ViewBag.ListOrderBill = _context.OrderBills.Where(x => x.IdCustomer == customer.IdCustomer).ToList();
+
+            return View(customer);
         }
         public IActionResult ManageOrder()
         {

@@ -64,14 +64,14 @@
                                 </div>
                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@item.Ram" class="control-label">Tên phiên bản</label>
-                                        <input asp-for="@item.Ram" class="form-control" disabled/>
+                                        <label class="control-label">Ram</label>
+                                        <select asp-for="@item.IdRam" class="form-control" asp-items="ViewBag.ListRAM"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@item.Rom" class="control-label">Bộ nhớ trong</label>
-                                        <input asp-for="@item.Rom" class="form-control" disabled/>
+                                        <label class="control-label">Bộ nhớ trong</label>
+                                        <select asp-for="@item.IdRom" class="form-control" asp-items="ViewBag.ListROM"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

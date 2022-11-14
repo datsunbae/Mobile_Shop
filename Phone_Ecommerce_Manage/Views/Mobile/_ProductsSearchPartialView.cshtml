@@ -1,0 +1,77 @@
+﻿@model List<ProductVersion>
+@{
+    
+    MobileShop_DBContext contex = new MobileShop_DBContext();
+    var listMobile = 
+               from productVerion in Model
+               join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
+               select new { ProductVersion = productVerion, ProductColor = productColor };
+}
+
+
+
+    
+<div  id="products-list-ajax" class="shop-p__collection">
+                        <div class="row is-grid-active">
+                            @{
+                                foreach(var item in Model)
+                                {
+                                    var product = listMobile.Where(x => x.ProductColor.IdProductVersion == item.IdProductVersion && x.ProductVersion.IsPublished == true).Take(1).FirstOrDefault();
+                                    if(product != null)
+                                    {
+                                        var img = (product.ProductColor.ImgProductColor).Split(", ")[0];
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product-m">
+                                    <div class="product-m__thumb">
+
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.ProductColor.IdProductColor">
+
+                                            <img class="aspect__img" src="@img"alt="">
+                                        </a>
+                                        
+                                        <div class="product-m__add-cart">
+                                            
+                                            <button  class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.ProductColor.IdProductColor">Thêm vào giỏ hàng</button></div>
+                                        
+                                    </div>
+                                    <div class="product-m__content">
+                                        <div class="product-m__category">
+
+                                            <a href="shop-side-version-2.html">Điện thoại</a></div>
+                                        <div class="product-m__name">
+
+                                            <a href="/Mobile/Product">@product.ProductVersion.NameProductVersion</a>
+                                        </div>
+                                        <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+
+                                            <span class="product-m__review">(23)</span></div>
+                                        <div class="product-m__price">
+                                                        @if(product.ProductColor.PromotionPrice == null)
+                                                        {
+                                                            <span>@String.Format("{0:0,0}", product.ProductColor.Price)₫  </span>
+                                            
+                                                        }
+                                                        else{
+                                                            <span class="d-inline pr-1 ">@String.Format("{0:0,0}", product.ProductColor.PromotionPrice)₫</span>
+                                                            <span class="d-inline" style="color: #888888; text-decoration: line-through;">
+                                                                 @String.Format("{0:0,0}", product.ProductColor.Price)₫
+                                                            </span>
+                                                        }
+                                                    </div>
+                                        <div class="product-m__hover">
+                                            <div class="product-m__preview-description">
+
+                                                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
+                                            <div class="product-m__wishlist">
+
+                                                <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    }
+                                }
+                                
+                           }
+                        </div>
+                    </div>
