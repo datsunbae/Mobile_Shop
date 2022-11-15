@@ -1,0 +1,200 @@
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--====== App Content ======-->
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="shop-p">
+                        <div class="shop-p__collection">
+                            <div class="row is-list-active">
+                                @foreach(var item in Model)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product-m">
+                                            <div class="product-m__thumb">
+
+                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+
+                                                    <img class="aspect__img" src="~/images/product/default.png" alt="">
+                                                </a>
+                                                <div class="product-m__quick-look">
+
+                                                    <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a>
+                                                </div>
+                                                <div class="product-m__add-cart">
+
+                                                    <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-voucher">Add to Cart</a>
+                                                </div>
+                                            </div>
+                                            <div class="product-m__content">
+                                                
+                                                @if (item.TypeVoucher == true)
+                                                {
+                                                    <div class="product-m__preview-description">
+                                                        <a><h6>Giảm tiền</h6></a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="product-m__preview-description">
+                                                        <a><h6>Phần trăm</h6></a>
+                                                    </div>
+                                                }
+                                                <div class="product-m__name">
+                                                    <a><h3><b>@item.NameVoucher</b></h3></a>
+                                                </div>
+                                                @if (item.IsUnLimit == true)
+                                                {
+                                                    <div class="product-m__price">Số lượng: Không giới hạn</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="product-m__price">Số lượng: @String.Format("{0:0,0}", item.Quantity)</div>
+                                                }
+                                                <div class="product-m__price">@String.Format("{0:0,0}", item.IncreasePrice)₫</div>
+                                                @if (item.TypeVoucher == true)
+                                                {
+                                                    <div class="product-m__price">Giá giảm: @String.Format("{0:0,0}", item.PriceDiscount)</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="product-m__price">Phần trăm: @String.Format("{0:0,0}", item.PercentDiscount)%</div>
+                                                }
+                                                @if(item.IsNoEndDay == true){
+                                                    <div class="product-m__price">Thời gian: Không giới hạn</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="product-m__price">Ngày bắt đầu: @item.CreateDate</div>
+                                                    <div class="product-m__price">Ngày kết thúc: @item.EndDate</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="u-s-p-y-60">
+
+                            <!--====== Pagination ======-->
+                            <ul class="shop-p__pagination">
+                                <li class="is-active">
+
+                                    <a>1</a>
+                                </li>
+                                <li>
+
+                                    <a class="fas fa-angle-right"></a>
+                                </li>
+                            </ul>
+                            <!--====== End - Pagination ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section 1 ======-->
+</div>
+<!--====== End - App Content ======-->
+<!--====== App Content ======-->
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="shop-p">
+                        <div class="shop-p__collection">
+                            <div class="row is-list-active">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product-m">
+                                        <div class="product-m__thumb">
+
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+
+                                                <img class="aspect__img" src="images/product/men/product6.jpg" alt="">
+                                            </a>
+                                            <div class="product-m__quick-look">
+
+                                                <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a>
+                                            </div>
+                                            <div class="product-m__add-cart">
+
+                                                <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                        <div class="product-m__content">
+                                            <div class="product-m__category">
+
+                                                <a href="shop-side-version-2.html">Men Clothing</a>
+                                            </div>
+                                            <div class="product-m__name">
+
+                                                <a href="product-detail.html">New Fashion B Nice Elegant</a>
+                                            </div>
+                                            <div class="product-m__rating gl-rating-style">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+
+                                                <span class="product-m__review">(23)</span>
+                                            </div>
+                                            <div class="product-m__price">$125.00</div>
+                                            <div class="product-m__hover">
+                                                <div class="product-m__preview-description">
+
+                                                    <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+                                                </div>
+                                                <div class="product-m__wishlist">
+
+                                                    <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-s-p-y-60">
+
+                            <!--====== Pagination ======-->
+                            <ul class="shop-p__pagination">
+                                <li class="is-active">
+
+                                    <a href="shop-grid-left.html">1</a>
+                                </li>
+                                <li>
+
+                                    <a href="shop-grid-left.html">2</a>
+                                </li>
+                                <li>
+
+                                    <a href="shop-grid-left.html">3</a>
+                                </li>
+                                <li>
+
+                                    <a href="shop-grid-left.html">4</a>
+                                </li>
+                                <li>
+
+                                    <a class="fas fa-angle-right" href="shop-grid-left.html"></a>
+                                </li>
+                            </ul>
+                            <!--====== End - Pagination ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section 1 ======-->
+</div>
+<!--====== End - App Content ======-->
