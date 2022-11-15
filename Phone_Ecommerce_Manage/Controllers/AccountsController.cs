@@ -143,10 +143,28 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
         public IActionResult Profile()
         {
-            return View();
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
+            return View(customer);
         }
-        public IActionResult Orders()
+        public IActionResult MyOrders()
         {
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
+            ViewBag.ListStatusOrder = _context.StatusOrders.ToList();
+            ViewBag.ListOrderBill = _context.OrderBills.Where(x => x.IdCustomer == customer.IdCustomer).ToList();
             return View();
         }
         public IActionResult EditAccount()
@@ -200,9 +218,32 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             return View(customer);
         }
-        public IActionResult ManageOrder()
+        public IActionResult DetailOrder(int id)
         {
-            return View();
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
+
+            var orderBill = _context.OrderBills.SingleOrDefault(x => x.IdOrderBill == id);
+
+            if(id == null || orderBill == null)
+            {
+                return NotFound();
+            }
+
+           
+
+            ViewBag.OrderBillDetails = _context.OrderBillDetails.Where(x => x.IdOrderBill == orderBill.IdOrderBill).ToList();
+            ViewBag.ListProductVersion = _context.ProductVersions.ToList();
+            ViewBag.ListProductColor = _context.ProductColors.ToList();
+            ViewBag.ColorProducts = _context.ColorProducts.ToList();
+            ViewBag.PaymentsTypes = _context.PaymentsTypes.ToList();
+            ViewBag.Customer = _context.Customers.Where(x => x.IdCustomer == customerSession.IdCustomer).FirstOrDefault();
+
+            return View(orderBill);
         }
         public IActionResult AddressBook()
         {

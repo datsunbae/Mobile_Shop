@@ -1,6 +1,14 @@
-﻿@{
+﻿@model Phone_Ecommerce_Manage.Models.OrderBill
+@{
     ViewData["Title"] = "ManageOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<OrderBillDetail> orderBillDetails = ViewBag.OrderBillDetails;
+    List<ProductVersion> productVersions = ViewBag.ListProductVersion;
+    List<ProductColor> productColors = ViewBag.ListProductColor;
+    List<ColorProduct> colorProducts = ViewBag.ColorProducts;
+    List<PaymentsType> paymentsTypes = ViewBag.PaymentsTypes;
+    Customer customer = ViewBag.Customer;
+
 }
 <!--====== Section 1 ======-->
 <div class="u-s-p-y-60">
@@ -109,14 +117,14 @@
                             <div class="dash__pad-2">
                                 <div class="dash-l-r">
                                     <div>
-                                        <div class="manage-o__text-2 u-c-secondary">Mã đơn hàng #305423126</div>
-                                        <div class="manage-o__text u-c-silver">Thời gian đặt hàng 26 Oct 2016 09:08:37</div>
+                                        <div class="manage-o__text-2 u-c-secondary">Mã đơn hàng #@Model.IdOrderBill</div>
+                                        <div class="manage-o__text u-c-silver">Thời gian đặt hàng @Model.OrderDate</div>
                                     </div>
                                     <div>
                                         <div class="manage-o__text-2 u-c-silver">
-                                            Total:
+                                            Tổng tiền:
 
-                                            <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                            <span class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}", Model.Total)₫</span>
                                         </div>
                                     </div>
                                 </div>
@@ -125,26 +133,53 @@
                         <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                             <div class="dash__pad-2">
                                 <div class="manage-o">
-                                    <div class="manage-o__header u-s-m-b-30">
-                                        <div class="manage-o__icon">
-                                            <i class="fas fa-box u-s-m-r-5"></i>
-
-                                            <span class="manage-o__text">Gói hàng 1</span>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="dash-l-r">
-                                        <div class="manage-o__text u-c-secondary">Được giao vào ngày 26 Oct 2016</div>
+                                        @if(Model.IdStatusOrder == 3)
+                                        {
+                                            <div class="manage-o__text u-c-secondary">Được giao vào ngày @Model.ShipDate</div>
+                                        }
                                         <div class="manage-o__icon">
                                             <i class="fas fa-truck u-s-m-r-5"></i>
 
                                             <span class="manage-o__text">Tiêu chuẩn</span>
                                         </div>
                                     </div>
-                                    <div class="manage-o__timeline">
+                                    @{
+                                        var waitCheck = "";
+                                        var shipping = "";
+                                        var complete = "";
+                                        switch(Model.IdStatusOrder){
+                                            case 1:
+                                                waitCheck = "timeline-l-i";
+                                                shipping = "timeline-l-i";
+                                                complete = "timeline-l-i";
+                                                break;
+                                            case 2:
+                                                waitCheck = "timeline-l-i timeline-l-i--finish";
+                                                shipping = "timeline-l-i";
+                                                complete = "timeline-l-i";
+                                                break;
+                                            case 3:
+                                            case 4:
+                                                waitCheck = "timeline-l-i timeline-l-i--finish";
+                                                shipping = "timeline-l-i timeline-l-i--finish";
+                                                complete = "timeline-l-i";
+                                                break;
+                                            case 5:
+                                                waitCheck = "timeline-l-i timeline-l-i--finish";
+                                                shipping = "timeline-l-i timeline-l-i--finish";
+                                                complete = "timeline-l-i timeline-l-i--finish";
+                                                break;
+                                        }
+                                    }
+                                    @if(Model.IdStatusOrder != 6)
+                                    {
+                                        <div class="manage-o__timeline">
                                         <div class="timeline-row">
                                             <div class="col-lg-4 u-s-m-b-30">
                                                 <div class="timeline-step">
-                                                    <div class="timeline-l-i timeline-l-i--finish">
+                                                    <div class="@waitCheck">
 
                                                         <span class="timeline-circle"></span>
                                                     </div>
@@ -154,17 +189,25 @@
                                             </div>
                                             <div class="col-lg-4 u-s-m-b-30">
                                                 <div class="timeline-step">
-                                                    <div class="timeline-l-i timeline-l-i--finish">
+                                                    <div class="@shipping">
 
                                                         <span class="timeline-circle"></span>
                                                     </div>
 
-                                                    <span class="timeline-text">Đã vận chuyển</span>
+                                                    @if (Model.IdStatusOrder == 4)
+                                                    {
+                                                        <span class="timeline-text">Chờ khách đến lấy</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="timeline-text">Đang vận chuyển</span>
+                                                        
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 u-s-m-b-30">
                                                 <div class="timeline-step">
-                                                    <div class="timeline-l-i">
+                                                    <div class="@complete" >
 
                                                         <span class="timeline-circle"></span>
                                                     </div>
@@ -174,13 +217,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="manage-o__description">
-                                        <div class="description__container">
-                                            <div class="description__img-wrap">
+                                    }
+                                    else
+                                    {
+                                        <div class="manage-o__timeline">
+                                        <div class="timeline-row">
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish" style="border-color: #ff0000">
 
-                                                <img class="u-img-fluid" src="~/asset/images/product/electronic/product3.jpg" alt="">
+                                                        <span class="timeline-circle" style="border-color: #ff0000"></span>
+                                                    </div>
+
+                                                    <span class="timeline-text">Đã hủy</span>
+                                                </div>
                                             </div>
-                                            <div class="description-title">Yellow Wireless Headphone</div>
+                                            
+                                        </div>
+                                    </div>
+                                    }
+                                    @foreach(var item in orderBillDetails)
+                                    {
+                                        var productColor = productColors.Where(x => x.IdProductColor == item.IdProductColor).FirstOrDefault();
+                                        var productVersion = productVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion).FirstOrDefault();
+
+                                        <div class="manage-o__description">
+                                        <div class="description__container">
+                                            <div class="description__img-wrap" >
+
+                                                <img class="u-img-fluid" src="@productColor.ImgProductColor.Split(", ")[0]" alt="">
+                                            </div>
+                                            <div class="description-title">@productVersion.NameProductVersion</div>
                                         </div>
                                         <div class="description__info-wrap">
                                             <div>
@@ -188,19 +255,20 @@
                                                 <span class="manage-o__text-2 u-c-silver">
                                                     Số lượng:
 
-                                                    <span class="manage-o__text-2 u-c-secondary">1</span>
+                                                    <span class="manage-o__text-2 u-c-secondary">@item.QuantityProduct</span>
                                                 </span>
                                             </div>
                                             <div>
 
                                                 <span class="manage-o__text-2 u-c-silver">
-                                                    Tổng tiền:
+                                                    Thành tiền:
 
-                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                                    <span class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}", item.SubTotal)₫</span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -208,24 +276,15 @@
                             <div class="col-lg-6">
                                 <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                     <div class="dash__pad-3">
-                                        <h2 class="dash__h2 u-s-m-b-8">Địa chỉ giao hàng</h2>
-                                        <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
+                                        <h2 class="dash__h2 u-s-m-b-8">Thông tin giao hàng</h2>
+                                        <h2 class="dash__h2 u-s-m-b-8">@customer.NameCustomer</h2>
 
-                                        <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+                                        <span class="dash__text-2">@customer.Address</span>
 
-                                        <span class="dash__text-2">(+0) 900901904</span>
+                                        <span class="dash__text-2">@customer.Phone</span>
                                     </div>
                                 </div>
-                                <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                    <div class="dash__pad-3">
-                                        <h2 class="dash__h2 u-s-m-b-8">Địa chỉ thanh toán</h2>
-                                        <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
-
-                                        <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
-
-                                        <span class="dash__text-2">(+0) 900901904</span>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
@@ -233,18 +292,38 @@
                                         <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
                                         <div class="dash-l-r u-s-m-b-8">
                                             <div class="manage-o__text-2 u-c-secondary">Tổng tiền hàng</div>
-                                            <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                            @if(Model.DiscountVoucher == null || Model.DiscountVoucher == 0)
+                                            {
+                                                <div class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}",Model.Total)₫</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}", Model.DiscountVoucher + Model.Total)₫</div>
+                                                
+
+                                            }
                                         </div>
                                         <div class="dash-l-r u-s-m-b-8">
-                                            <div class="manage-o__text-2 u-c-secondary">Phí vận chuyển</div>
-                                            <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                            <div class="manage-o__text-2 u-c-secondary">Giảm giá</div>
+                                            @if(Model.DiscountVoucher == null || Model.DiscountVoucher == 0)
+                                            {
+                                                 <div class="manage-o__text-2 u-c-secondary">0₫</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}", Model.DiscountVoucher)₫</div>
+                                            }
                                         </div>
                                         <div class="dash-l-r u-s-m-b-8">
-                                            <div class="manage-o__text-2 u-c-secondary">Thành tiền</div>
-                                            <div class="manage-o__text-2 u-c-secondary">$32.00</div>
+                                            <div class="manage-o__text-2 u-c-secondary">Phải trả</div>
+                                            <div class="manage-o__text-2 u-c-secondary">@String.Format("{0:0,0}",Model.Total)₫</div>
                                         </div>
 
-                                        <span class="dash__text-2">Thanh toán khi nhận hàng</span>
+                                        @{
+                                            var typePayment = paymentsTypes.Where(x => x.IdPaymentType == Model.IdPaymentType).FirstOrDefault();
+                                            <span class="dash__text-2">@typePayment.NamePaymentType</span>
+                                        }
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -257,3 +336,9 @@
     <!--====== End - Section Content ======-->
 </div>
 <!--====== End - Section 2 ======-->
+
+<style>
+    .description__img-wrap img{
+        border-radius: 0;
+    }
+</style>

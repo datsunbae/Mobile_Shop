@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<OrderBill> listOrderBill = ViewBag.ListOrderBill;
+    List<StatusOrder> listStatusOrders = ViewBag.ListStatusOrder;
+}
+<!--====== Section 1 ======-->
+<div class="u-s-p-y-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="breadcrumb">
+                <div class="breadcrumb__wrap">
+                    <ul class="breadcrumb__list">
+                        <li class="has-separator">
+
+                            <a href="/Home/Index">Home</a>
+                        </li>
+                        <li class="is-marked">
+
+                            <a href="/Accounts/ManageAccount">Quản lý tài khoản</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Section 1 ======-->
+<!--====== Section 2 ======-->
+<div class="u-s-p-b-60">
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+
+                        <!--====== Dashboard Features ======-->
+                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                            <div class="dash__pad-1">
+
+                                <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                <ul class="dash__f-list">
+                                    <li>
+                                        <a href="/Accounts/ManageAccount">Quản lý tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/Profile">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/AddressBook">Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/TrackOrder">Theo dõi đơn hàng</a>
+                                    </li>
+                                    <li>
+                                        <a class="dash-active" href="/Accounts/Orders">Đơn hàng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/PaymentOption">Tuỳ chọn thanh toán</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Accounts/ReturnsAndCancellations">Đơn hàng đã huỷ hoặc trả về</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                            <div class="dash__pad-1">
+                                <ul class="dash__w-list">
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+
+                                            <span class="dash__w-text">4</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã đặt</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Đơn hàng đã huỷ</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dash__w-wrap">
+
+                                            <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
+
+                                            <span class="dash__w-text">0</span>
+
+                                            <span class="dash__w-name">Sản phẩm yêu thích</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--====== End - Dashboard Features ======-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <h1 class="dash__h1 u-s-m-b-14">Đơn hàng của tôi</h1>
+
+                                <span class="dash__text u-s-m-b-30">Ở đây, bạn có thể xem tất cả đơn hàng của mình.</span>
+
+                                <div class="m-order__list">
+                                    @if (listOrderBill.Count == 0 || listOrderBill == null)
+                                    {
+                                        <div class="m-order__get">Chưa có đơn hàng nào</div>
+                                    }
+                                    else
+                                    {
+                                        foreach(var item in listOrderBill)
+                                        {
+                                            <div class="m-order__get row">
+
+                                            <div class="col-md-4">
+                                                <div class="manage-o__text-2 u-c-secondary">Mã đơn hàng #@item.IdOrderBill</div>
+                                                <div class="manage-o__text u-c-silver">Ngày đặt: @item.OrderDate</div>
+                                                
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="manage-o__text-2 u-c-secondary">Tổng tiền:  @String.Format("{0:0,0}", item.Total),</div>
+                                                @if(item.IsPaid == true){
+                                                     <div class="manage-o__text u-c-silver">Đã thanh toán</div>
+                                                }
+                                                else{
+                                                     <div class="manage-o__text u-c-silver">Chưa thanh toán</div>
+                                                }
+                                            </div>
+                                            <div class="col-md-2">
+                                                    @{
+                                                        var status = listStatusOrders.Where(x => x.IdStatusOrder == item.IdStatusOrder).FirstOrDefault();
+                                                        if(status.IdStatusOrder == 1 || status.IdStatusOrder == 2)
+                                                        {
+                                                            <span class="manage-o__badge badge--processing">@status.NameStatus</span>
+                                                        }
+                                                        else if(status.IdStatusOrder == 3 || status.IdStatusOrder == 4 ||  status.IdStatusOrder == 5)
+                                                        {
+                                                            <span class="manage-o__badge badge--shipped">@status.NameStatus</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="manage-o__badge badge--delivered">@status.NameStatus</span>
+                                                        }
+
+
+                                                    }
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="dash__link dash__link--brand">
+
+                                                    <a href="dash-manage-order.html">XEM CHI TIẾT</a>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        }
+
+                                       @* <div>
+                                                <div class="dash__link dash__link--brand">
+
+                                                    <a href="dash-manage-order.html">XEM CHI TIẾT</a>
+                                                </div>
+                                                <div class="description-title"></div>
+                                                <div>
+                                                </div>
+                                            </div>
+                                             <span class="manage-o__badge badge--processing">Processing</span>*@
+
+
+
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->

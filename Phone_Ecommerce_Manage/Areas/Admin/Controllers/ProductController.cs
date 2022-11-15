@@ -53,6 +53,9 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             ViewData["ListRAM"] = new SelectList(_context.Rams, "IdRam", "NameRam");
             ViewData["ListROM"] = new SelectList(_context.Roms, "IdRom", "NameRom");
 
+            ViewData["ListROM"] = new SelectList(_context.Roms, "IdRom", "NameRom");
+
+
             ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdProduct == id).ToListAsync();
             if (product == null)
             {

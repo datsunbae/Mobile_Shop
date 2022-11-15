@@ -1,6 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Http;
+@using Phone_Ecommerce_Manage.Models;
 @{
     ViewData["Title"] = "Home Page";
+    MobileShop_DBContext contex = new MobileShop_DBContext();
+    var listMobile = 
+               from productVerion in contex.ProductVersions
+               join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
+               select new { ProductVersion = productVerion, ProductColor = productColor };
+    var listMobileHot = listMobile.Where(x => x.ProductVersion.IsPublished == true && x.ProductVersion.IsBestseller == true).Take(4).ToList();
+    var listMobileNews = listMobile.Where(x => x.ProductVersion.IsPublished == true).OrderByDescending(x => x.ProductColor.CreateDate).Take(6).ToList();
+    List<News> listNews = ViewBag.News;
+    List<Manager> listManager = ViewBag.Managers;
+    List<CategoryNews> listCategoryNews = ViewBag.Categorys ;
 }
 <!--====== App Content ======-->
 <!--====== Primary Slider ======-->
@@ -8,21 +19,22 @@
                 <div class="owl-carousel primary-style-1" id="hero-slider">
                     <div class="hero-slide hero-slide--1">
                         <div class="container">
+                             
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="slider-content slider-content--animation">
 
+                                       @*<img src="https://cdn2.cellphones.com.vn/x/media/catalog/product/h/e/heading-vivo.png" >*@
                                         <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
 
-                                        <span class="content-span-2 u-c-secondary">30% Off On Electronics</span>
+                                        <span class="content-span-2 u-c-white">30% Off On Electronics</span>
 
-                                        <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
 
-                                        <span class="content-span-4 u-c-secondary">Starting At
+                                        <span class="content-span-4 u-c-white">Starting At
 
                                             <span class="u-c-brand">$1050.00</span></span>
 
-                                        <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a></div>
+                                        <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a>
                                 </div>
                             </div>
                         </div>
@@ -54,13 +66,35 @@
                                 <div class="col-12">
                                     <div class="slider-content slider-content--animation">
 
-                                        <span class="content-span-1 u-c-secondary">Find Top Brands</span>
+                                        <span class="content-span-1 u-c-white">Find Top Brands</span>
 
-                                        <span class="content-span-2 u-c-secondary">10% Off On Electronics</span>
+                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
 
-                                        <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
 
-                                        <span class="content-span-4 u-c-secondary">Starting At
+                                        <span class="content-span-4 u-c-white">Starting At
+
+                                            <span class="u-c-brand">$550.00</span></span>
+
+                                <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-slide hero-slide--4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="slider-content slider-content--animation">
+
+                                        <span class="content-span-1 u-c-white">Find Top Brands</span>
+
+                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
+
+                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
+
+                                        <span class="content-span-4 u-c-white">Starting At
 
                                             <span class="u-c-brand">$550.00</span></span>
 
@@ -75,461 +109,12 @@
             <!--====== End - Primary Slider ======-->
 
 
-            <!--====== Section 1 ======-->
-            <div class="u-s-p-y-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM ĐANG GIẢM GIÁ</h1>
-
-                                    <span class="section__span u-c-silver">SẢN PHẨM YÊU THÍCH ĐANG GIẢM GIÁ</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-5 u-s-m-b-30">
-
-                                <a class="collection" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                            <img class="aspect__img collection__img" src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/Fold3.png" alt=""></div>
-                                </a></div>
-                            <div class="col-lg-7 col-md-7 u-s-m-b-30">
-
-                                <a class="collection" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--1286-890">
-
-                            <img class="aspect__img collection__img" src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/RightBanner_Desktop.png" alt="">
-                        </div>
-                                </a></div>
-                            <div class="col-lg-7 col-md-7 u-s-m-b-30">
-
-                                <a class="collection" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--1286-890">
-
-                            <img class="aspect__img collection__img" src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/CPS%20690x300.jpg" alt="">
-                        </div>
-                                </a></div>
-                            <div class="col-lg-5 col-md-5 u-s-m-b-30">
-
-                                <a class="collection" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                            <img class="aspect__img collection__img" src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/aw-mo-ban-sliding.png" alt="">
-                        </div>
-                                </a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--====== Section Content ======-->
-            </div>
-            <!--====== End - Section 1 ======-->
-
-
-            <!--====== Section 2 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-16">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM HOT</h1>
-
-                                    <span class="section__span u-c-silver">Danh mục sản phẩm hot</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="filter-category-container">
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1 js-checked" type="button" data-filter="*">ALL</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".headphone">ĐIỆN THOẠI</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".smartphone">ÂM THANH</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".sportgadget">PHỤ KIỆN KHÁC</button></div>
-                                </div>
-                                <div class="filter__grid-wrapper u-s-m-t-30">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/product-1.jpg" alt="">
-                                                    </a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                <span class="product-o__name">
-
-                                                    <a href="/Mobile/Product">Red Wireless Headphone</a></span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$125.00
-
-                                                    <span class="product-o__discount">$160.00</span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/product-1.jpg" alt=""></a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                <span class="product-o__name">
-
-                                        <a href="/Mobile/Product">Yellow Wireless Headphone</a>
-                                    </span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$125.00
-
-                                                    <span class="product-o__discount">$160.00</span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item sportgadget">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/product-2.png" alt="">
-                                        </a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">Âm thanh</a></span>
-
-                                                <span class="product-o__name">
-
-                                                    <a href="/Mobile/Product">Hover Skateboard Scooter</a></span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$125.00
-
-                                                    <span class="product-o__discount">$160.00</span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item sportgadget">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/product-1.jpg" alt="">
-                                        </a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                <span class="product-o__name">
-
-                                        <a href="/Mobile/Product">Hover Red Skateboard Scooter</a>
-                                    </span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$125.00
-
-                                                    <span class="product-o__discount">$160.00</span></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item smartphone">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product8.jpg" alt=""></a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                <span class="product-o__name">
-
-                                                    <a href="product-detail.html">Smartphone RAM 4GB New</a></span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$125.00
-
-                                                    <span class="product-o__discount">$160.00</span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="load-more">
-
-                                    <button class="btn btn--e-brand" type="button">Load More</button></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 2 ======-->
-
-
-            <!--====== Section 3 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">GIẢM GIÁ TRONG NGÀY</h1>
-
-                                    <span class="section__span u-c-silver">NHANH TAY THÊM SẢN PHẨM GIẢM GIÁ TRONG NGÀY.</span>
-
-                                    <span class="section__span u-c-silver">VÀO GIỎ HÀNG CỦA BẠN.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
-                                <div class="product-o product-o--radius product-o--hover-off u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product11.jpg" alt=""></a>
-                                        <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
-                                        </div>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">DJI Phantom Drone 4k</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                        <span class="product-o__review">(2)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
-                                <div class="product-o product-o--radius product-o--hover-off u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product12.jpg" alt=""></a>
-                                        <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
-                                        </div>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">DJI Phantom Drone 2k</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                        <span class="product-o__review">(2)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 3 ======-->
+        
+            
 
 
             <!--====== Section 4 ======-->
-            <div class="u-s-p-b-60">
+            <div class="u-s-p-b-60 mt-5">
 
                 <!--====== Section Intro ======-->
                 <div class="section__intro u-s-m-b-46">
@@ -553,13 +138,14 @@
                     <div class="container">
                         <div class="slider-fouc">
                             <div class="owl-carousel product-slider" data-item="4">
-                                <div class="u-s-m-b-30">
+                                @foreach(var item in listMobileNews){
+                                    <div class="u-s-m-b-30">
                                     <div class="product-o product-o--hover-on">
                                         <div class="product-o__wrap">
 
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
 
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product13.jpg" alt=""></a>
+                                                <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt=""></a>
                                             <div class="product-o__action-wrap">
                                                 <ul class="product-o__action-list">
                                                     <li>
@@ -580,225 +166,29 @@
 
                                         <span class="product-o__category">
 
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
+                                            <a href="shop-side-version-2.html">Điện thoại</a></span>
 
                                         <span class="product-o__name">
 
-                                            <a href="product-detail.html">Nikon DSLR 4K Camera</a></span>
+                                         <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
+
                                         <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
 
                                             <span class="product-o__review">(0)</span></div>
 
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
+                                       @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
+                                        <span class="product-o__price">
+                                            @String.Format("{0:0,0}", item.ProductColor.Price)₫
+                                        </span>
+                                    }
+                                    else{
+                                         <span class="product-o__price">@String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
+                                        <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span></span>
+                                    }
                                     </div>
                                 </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product14.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Nikon DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product15.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Sony DSLR 4K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product16.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Sony DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product17.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Canon DSLR 4K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                                <img class="aspect__img" src="~/asset/images/product/electronic/product18.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Canon DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
+                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -869,13 +259,16 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                            
+                            @foreach(var item in listMobileHot){
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
                                 <div class="product-o product-o--hover-on u-h-100">
                                     <div class="product-o__wrap">
 
                                         <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
 
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product19.jpg" alt=""></a>
+                                            <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt=""></a>
                                         <div class="product-o__action-wrap">
                                             <ul class="product-o__action-list">
                                                 <li>
@@ -900,139 +293,24 @@
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.html">Tablet 14inch Screen</a></span>
+                                        <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
                                         <span class="product-o__review">(23)</span></div>
 
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
+                                    @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
+                                        <span class="product-o__price">
+                                            @String.Format("{0:0,0}", item.ProductColor.Price)₫
+                                        </span>
+                                    }
+                                    else{
+                                         <span class="product-o__price">@String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
+                                        <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span></span>
+                                    }
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product20.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 18inch Screen</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product21.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 13inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/product/electronic/product22.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 12inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -1041,305 +319,10 @@
             <!--====== End - Section 6 ======-->
 
 
-            <!--====== Section 7 ======-->
-            <div class="u-s-p-b-60">
+            
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
 
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="~/asset/images/promo/promo-img-1.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">ACCESSORIES FOR YOUR EVERYDAY</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">GET IN</span>
-
-                                                <span class="u-c-brand">TOUCH</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="~/asset/images/promo/promo-img-2.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">SMARTPHONE</span>
-
-                                                <span class="u-c-brand">2019</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">NEW ARRIVALS</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="~/asset/images/promo/promo-img-3.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">DSLR FOR NEW GENERATION</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-brand">GET UP TO 10% OFF</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 7 ======-->
-
-
-            <!--====== Section 8 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">SẢN PHẨM ĐẶC BIỆT</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product23.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product24.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 13 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product25.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ram 8GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">SẢN PHẨM CỦA TUẦN</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product26.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 10 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product27.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ram 8GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product28.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">SẢN PHẨM ĐANG SALE</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product29.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 20 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product30.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 11 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="~/asset/images/product/electronic/product31.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 10 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 8 ======-->
+            
 
 
             <!--====== Section 9 ======-->
@@ -1412,15 +395,19 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                @if(listNews != null || listNews.Count() != 0)
+                {
+                    foreach(var item in listNews )
+                {
+                     <div class="col-lg-4 col-md-6 u-s-m-b-30">
                                 <div class="bp-mini bp-mini--img u-h-100">
                                     <div class="bp-mini__thumbnail">
 
                                         <!--====== Image Code ======-->
 
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
+                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">
 
-                                            <img class="aspect__img" src="~/asset/images/blog/post-2.jpg" alt=""></a>
+                                            <img class="aspect__img" src="@item.Thumb" alt=""></a>
                                         <!--====== End - Image Code ======-->
                                     </div>
                                     <div class="bp-mini__content">
@@ -1432,15 +419,19 @@
 
                                                     <a>
 
-                                                        <span>25 February 2018</span></a></span></span>
+                                                        <span>@item.CreateDate</span></a></span></span>
 
                                             <span class="bp-mini__stat-wrap">
 
                                                 <span class="bp-mini__preposition">By</span>
 
                                                 <span class="bp-mini__author">
+                                                @{
+                                                    var manager = listManager.Where(x => x.IdManager == item.IdManager).FirstOrDefault();
+                                                    <a href="#">@manager.FullName</a>
+                                                  }
 
-                                                    <a href="#">Dayle</a></span></span>
+                                                  </span></span>
 
                                             <span class="bp-mini__stat">
 
@@ -1451,144 +442,28 @@
                                                         <span>8</span></a></span></span></div>
                                         <div class="bp-mini__category">
 
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
+                                           </div>
 
                                         <span class="bp-mini__h1">
 
-                                            <a href="blog-detail.html">Life is an extraordinary Adventure</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                            <a asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">@item.Title</a></span>
+                                        <p class="bp-mini__p">@item.DescriptionNew</p>
                                         <div class="blog-t-w">
 
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
+                                            @{
+                                                    var category = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
+                                                    <a class="gl-tag btn--e-transparent-hover-brand-b-2">@category.NameCategory</a>
+                                                  }
+                                            
 
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
+                }
+                }
+                
 
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/blog/post-12.jpg" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.html">Wait till its open</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
-
-                                            <img class="aspect__img" src="~/asset/images/blog/post-5.jpg" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.html">Tell me difference between smoke and vape</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1690,51 +565,33 @@
             <!--====== End - Section 11 ======-->
 
 
-            <!--====== Section 12 ======-->
-            <div class="u-s-p-b-60">
+            
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
 
-                        <!--====== Brand Slider ======-->
-                        <div class="slider-fouc">
-                            <div class="owl-carousel" id="brand-slider" data-item="5">
-                                <div class="brand-slide">
+<style>
+    
+    
 
-                                    <a href="shop-side-version-2.html">
+    .primary-style-1 .hero-slide {
+            height: 700px;
+    }
 
-                                        <img src="~/asset/images/brand/b1.png" alt=""></a></div>
-                                <div class="brand-slide">
+    .hero-slide--1 {
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/26822d149906829.62f071cf084e5.jpg"); }
 
-                                    <a href="shop-side-version-2.html">
+    .hero-slide--3 {
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/dfa2a4154490399.63439a5a0331d.jpg"); }
+    
 
-                                        <img src="~/asset/images/brand/b2.png" alt=""></a></div>
-                                <div class="brand-slide">
+    .hero-slide--2 {
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400/6a964180910839.5d1097af5a773.png"); }
+    .hero-slide--4 {
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400/1ff5ec116660231.60662162758cf.jpg"); }
 
-                                    <a href="shop-side-version-2.html">
+    .banner-bg{
+        background: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400/1ff5ec116660231.60662162758cf.jpg") repeat fixed center center;
+    }
 
-                                        <img src="~/asset/images/brand/b3.png" alt=""></a></div>
-                                <div class="brand-slide">
+    
 
-                                    <a href="shop-side-version-2.html">
-
-                                        <img src="~/asset/images/brand/b4.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.html">
-
-                                        <img src="~/asset/images/brand/b5.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.html">
-
-                                        <img src="~/asset/images/brand/b6.png" alt=""></a></div>
-                            </div>
-                        </div>
-                        <!--====== End - Brand Slider ======-->
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 12 ======-->
+</style>
