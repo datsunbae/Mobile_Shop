@@ -1,0 +1,125 @@
+﻿@model Phone_Ecommerce_Manage.Models.Voucher
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Thêm mã giảm giá</h4>
+                </div>
+                <div class="wizard-content">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="Idvoucher" />
+                        <section class="mb-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CodeVoucher" class="control-label">Code giảm giá</label>
+                                        <input asp-for="@Model.CodeVoucher" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.NameVoucher" class="control-label">Tên mã giảm giá</label>
+                                        <input asp-for="@Model.NameVoucher" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.IncreasePrice" class="control-label">Bắt đầu từ giá</label>
+                                        <input asp-for="@Model.IncreasePrice" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CreateDate" class="control-label">Hình thức giảm giá</label>
+                                        <select asp-for="@Model.TypeVoucher" class="form-control" asp-items="ViewBag.listVoucher" id="dropdown" name="dropdown"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PercentDiscount" class="control-label">Giảm phần trăm</label>
+                                        <input asp-for="@Model.PercentDiscount" class="form-control" id="text1" name="text1" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PriceDiscount" class="control-label">Giá giảm</label>
+                                        <input asp-for="@Model.PriceDiscount" class="form-control" id="text2" name="text2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Quantity" class="control-label">Số lượng</label>
+                                        <input asp-for="@Model.Quantity" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsUnLimit">
+                                            <label class="custom-control-label" asp-for="@Model.IsUnLimit">Không giới hạn số lượng</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.CreateDate" class="control-label">Ngày bắt đầu</label>
+                                        <input asp-for="@Model.CreateDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.EndDate" class="control-label">Ngày kết thúc</label>
+                                        <input asp-for="@Model.EndDate" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox mb-5">
+                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.IsNoEndDay">
+                                            <label class="custom-control-label" asp-for="@Model.IsNoEndDay">Không giới hạn ngày</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button asp-area="Admin" asp-controller="Voucher" asp-action="Index" class="btn btn-danger">Quay về</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+        <script>
+        $('#dropdown').change(function() {
+        if( $(this).val() == 1) {
+            $('#text1').prop( "disabled", true );
+            $('#text2').prop( "disabled", false );
+        } else {
+            $('#text1').prop( "disabled", false );
+            $('#text2').prop( "disabled", true );
+        }
+    });
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-container">
+    <div>
+        <div class="min-height-200px">
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Danh sách mã giảm giá</h4>
+                    <a asp-area="Admin" asp-controller="Voucher" asp-action="Create" type="button" class="btn btn-primary">
+                        Thêm mã giảm giá
+                    </a>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr>
+                                <th>Code giảm giá</th>
+                                <th>Tên mã giảm giá</th>
+                                <th>Bắt đầu từ giá</th>
+                                <th>Số lượng</th>   
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Hình thức giảm giá</th>
+                                <th class ="table-plus datatable-nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.CodeVoucher</td>
+                                    <td>@item.NameVoucher</td>
+                                    <td>@item.IncreasePrice</td>
+                                    <td>
+                                        @if (item.IsUnLimit == true)
+                                        {
+                                            <a>Không giới hạn</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@item.Quantity</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsNoEndDay == true)
+                                        {
+                                            <a>Không thời hạn</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@item.CreateDate</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsNoEndDay == true)
+                                        {
+                                            <a>Không thời hạn</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@item.EndDate</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.TypeVoucher == true)
+                                        {
+                                            <a>Giảm tiền</a>
+                                        }
+                                        else
+                                        {
+                                            <a>Phần trăm</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Idvoucher" class="btn btn-success">Xem</a>
+                                        <a asp-action="Edit" asp-route-id="@item.Idvoucher" class="btn btn-primary">Sửa</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Idvoucher" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
