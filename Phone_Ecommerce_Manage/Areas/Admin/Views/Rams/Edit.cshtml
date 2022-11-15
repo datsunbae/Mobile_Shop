@@ -1,0 +1,40 @@
+﻿@model Phone_Ecommerce_Manage.Models.Ram
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-7">
+                <img src="~/adminasset/vendors/images/register-page-img.png" alt="" />
+            </div>
+            <div class="col-md-6 col-lg-5">
+                <div class="login-box bg-white box-shadow border-radius-10">
+                    <div class="login-title">
+                        <h2 class="text-center text-primary">Cập nhật dung lượng RAM</h2>
+                    </div>
+                    <form asp-action="Edit">
+                        <label asp-for="NameRam"><h6>Tên dung lượng RAM</h6></label>
+                        <input type="hidden" asp-for="IdRam" />
+                        <div class="input-group custom">
+                            <input asp-for="NameRam" class="form-control form-control-lg"
+                                   type="text" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group mb-0">
+                                    <input type="submit" value="Lưu" class="btn btn-outline-primary" /> &ensp;
+                                    <a class="btn btn-outline-danger" asp-action="Index">Quay lại danh sách</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
