@@ -39,7 +39,10 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            List<SelectListItem> listVoucher = new List<SelectListItem>();
+            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "false" });
+            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "true" });
+            ViewData["listVoucher"] = listVoucher;
             return View(voucher);
         }
 
@@ -47,8 +50,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public IActionResult Create()
         {
             List<SelectListItem> listVoucher = new List<SelectListItem>();
-            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "1" });
-            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "0" });
+            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "false" });
+            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "true" });
             ViewData["listVoucher"] = listVoucher;
             return View();
         }
@@ -66,7 +69,6 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["listVoucher"] = new SelectList(_context.CategoryNews, "TypeVoucher", "TypeVoucher", voucher.TypeVoucher);
             return View(voucher);
         }
 
@@ -84,8 +86,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 return NotFound();
             }
             List<SelectListItem> listVoucher = new List<SelectListItem>();
-            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "1" });
-            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "0" });
+            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "false" });
+            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "true" });
             ViewData["listVoucher"] = listVoucher;
             return View(voucher);
         }
