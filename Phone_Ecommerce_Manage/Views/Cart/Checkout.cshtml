@@ -9,6 +9,7 @@
     var customer = Context.Session.Get<Customer>("CustomerSession");
     var ui = customer == null ? "col-lg-6" : "col-lg-12";
     List<Cart> listCards = Context.Session.Get<List<Cart>>("Cart");
+    List<PaymentsType> listTypePayments = ViewBag.TypePayments;
 
 }
 
@@ -180,35 +181,35 @@
                                 <div class="o-summary__box">
                                     <h1 class="checkout-f__h1">CHỌN HÌNH THỨC THANH TOÁN</h1>
                                     <div class="checkout-f__payment">
-                                        <div class="u-s-m-b-10">
+                                            @if(listTypePayments != null | listTypePayments.Count > 0)
+                                            {
+                                                var i = 1;
+                                                foreach(var item in listTypePayments){
+                                                    <div class="u-s-m-b-10">
 
-                                            <!--====== Radio Box ======-->
-                                            <div class="radio-box">
+                                                    <!--====== Radio Box ======-->
+                                                    <div class="radio-box">
 
-                                                <input type="radio" id="cash-on-delivery" asp-for="@Model.typePayment" checked  value="true">
-                                                <div class="radio-box__state radio-box__state--primary">
+                                                            @if(i == 1)
+                                                            {
+                                                                <input type="radio" id="cash-on-delivery" asp-for="@Model.typePayment"  value="@item.IdPaymentType">
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="radio" id="cash-on-delivery" asp-for="@Model.typePayment" checked  value="@item.IdPaymentType">
+                                                            }
+                                                            <div class="radio-box__state radio-box__state--primary">
 
-                                                    <label class="radio-box__label" for="cash-on-delivery">Thanh toán khi nhận hàng</label>
+                                                            <label class="radio-box__label" for="cash-on-delivery">@item.NamePaymentType</label>
+                                                        </div>
+                                                    </div>
+                                                    <!--====== End - Radio Box ======-->
+
                                                 </div>
-                                            </div>
-                                            <!--====== End - Radio Box ======-->
+                                                   i++;
+                                                }
+                                           }
 
-                                        </div>
-                                        <div class="u-s-m-b-10">
-
-                                            <!--====== Radio Box ======-->
-                                            <div class="radio-box">
-
-                                                <input type="radio" id="direct-bank-transfer"  asp-for="@Model.typePayment"  value="false">
-                                                <div class="radio-box__state radio-box__state--primary">
-
-                                                    <label class="radio-box__label" for="direct-bank-transfer">Thanh toán qua MOMO</label>
-                                                </div>
-                                            </div>
-                                            <!--====== End - Radio Box ======-->
-                                        </div>
-                                        
-                                       
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@ namespace Phone_Ecommerce_Manage.ModelViews
             get { return price * quantity; }
         }
 
-        public Cart(int id)
+        public Cart(int id, int quantity = 0)
         {
             this.id = id;
             ProductColor product = context.ProductColors.SingleOrDefault(x => x.IdProductColor == id);
@@ -36,7 +36,14 @@ namespace Phone_Ecommerce_Manage.ModelViews
             {
                 price = double.Parse(product.Price.ToString());
             }
-            quantity = 1;
+            if(quantity != 0)
+            {
+                this.quantity = quantity;
+            }
+            else
+            {
+                this.quantity = 1;
+            }
         }
 
 

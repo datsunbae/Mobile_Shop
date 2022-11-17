@@ -40,20 +40,20 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label asp-for="@Model.CreateDate" class="control-label">Hình thức giảm giá</label>
-                                        <select asp-for="@Model.TypeVoucher" class="form-control" asp-items="ViewBag.listVoucher" id="dropdown" name="dropdown"></select>
+                                        <label asp-for="@Model.TypeVoucher" class="control-label">Hình thức giảm giá</label>
+                                        <select asp-for="@Model.TypeVoucher" class="form-control" asp-items="ViewBag.listVoucher" id="dropdown" ></select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.PercentDiscount" class="control-label">Giảm phần trăm</label>
-                                        <input asp-for="@Model.PercentDiscount" class="form-control" id="text1" name="text1" />
+                                        <input asp-for="@Model.PercentDiscount" class="form-control" id="text1" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="@Model.PriceDiscount" class="control-label">Giá giảm</label>
-                                        <input asp-for="@Model.PriceDiscount" class="form-control" id="text2" name="text2" />
+                                        <input asp-for="@Model.PriceDiscount" class="form-control" id="text2"  />
                                     </div>
                                 </div>
                             </div>
@@ -110,14 +110,23 @@
 
 @section Scripts{
     <script>
-    $('#dropdown').change(function() {
-    if( $(this).val() == 1) {
-        $('#text1').prop( "disabled", true );
-        $('#text2').prop( "disabled", false );
-    } else {
-        $('#text1').prop( "disabled", false );
-        $('#text2').prop( "disabled", true );
-    }
+    $(document).ready(function(){
+
+        var changeValue = () => {
+            if($('#dropdown').val().toString() == "true") {
+               $('#text1').prop( "disabled", true );
+                $('#text2').prop( "disabled", false );
+            } else {
+                $('#text1').prop( "disabled", false );
+                $('#text2').prop( "disabled", true );
+            }
+        }
+
+         changeValue();
+
+         $('#dropdown').change(function() {
+            changeValue();
+        })
 });
 </script>
 }

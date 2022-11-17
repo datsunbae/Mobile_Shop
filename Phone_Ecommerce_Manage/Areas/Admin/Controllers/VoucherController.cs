@@ -47,8 +47,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         public IActionResult Create()
         {
             List<SelectListItem> listVoucher = new List<SelectListItem>();
-            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "1" });
-            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "0" });
+            listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "true" });
+            listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "false" });
             ViewData["listVoucher"] = listVoucher;
             return View();
         }

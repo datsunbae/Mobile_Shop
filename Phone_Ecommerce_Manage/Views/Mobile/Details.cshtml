@@ -117,7 +117,7 @@
                             <span class="pd-detail__click-wrap">
                                 <i class="far fa-heart u-s-m-r-6"></i>
 
-                                <a href="signin.html">Thêm vào sản phẩm yêu thích</a>
+                                <a >Thêm vào sản phẩm yêu thích</a>
 
                                 <span class="pd-detail__click-count">(222)</span>
                             </span>
@@ -192,27 +192,25 @@
                         </ul>
                     </div>
                     <div class="u-s-m-b-15">
-                        <form class="pd-detail__form">
-                            <div class="pd-detail-inline-2">
+                        <div class="pd-detail-inline-2">
                                 <div class="u-s-m-b-15">
 
                                     <!--====== Input Counter ======-->
                                     <div class="input-counter">
 
-                                        <span class="input-counter__minus fas fa-minus"></span>
+                                        <span class="input-counter__minus fas fa-minus decrease-count"></span>
 
-                                        <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                        <input class="input-counter__text input-counter--text-primary-style " type="text" value="1" data-min="1" data-max="1000">
 
-                                        <span class="input-counter__plus fas fa-plus"></span>
+                                        <span class="input-counter__plus fas fa-plus increase-count"></span>
                                     </div>
                                     <!--====== End - Input Counter ======-->
                                 </div>
                                 <div class="u-s-m-b-15">
 
-                                    <button class="btn btn--e-brand-b-2" type="submit">Thêm vào giỏ hàng</button>
+                                    <button class="btn btn--e-brand-b-2 add-to-card-btn" data-id="@productColor.IdProductColor">Thêm vào giỏ hàng</button>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="u-s-m-b-15">
 
@@ -943,3 +941,50 @@
 </div>
 <!--====== End - Section 1 ======-->
 <!--====== End - App Content ======-->
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            var count = 1;
+            $(".decrease-count").click(function() {
+                if(count >= 2){
+                    
+                    count--;
+                    console.log(count);
+                }
+            })
+
+            $(".increase-count").click(function() {
+               
+                count++;
+                 console.log(count);
+            })
+
+            $(".add-to-card-btn").click(function() {
+                
+                $.ajax({
+                    url: "/Cart/AddCart",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        id: $(this).data("id"),
+                        quantity: count
+                    },
+                     success: function(data){    
+                        $("#mini-card-id" ).load("@Url.Action("MiniCartPartialView","Cart")");
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+            })
+
+            
+
+        })
+
+        
+    </script>
+}
