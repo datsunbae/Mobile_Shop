@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
+@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +26,7 @@
                                                 </a>
                                                 <div class="product-m__add-cart">
 
-                                                    <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-voucher">Add to Cart</a>
+                                                    <a class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-voucher">XEM</a>
                                                 </div>
                                             </div>
                                             <div class="product-m__content">
@@ -55,7 +55,7 @@
                                                 {
                                                     <div class="product-m__price">Số lượng: @String.Format("{0:0,0}", item.Quantity)</div>
                                                 }
-                                                <div class="product-m__price">Bắt đầu từ giá: @String.Format("{0:0,0}", item.IncreasePrice)₫</div>
+                                                <div class="product-m__price">Từ giá: @String.Format("{0:0,0}", item.IncreasePrice)₫ trở lên</div>
                                                 @if (item.TypeVoucher == true)
                                                 {
                                                     <div class="product-m__price">Giá giảm: @String.Format("{0:0,0}", item.PriceDiscount)đ</div>

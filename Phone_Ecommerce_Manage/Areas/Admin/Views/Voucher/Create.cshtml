@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.Voucher
+@model Phone_Ecommerce_Manage.Models.Voucher
 
 @{
     ViewData["Title"] = "Create";
@@ -110,10 +110,7 @@
 
 @section Scripts{
     <script>
-
-
         $(document).ready(function () {
-
             var changeValue = () => {
                 if ($('#dropdown').val().toString() == "true") {
                     $('#text1').prop("disabled", true);
@@ -123,13 +120,10 @@
                     $('#text2').prop("disabled", true);
                 }
             }
-
             changeValue();
 
             $('#dropdown').change(function () {
                 changeValue();
             })
-
         });
     </script>
-}

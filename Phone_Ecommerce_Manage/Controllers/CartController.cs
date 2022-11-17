@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BraintreeHttp;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PayPal.Core;
+using PayPal.v1.Payments;
 using Phone_Ecommerce_Manage.Models;
 using Phone_Ecommerce_Manage.ModelViews;
 using Phone_Ecommerce_Manage.Utilities;
+
 
 namespace Phone_Ecommerce_Manage.Controllers
 {
     public class CartController : Controller
     {
         private readonly MobileShop_DBContext _context;
-
-        public CartController(MobileShop_DBContext context)
+        private readonly string _clientId;
+        private readonly string _secretKey;
+        public double usdToVND = 23300;
+        public CartController(MobileShop_DBContext context, IConfiguration config)
         {
             _context = context;
+            _clientId = config["PaypalSettings:ClientId"];
+            _secretKey = config["PaypalSettings:SecretKey"];
         }
 
         public List<Cart> getCart()
@@ -29,20 +38,36 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCart(int id)
+        public ActionResult AddCart(int id, int quantity = 0)
         {
             List<Cart> listCard = getCart();
             Cart product = listCard.SingleOrDefault(x => x.id == id);
             if (product == null)
             {
-                product = new Cart(id);
+                if(quantity == 0)
+                {
+                    product = new Cart(id);
+                  
+                }
+                else
+                {
+                    product = new Cart(id, quantity);
+                }
                 listCard.Add(product);
                 HttpContext.Session.Set("Cart", listCard);
             }
             else
             {
-                product.quantity++;
+                if (quantity == 0)
+                {
+                    product.quantity++;
+                }
+                else
+                {
+                    product.quantity += quantity; 
+                }
                 HttpContext.Session.Set("Cart", listCard);
+
             }
             
 
@@ -175,26 +200,47 @@ namespace Phone_Ecommerce_Manage.Controllers
             }
 
             ViewBag.Total = Total();
+            ViewBag.TypePayments = _context.PaymentsTypes.ToList();
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Checkout(Checkout checkout)
         {
-            if(checkout == null)
+            List<Cart> listCard = getCart();
+
+            if (checkout == null || listCard == null)
             {
                 return View();
             }
 
-            List<Cart> listCard = getCart();
+            //Add session checkout
+            ModelViews.Checkout checkoutSession = new ModelViews.Checkout();
+            checkoutSession.customer = checkout.customer;
+            checkoutSession.note = checkout.note;
+            checkoutSession.typeReceive = checkout.typeReceive;
+            checkoutSession.typePayment = checkout.typePayment;
+            checkoutSession.voucher = checkout.voucher;
+            HttpContext.Session.Set("CheckoutSession", checkoutSession);
 
-            if (listCard.Count == 0)
+            switch (checkout.typePayment)
             {
-                return RedirectToAction("EmptyCart", "Cart");
+                case 1:
+                    await SaveOrderBill();
+                    return RedirectToAction("OrderSuccess", "Cart");
+
+                case 2:
+                    return RedirectToAction("PaypalCheckout", "Cart");
             }
 
+            return View();
 
+        }
+
+        public async Task SaveOrderBill(bool isPaid = false)
+        {
+            var checkout = HttpContext.Session.Get<ModelViews.Checkout>("CheckoutSession");
+            List<Cart> listCard = getCart();
             var customer = HttpContext.Session.Get<Customer>("CustomerSession");
-           
             OrderBill orderbill = new OrderBill();
 
             if (customer == null)
@@ -215,7 +261,7 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             Voucher voucher = _context.Vouchers.SingleOrDefault(x => x.CodeVoucher == checkout.voucher);
 
-            if(voucher != null && ((DateTime.Now >= voucher.CreateDate && DateTime.Now <= voucher.EndDate) || voucher.IsNoEndDay == true) 
+            if (voucher != null && ((DateTime.Now >= voucher.CreateDate && DateTime.Now <= voucher.EndDate) || voucher.IsNoEndDay == true)
                 && (voucher.Quantity > 0 || voucher.IsUnLimit == true) && Total() >= voucher.IncreasePrice)
             {
                 if (voucher.TypeVoucher == true)
@@ -242,20 +288,30 @@ namespace Phone_Ecommerce_Manage.Controllers
                 orderbill.Total = Total();
             }
 
-            orderbill.IsPaid = false;
-            orderbill.Note = checkout.note;
-            orderbill.IdStatusOrder = 1; // wait check order
-            
-            // 0: Receive at shop - 1: Shipping 
-            orderbill.TypeReceive = checkout.typeReceive;
-            //HASH
-            if(checkout.typePayment == true)
+            if(isPaid != false)
             {
-                orderbill.IdPaymentType = 1;
+                orderbill.IsPaid = true;
             }
             else
             {
-                orderbill.IdPaymentType = 2;
+                orderbill.IsPaid = false;
+            }
+            orderbill.Note = checkout.note;
+            orderbill.IdStatusOrder = 1; // wait check order
+
+            // 0: Receive at shop - 1: Shipping 
+            orderbill.TypeReceive = checkout.typeReceive;
+            
+
+            switch (checkout.typePayment)
+            {
+                case 1:
+                    orderbill.IdPaymentType = 1;
+                    break;
+
+                case 2:
+                    orderbill.IdPaymentType = 2;
+                    break;
             }
 
             //Add order bill
@@ -263,7 +319,7 @@ namespace Phone_Ecommerce_Manage.Controllers
             await _context.SaveChangesAsync();
 
             //Add details voucher
-            if(voucher != null)
+            if (voucher != null)
             {
                 VoucherDetail voucherDetail = new VoucherDetail();
                 voucherDetail.Idvoucher = voucher.Idvoucher;
@@ -282,12 +338,15 @@ namespace Phone_Ecommerce_Manage.Controllers
                 orderBillDetail.QuantityProduct = item.quantity;
                 orderBillDetail.SubTotal = item.total;
                 _context.Add(orderBillDetail);
-                
+
             }
             await _context.SaveChangesAsync();
 
             DeleteAllItem();
-            return RedirectToAction("OrderSuccess", "Cart");
+            HttpContext.Session.Remove("CheckoutSession");
+            Customer getCustomer = _context.Customers.Where(x => x.IdCustomer == orderbill.IdCustomer).FirstOrDefault();
+
+            await SendMail.SendGmail("doubled.mobileshop@gmail.com", getCustomer.Email, "ĐẶT HÀNG", "<h1>CẢM ƠN BẠN ĐÃ ĐẶT HÀNG. CHÚNG TÔI SẼ GỬI ĐƠN HÀNG SỚM NHẤT CHO BẠN <3</h1>", "doubled.mobileshop@gmail.com", "bolcljqnxfymteio");
         }
 
         public async Task<IActionResult> CheckVoucher(string voucher)
@@ -325,13 +384,144 @@ namespace Phone_Ecommerce_Manage.Controllers
                     status = "Failed",
                     message = "Mã giảm giá không hợp lệ"
                 });
-
-                
-
             }
         }
 
-        public IActionResult OrderSuccess()
+        
+        public async Task<IActionResult> PaypalCheckout()
+        {
+            List<Cart> listCard = getCart();
+            var checkout = HttpContext.Session.Get<ModelViews.Checkout>("CheckoutSession");
+
+            double total = 0;
+            Voucher voucher = _context.Vouchers.SingleOrDefault(x => x.CodeVoucher == checkout.voucher);
+
+            if (voucher != null && ((DateTime.Now >= voucher.CreateDate && DateTime.Now <= voucher.EndDate) || voucher.IsNoEndDay == true)
+                && (voucher.Quantity > 0 || voucher.IsUnLimit == true) && Total() >= voucher.IncreasePrice)
+            {
+                if (voucher.TypeVoucher == true)
+                {
+                    double discount = (double)voucher.PriceDiscount;
+                    total = Total() - discount;
+                }
+                else
+                {
+                    double discount = (double)((Total() * voucher.PercentDiscount) / 100);
+                    total =  Total() - discount;
+                }
+
+            }
+            else
+            {
+                total = Total();
+            }
+
+
+
+            var environment = new SandboxEnvironment(_clientId, _secretKey);
+            var client = new PayPalHttpClient(environment);
+
+            #region Create Paypal Order
+            var itemList = new ItemList()
+            {
+                Items = new List<Item>()
+            };
+            var totalPayment = Math.Round(total / usdToVND, 2);
+            foreach (var item in listCard)
+            {
+                itemList.Items.Add(new Item()
+                {
+                    Name = item.name,
+                    Description = item.color,
+                    Currency = "USD",
+                    Price = Math.Round(item.price / usdToVND, 2).ToString(),
+                    Quantity = item.quantity.ToString(),
+                   
+                });
+            }
+            #endregion
+
+            var paypalOrderId = DateTime.Now.Ticks;
+            var hostname = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            var payment = new Payment()
+            {
+                Intent = "sale",
+                Transactions = new List<Transaction>()
+                {
+                    new Transaction()
+                    {
+                        Amount = new Amount()
+                        {
+                            Total = totalPayment.ToString(),
+                            Currency = "USD",
+                            Details = new AmountDetails
+                            {
+                                Subtotal = Math.Round(Total() / usdToVND, 2).ToString(),
+                                GiftWrap = Math.Round(-(Total() - total) / usdToVND, 2).ToString(),
+                            }
+                            
+                        },
+                        ItemList = itemList,
+                        Description = $"Invoice #{paypalOrderId}",
+                        InvoiceNumber = paypalOrderId.ToString()
+                    }
+                },
+                RedirectUrls = new RedirectUrls()
+                {
+                    CancelUrl = $"{hostname}/Cart/CheckoutFail",
+                    ReturnUrl = $"{hostname}/Cart/CheckoutSuccess"
+                },
+                Payer = new Payer()
+                {
+                    PaymentMethod = "paypal"
+                }
+            };
+
+            PaymentCreateRequest request = new PaymentCreateRequest();
+            request.RequestBody(payment);
+
+            try
+            {
+                var response = await client.Execute(request);
+                var statusCode = response.StatusCode;
+                Payment result = response.Result<Payment>();
+
+                var links = result.Links.GetEnumerator();
+                string paypalRedirectUrl = null;
+                while (links.MoveNext())
+                {
+                    LinkDescriptionObject lnk = links.Current;
+                    if (lnk.Rel.ToLower().Trim().Equals("approval_url"))
+                    {
+                        //saving the payapalredirect URL to which user will be redirected for payment  
+                        paypalRedirectUrl = lnk.Href;
+                    }
+                }
+
+                return Redirect(paypalRedirectUrl);
+            }
+            catch (HttpException httpException)
+            {
+                var statusCode = httpException.StatusCode;
+                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
+
+                //Process when Checkout with Paypal fails
+                return Redirect("/Cart/CheckoutFail");
+            }
+        }
+
+        public async Task<IActionResult> OrderSuccess()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CheckoutSuccess()
+        {
+            await SaveOrderBill(true);
+            return View();
+        }
+
+        public IActionResult CheckoutFail()
         {
             return View();
         }

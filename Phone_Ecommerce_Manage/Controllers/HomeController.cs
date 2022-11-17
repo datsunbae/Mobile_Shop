@@ -2,7 +2,7 @@
 using Phone_Ecommerce_Manage.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
-
+using Phone_Ecommerce_Manage.Utilities;
 
 namespace Phone_Ecommerce_Manage.Controllers
 {
@@ -20,11 +20,12 @@ namespace Phone_Ecommerce_Manage.Controllers
 
         
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.News = _context.News.OrderByDescending(x => x.CreateDate).Take(3).ToList();
             ViewBag.Managers = _context.Managers.ToList();
             ViewBag.Categorys = _context.CategoryNews.ToList();
+            
             return View();
         }
 
