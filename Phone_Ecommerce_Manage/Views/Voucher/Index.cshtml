@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
+@model IEnumerable<Phone_Ecommerce_Manage.Models.Voucher>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,27 +14,23 @@
                     <div class="shop-p">
                         <div class="shop-p__collection">
                             <div class="row is-list-active">
-                                @foreach(var item in Model)
+                                @foreach (var item in Model)
                                 {
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product-m">
                                             <div class="product-m__thumb">
 
-                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                <a class="aspect aspect--square u-d-block" href="product-detail.html">
 
-                                                    <img class="aspect__img" src="~/images/product/default.png" alt="">
+                                                    <img class="aspect__img" src="~/images/gift-voucher.png" alt="">
                                                 </a>
-                                                <div class="product-m__quick-look">
-
-                                                    <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a>
-                                                </div>
                                                 <div class="product-m__add-cart">
 
                                                     <a class="btn--e-brand text-white" data-modal="modal" data-modal-id="#add-to-voucher">XEM</a>
                                                 </div>
                                             </div>
                                             <div class="product-m__content">
-                                                
+
                                                 @if (item.TypeVoucher == true)
                                                 {
                                                     <div class="product-m__preview-description">
@@ -50,8 +46,7 @@
                                                 <div class="product-m__name">
                                                     <a><h3><b>@item.NameVoucher</b></h3></a>
                                                 </div>
-                                                
-                                                 <div class="product-m__price">@item.CodeVoucher</div>
+                                                <div class="product-m__price">CODE: @item.CodeVoucher</div>
                                                 @if (item.IsUnLimit == true)
                                                 {
                                                     <div class="product-m__price">Số lượng: Không giới hạn</div>
@@ -63,13 +58,14 @@
                                                 <div class="product-m__price">Từ giá: @String.Format("{0:0,0}", item.IncreasePrice)₫ trở lên</div>
                                                 @if (item.TypeVoucher == true)
                                                 {
-                                                    <div class="product-m__price">Giá giảm: @String.Format("{0:0,0}", item.PriceDiscount)</div>
+                                                    <div class="product-m__price">Giá giảm: @String.Format("{0:0,0}", item.PriceDiscount)đ</div>
                                                 }
                                                 else
                                                 {
                                                     <div class="product-m__price">Phần trăm: @String.Format("{0:0,0}", item.PercentDiscount)%</div>
                                                 }
-                                                @if(item.IsNoEndDay == true){
+                                                @if (item.IsNoEndDay == true)
+                                                {
                                                     <div class="product-m__price">Thời gian: Không giới hạn</div>
                                                 }
                                                 else

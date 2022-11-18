@@ -29,32 +29,38 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label asp-for="@Model.IncreasePrice" class="control-label">Bắt đầu từ giá</label>
                                         <input asp-for="@Model.IncreasePrice" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.PercentDiscount" class="control-label">Giảm phần trăm</label>
-                                        <input asp-for="@Model.PercentDiscount" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.PriceDiscount" class="control-label">Giá giảm</label>
-                                        <input asp-for="@Model.PriceDiscount" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label asp-for="@Model.Quantity" class="control-label">Số lượng</label>
                                         <input asp-for="@Model.Quantity" class="form-control" />
                                     </div>
                                 </div>
+                                @if (@Model.TypeVoucher == true)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.PriceDiscount" class="control-label">Giá giảm</label>
+                                            <input asp-for="@Model.PriceDiscount" class="form-control" />
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.PercentDiscount" class="control-label">Phần trăm</label>
+                                            <input asp-for="@Model.PercentDiscount" class="form-control" />
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -86,14 +92,6 @@
                                         <div class="custom-control custom-checkbox mb-5">
                                             <input type="checkbox" class="custom-control-input" asp-for="@Model.IsNoEndDay">
                                             <label class="custom-control-label" asp-for="@Model.IsNoEndDay">Không giới hạn ngày</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox mb-5">
-                                            <input type="checkbox" class="custom-control-input" asp-for="@Model.TypeVoucher">
-                                            <label class="custom-control-label" asp-for="@Model.TypeVoucher">Hình thức giảm giá</label>
                                         </div>
                                     </div>
                                 </div>
