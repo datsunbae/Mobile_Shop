@@ -11,15 +11,18 @@ using Newtonsoft.Json;
 using Phone_Ecommerce_Manage.ModelViews;
 using Phone_Ecommerce_Manage.Models;
 using Phone_Ecommerce_Manage.Utilities;
+using System.Text.RegularExpressions;
 
 namespace Phone_Ecommerce_Manage.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly MobileShop_DBContext _context;
+        
 
         public AccountsController(MobileShop_DBContext context)
         {
+            
             _context = context;
         }
 
@@ -136,11 +139,91 @@ namespace Phone_Ecommerce_Manage.Controllers
             HttpContext.Session.Remove("CustomerSession");
             return RedirectToAction("Index", "Home");
         }
+        
 
-        public IActionResult LostPassword()
+        public IActionResult ForgetPassword()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel data)
+        {
+            
+
+            if (ModelState.IsValid)
+            {
+                var customer = await _context.Customers.Where(x => x.Email == data.Email).FirstOrDefaultAsync();
+                if (customer == null)
+                {
+                    ViewBag.Error = "Email không tồn tại";
+                    return View();
+                }
+
+                string token = Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "");
+                customer.Token = token;
+                _context.Update(customer);
+                await _context.SaveChangesAsync();
+                string url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Accounts/ResetPassword/?email={data.Email}&token={token}";
+                await SendMail.SendGmail("doubled.mobileshop@gmail.com", data.Email, "Mobile Shop - KHÔI PHỤC TÀI KHOẢN", $"<h3>Để khôi phục mật khẩu, vui lòng click vào đường dẫn sau: {url}</h3>", "doubled.mobileshop@gmail.com", "bolcljqnxfymteio");
+                return RedirectToAction("ForgetPassWordSuccess", "Accounts"); 
+            }
+            
+            return View();
+        }
+
+        public IActionResult ForgetPassWordSuccess()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ResetPassword(string email = "", string token = "")
+        {
+            if(email != "" && token != "")
+            {
+                var customer = await _context.Customers.Where(x => x.Email == email && x.Token == token).FirstOrDefaultAsync();
+
+                if(customer == null)
+                {
+                    return RedirectToAction("ForgetPassword", "Accounts");
+                }
+            }
+            else
+            {
+                return RedirectToAction("ForgetPassword", "Accounts");
+            }
+
+            ResetPassword resetPassword = new ResetPassword();
+            resetPassword.Email = email;
+            resetPassword.Token = token;
+            return View(resetPassword);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPassword data)
+        {
+            if (ModelState.IsValid)
+            {
+                var customer = await _context.Customers.Where(x => x.Email == data.Email && x.Token == data.Token).FirstOrDefaultAsync();
+                if (customer == null)
+                {
+                    return RedirectToAction("ResetPassword", "Accounts", new { email = data.Email, token = data.Token });
+                }
+
+                customer.Password = HashMD5.MD5Hash(data.Password);
+                customer.Token = null;
+                _context.Update(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ResetPasswordSuccess", "Accounts");
+            }
+            return RedirectToAction("ResetPassword", "Accounts", new { email = data.Email, token = data.Token });
+        }
+
+        public IActionResult ResetPasswordSuccess()
+        {
+            return View();
+        }
+
         public IActionResult Profile()
         {
             var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
@@ -153,6 +236,7 @@ namespace Phone_Ecommerce_Manage.Controllers
             var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
             return View(customer);
         }
+
         public IActionResult MyOrders()
         {
             var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
@@ -179,6 +263,7 @@ namespace Phone_Ecommerce_Manage.Controllers
             var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
             return View(customer);
         }
+
         [HttpPost]
         public async Task<IActionResult> EditAccount([Bind("NameCustomer", "Phone", "Email", "Address")] Customer customerBlind)
         {
@@ -188,8 +273,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             {
                 return RedirectToAction("Signin", "Accounts");
             }
-
-            
 
             var customer = _context.Customers.SingleOrDefault(x => x.IdCustomer == customerSession.IdCustomer);
 
@@ -218,6 +301,7 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             return View(customer);
         }
+
         public IActionResult DetailOrder(int id)
         {
             var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
@@ -233,8 +317,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             {
                 return NotFound();
             }
-
-           
 
             ViewBag.OrderBillDetails = _context.OrderBillDetails.Where(x => x.IdOrderBill == orderBill.IdOrderBill).ToList();
             ViewBag.ListProductVersion = _context.ProductVersions.ToList();

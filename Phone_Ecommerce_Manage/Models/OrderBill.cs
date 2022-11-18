@@ -30,7 +30,7 @@ namespace Phone_Ecommerce_Manage.Models
         public int? IdStatusOrder { get; set; }
         public int? IdCustomer { get; set; }
         public int? IdManager { get; set; }
-        public bool? TypeReceive { get; set; }
+        public bool TypeReceive { get; set; }
         public int? IdPaymentType { get; set; }
 
         [ForeignKey("IdCustomer")]

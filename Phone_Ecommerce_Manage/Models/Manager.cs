@@ -37,6 +37,9 @@ namespace Phone_Ecommerce_Manage.Models
         public DateTime? CreateDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LastLogin { get; set; }
+        [StringLength(255)]
+        [Unicode(false)]
+        public string? Token { get; set; }
         public int? IdRole { get; set; }
 
         [ForeignKey("IdRole")]
