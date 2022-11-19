@@ -333,6 +333,12 @@ namespace Phone_Ecommerce_Manage.Controllers
             foreach (var item in listCard)
             {
                 OrderBillDetail orderBillDetail = new OrderBillDetail();
+
+                ProductColor productColor = await _context.ProductColors.SingleOrDefaultAsync(x => x.IdProductColor == item.idProductColor);
+                productColor.Quantity -= item.quantity;
+                _context.Update(productColor);
+                await _context.SaveChangesAsync();
+
                 orderBillDetail.IdOrderBill = orderbill.IdOrderBill;
                 orderBillDetail.IdProductColor = item.id;
                 orderBillDetail.QuantityProduct = item.quantity;
