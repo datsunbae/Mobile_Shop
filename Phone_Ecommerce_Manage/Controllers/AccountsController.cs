@@ -25,8 +25,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             
             _context = context;
         }
-
-
         public IActionResult SignIn()
         {
             var customer = HttpContext.Session.Get<Customer>("CustomerSession");
@@ -54,7 +52,6 @@ namespace Phone_Ecommerce_Manage.Controllers
                 var accountUser = await _context.Customers.Where(x => x.UserName == userName && x.Password == password).FirstOrDefaultAsync();
                 if (accountUser != null)
                 {
-
                     Customer customerSession = new Customer();
                     customerSession.IdCustomer = accountUser.IdCustomer;
                     customerSession.NameCustomer = accountUser.NameCustomer;
@@ -139,7 +136,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             HttpContext.Session.Remove("CustomerSession");
             return RedirectToAction("Index", "Home");
         }
-        
 
         public IActionResult ForgetPassword()
         {
@@ -149,8 +145,6 @@ namespace Phone_Ecommerce_Manage.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel data)
         {
-            
-
             if (ModelState.IsValid)
             {
                 var customer = await _context.Customers.Where(x => x.Email == data.Email).FirstOrDefaultAsync();
@@ -171,7 +165,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             
             return View();
         }
-
         public IActionResult ForgetPassWordSuccess()
         {
             return View();
@@ -311,7 +304,7 @@ namespace Phone_Ecommerce_Manage.Controllers
                 return RedirectToAction("Signin", "Accounts");
             }
 
-            var orderBill = _context.OrderBills.SingleOrDefault(x => x.IdOrderBill == id);
+            var orderBill = _context.OrderBills.SingleOrDefault(x => x.IdOrderBill == id && x.IdCustomer == customerSession.IdCustomer);
 
             if(id == null || orderBill == null)
             {
@@ -327,20 +320,41 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             return View(orderBill);
         }
-        public IActionResult AddressBook()
+       
+        public IActionResult ChangePassword()
         {
+            var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customerSession == null)
+            {
+                return RedirectToAction("Signin", "Accounts");
+            }
             return View();
         }
-        public IActionResult PaymentOption()
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel data)
         {
-            return View();
-        }
-        public IActionResult ReturnsandCancellations()
-        {
-            return View();
-        }
-        public IActionResult TrackOrder()
-        {
+            if(ModelState.IsValid)
+            {
+                var customerSession = HttpContext.Session.Get<Customer>("CustomerSession");
+                Customer customer = await _context.Customers.SingleOrDefaultAsync(x => x.IdCustomer == customerSession.IdCustomer);
+
+                if(customer != null)
+                {
+                    var passwordNow = HashMD5.MD5Hash(data.PasswordNow);
+                    if(customer.Password == passwordNow)
+                    {
+                        customer.Password = HashMD5.MD5Hash(data.Password);
+                        _context.Update(customer);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("ManageAccount", "Accounts");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorPassword = "Mật khẩu hiện tại không đúng";
+                    }
+                }
+            }
             return View();
         }
     }
