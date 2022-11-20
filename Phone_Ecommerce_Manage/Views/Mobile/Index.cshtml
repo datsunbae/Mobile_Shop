@@ -1,12 +1,23 @@
-﻿@using Phone_Ecommerce_Manage.Models;
+﻿@using Phone_Ecommerce_Manage.ModelViews
+@using Phone_Ecommerce_Manage.Models;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     MobileShop_DBContext contex = new MobileShop_DBContext();
-    var listMobile = 
-               from productVerion in contex.ProductVersions
-               join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
-               select new { ProductVersion = productVerion, ProductColor = productColor };
+
+    IEnumerable<ListMobileViewModels> listMobile = from productVerion in contex.ProductVersions
+                                                   join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
+                                                   select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor };
+
+    List<ProductColor> productColorsFilter = ViewBag.ListProductFilter;
+    
+
+    if(productColorsFilter != null )
+    {
+        listMobile = (from productVerion in contex.ProductVersions.ToList()
+                     join productColor in productColorsFilter.ToList() on productVerion.IdProductVersion equals productColor.IdProductVersion
+                     select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor }).ToList();
+    }
 
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
     List<BrandMobile> listBrands = ViewBag.ListBrand;
@@ -64,7 +75,7 @@
                                                 <span>@item.NameBrand</span>
                                             </div>
 
-                                            @*<span class="shop-w__total-text">(3)</span>*@
+                                          
                                         </li>
                                         }
                                     </ul>
@@ -131,12 +142,9 @@
                                                 <li class="has-list li-rom" data-id="@item.IdRom">
                                                     <a href="#">@item.NameRom</a>
                                                 </li>
-                                               
                                                 }
                                             </ul>
                                         </li>
-                                        
-                                            
                                     </ul>
                                 </div>
                             </div>
@@ -217,8 +225,7 @@
                                     <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
                                 </div>
                                 <div class="shop-w__wrap collapse show" id="s-price">
-                                    <form class="shop-w__form-p">
-                                        <div class="shop-w__form-p-wrap">
+                                     <div class="shop-w__form-p-wrap">
                                             <div>
 
                                                 <label for="price-min"></label>
@@ -231,9 +238,8 @@
                                                 <input class="input-text input-text--primary-style" type="text" id="price-max" placeholder="Max"></div>
                                             <div>
 
-                                                <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button></div>
+                                                <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2 filter-price" ></button></div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -271,22 +277,22 @@
                             @{
                                 foreach(var item in listProductVersion)
                                 {
-                                    var product = listMobile.Where(x => x.ProductColor.IdProductVersion == item.IdProductVersion && x.ProductVersion.IsPublished == true).Take(1).FirstOrDefault();
+                                    var product = listMobile.Where(x => x.IdProductVersion == item.IdProductVersion && x.IsPublished== true).Take(1).FirstOrDefault();
                                     if(product != null)
                                     {
-                                        var img = (product.ProductColor.ImgProductColor).Split(", ")[0];
+                                        var img = (product.ImgProductColor).Split(", ")[0];
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product-m">
                                     <div class="product-m__thumb">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.ProductColor.IdProductColor">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.IdProductColor">
 
                                             <img class="aspect__img" src="@img"alt="">
                                         </a>
                                         
                                         <div class="product-m__add-cart">
                                             
-                                            <a class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.ProductColor.IdProductColor">Thêm vào giỏ hàng</a></div>
+                                            <a class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.IdProductColor">Thêm vào giỏ hàng</a></div>
                                         
                                     </div>
                                     <div class="product-m__content">
@@ -295,21 +301,21 @@
                                             <a href="shop-side-version-2.html">Điện thoại</a></div>
                                         <div class="product-m__name">
 
-                                            <a href="/Mobile/Product">@product.ProductVersion.NameProductVersion</a>
+                                            <a href="/Mobile/Product">@product.NameProduct</a>
                                         </div>
                                         <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
 
                                             <span class="product-m__review">(23)</span></div>
                                         <div class="product-m__price">
-                                                        @if(product.ProductColor.PromotionPrice == null)
+                                                        @if(product.PromotionPrice == null)
                                                         {
-                                                            <span>@String.Format("{0:0,0}", product.ProductColor.Price)₫  </span>
+                                                            <span>@String.Format("{0:0,0}", product.Price)₫  </span>
                                             
                                                         }
                                                         else{
-                                                            <span class="d-inline pr-1 ">@String.Format("{0:0,0}", product.ProductColor.PromotionPrice)₫</span>
+                                                            <span class="d-inline pr-1 ">@String.Format("{0:0,0}", product.PromotionPrice)₫</span>
                                                             <span class="d-inline" style="color: #888888; text-decoration: line-through;">
-                                                                 @String.Format("{0:0,0}", product.ProductColor.Price)₫
+                                                                 @String.Format("{0:0,0}", product.Price)₫
                                                             </span>
                                                         }
                                                     </div>
@@ -317,7 +323,7 @@
                                             <div class="product-m__preview-description">
 
                                                 <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                            <div class="product-m__wishlist" data-id="@product.ProductColor.IdProductColor">
+                                            <div class="product-m__wishlist" data-id="@product.IdProductColor">
 
                                                 <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
                                         </div>
@@ -491,7 +497,6 @@
                         alert('error');
                     }
                 })
-                
             });
 
             $(".key-search-product").keyup(function () {
@@ -507,6 +512,29 @@
                         $("#products-list-ajax").html(results);
                     },
                 });
+            });
+
+            $(".filter-price").click(function(){
+
+                 $.ajax({
+                    url: "/Mobile/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                       FromPrice: $("#price-min").val(),
+                       ToPrice: $("#price-max").val()
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
             });
         })
     </script>

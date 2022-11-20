@@ -13,7 +13,7 @@ namespace Phone_Ecommerce_Manage.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0)
+        public async Task<IActionResult> Index(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0, int fromPrice = 0, int toPrice = 0)
         {
             var query =
                from productVerion in _context.ProductVersions
@@ -56,6 +56,23 @@ namespace Phone_Ecommerce_Manage.Controllers
             else if (IdRom != 0)
             {
                 ViewBag.ListProductVersion = await _context.ProductVersions.Where(x => x.IdRom == IdRom).ToListAsync();
+            }
+            else if(fromPrice != 0 && toPrice != 0) {
+                ViewBag.ListProductFilter = await _context.ProductColors.AsNoTracking().Where(x => ((x.PromotionPrice != null || x.PromotionPrice != 0) && x.Price >= fromPrice && x.Price <= toPrice)
+            || (x.PromotionPrice >= fromPrice && x.PromotionPrice <= toPrice)).ToListAsync();
+                ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
+            }
+            else if(fromPrice != 0)
+            {
+                ViewBag.ListProductFilter = _context.ProductColors.Where(x => ((x.PromotionPrice != null || x.PromotionPrice != 0) && x.Price >= fromPrice)
+            || (x.PromotionPrice >= fromPrice)).ToList();
+                ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
+            }
+            else if(toPrice != 0)
+            {
+                ViewBag.ListProductFilter = await _context.ProductColors.AsNoTracking().Where(x => ((x.PromotionPrice != null || x.PromotionPrice != 0) && x.Price <= toPrice)
+            || (x.PromotionPrice <= toPrice)).ToListAsync();
+                ViewBag.ListProductVersion = await _context.ProductVersions.ToListAsync();
             }
             else
             {
@@ -104,7 +121,7 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Filtter(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0)
+        public IActionResult Filtter(int IdBrandMobile = 0, int idOS = 0, int IdRam = 0, int IdRom = 0, int fromPrice = 0, int toPrice = 0)
         {
             var url = "";
             if (IdBrandMobile != 0)
@@ -127,6 +144,22 @@ namespace Phone_Ecommerce_Manage.Controllers
                 url = $"/Mobile?IdRom={IdRom}";
             }
 
+            if(fromPrice != 0 && toPrice != 0)
+            {
+                url = $"/Mobile?FromPrice={fromPrice}&ToPrice={toPrice}";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+            
+            if(fromPrice != 0)
+            {
+                url = $"/Mobile?FromPrice={fromPrice}";
+            }
+
+            if(toPrice !=0)
+            {
+                url = $"/Mobile?ToPrice={toPrice}";
+            }
+
             return Json(new { status = "success", redirectUrl = url });
         }
 
@@ -144,6 +177,15 @@ namespace Phone_Ecommerce_Manage.Controllers
             return PartialView("_ProductsSearchPartialView", ls);
 
         }
+
+        [HttpPost]
+        public IActionResult FilterPrice(int fromPrice = 0, int toPrice = 0)
+        {
+            var url = "";
+           
+            return Json(new { status = "success", redirectUrl = url });
+        }
+
 
         public IActionResult EmptySearch()
         {
