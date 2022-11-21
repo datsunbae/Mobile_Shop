@@ -10,9 +10,7 @@
                                                    select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor };
 
     List<ProductColor> productColorsFilter = ViewBag.ListProductFilter;
-    
-
-    if(productColorsFilter != null )
+    if(productColorsFilter != null)
     {
         listMobile = (from productVerion in contex.ProductVersions.ToList()
                      join productColor in productColorsFilter.ToList() on productVerion.IdProductVersion equals productColor.IdProductVersion

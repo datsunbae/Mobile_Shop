@@ -1,0 +1,139 @@
+﻿@using Phone_Ecommerce_Manage.ModelViews;
+@using Phone_Ecommerce_Manage.Models;
+@{
+    ViewData["Title"] = "Brand Statistical";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    MobileShop_DBContext contex = new MobileShop_DBContext();
+    IEnumerable<BrandStatistical> brandStatisticals = ViewBag.BrandStatisticals ;
+
+    var brandMobiles = from BrandMobiles in contex.BrandMobiles.ToList()
+                       join BrandStatisticals in brandStatisticals.ToList() on BrandMobiles.IdBrandMobile equals BrandStatisticals.IdBrand into g
+                       from j in g.DefaultIfEmpty()
+                       select new
+                       {
+                           BrandMobiles = BrandMobiles,
+                           BrandStatisticals = j
+                       };
+
+    List<BrandMobile> brandMobiless = ViewBag.ListBrand;
+    var month = ViewBag.Month;
+    var year = ViewBag.Year;
+    
+}
+<div class="main-container">
+    <div class="xs-pd-20-10 pd-ltr-20">
+        <div class="form-group mb-md-0">
+           <h3 class="text-center">THỐNG KÊ THƯƠNG HIỆU</h3>
+        <div class="row mt-5">
+             <div class="dropdown bootstrap-select form-control form-control-sm col-md-2">
+                                <select class="form-control form-control-sm selectpicker select-month" tabindex="-98" asp-items="ViewBag.ListMonth">
+                                
+                                </select>
+
+                                 <select class="form-control form-control-sm selectpicker mt-3 select-year" tabindex="-98" asp-items="ViewBag.ListYear">
+                                
+                                </select>
+                        </div>
+  <canvas id="myChartt" style="max-width: 900px; max-height: 600px"></canvas>
+</div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+            $(".select-month").val(@month);
+            $(".select-year").val(@year);
+
+            $(".select-month").on( 'change',function(){
+                 $.ajax({
+                    url: "/Admin/Statistical/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        month: $(this).val(),
+                        year: $(".select-year :selected").val()
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+            $(".select-year").on( 'change',function(){
+                 $.ajax({
+                    url: "/Admin/Statistical/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        year: $(this).val(),
+                        month: $(".select-month :selected").val()
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  const ctx = document.getElementById('myChartt');
+ 
+  const dataBrand = [];
+  @{var sumCount =  brandMobiles.Sum(x => x.BrandStatisticals?.Count == null ? 0 : x.BrandStatisticals?.Count);
+      if(sumCount == null || sumCount == 0){
+            sumCount = 1;
+      }
+  }
+
+  @foreach(var item in brandMobiles){
+      var count = 0;
+       if(item.BrandStatisticals?.Count != null){
+          count = item.BrandStatisticals.Count;
+      }
+
+      var percent = (count * 100)/sumCount;
+
+      @:dataBrand.push({brandName: "@item.BrandMobiles.NameBrand", percent: @percent, color: getRandomColor()})
+  }
+ 
+  const data = {
+  labels: dataBrand.map(row => row.brandName),
+  datasets: [{
+    label: 'My First Dataset',
+    data: dataBrand.map(row => row.percent),
+    backgroundColor: dataBrand.map(row => row.color),
+  }]
+};
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+  });
+  
+</script>
+}
+
