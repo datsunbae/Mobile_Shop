@@ -91,13 +91,59 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
              
             return View();
         }
+
+        public IActionResult CustomerStatistical(int month = 0, int year = 0)
+        {
+            List<SelectListItem> listMonth = new List<SelectListItem>();
+
+            for (var i = 1; i <= 12; i++)
+            {
+                listMonth.Add(new SelectListItem() { Text = $"Tháng {i}", Value = $"{i}" });
+            }
+
+            ViewData["ListMonth"] = listMonth;
+
+            List<SelectListItem> listYear = new List<SelectListItem>();
+            int yearCurrent = DateTime.Now.Year;
+            for (var i = 0; i <= 5; i++)
+            {
+                listYear.Add(new SelectListItem() { Text = $"Năm {yearCurrent - i}", Value = $"{yearCurrent - i}" });
+            }
+
+            ViewData["ListYear"] = listYear;
+
+            if (month == 0 && year == 0)
+            {
+                month = DateTime.Now.Month;
+                year = DateTime.Now.Year;
+            }
+
+            ViewBag.Month = month;
+            ViewBag.Year = year;
+
+            ViewBag.CustomerStatisticals = from OrderBills in _context.OrderBills
+                                           join Customers in _context.Customers on OrderBills.IdCustomer equals Customers.IdCustomer 
+                                           where OrderBills.OrderDate.Value.Month == month && OrderBills.OrderDate.Value.Year == year && OrderBills.IsPaid == true
+                                           group new { OrderBills, Customers } by new { Customers.IdCustomer, Customers.NameCustomer, Customers.Phone, Customers.Email } into g
+                                           select new CustomerStatistical { IdCustomer = g.Key.IdCustomer, NameCustomer = g.Key.NameCustomer, Phone = g.Key.Phone, Email = g.Key.Email ,CountOrderBills =  g.Count(), Total =  (double) g.Sum(s => s.OrderBills.Total) };
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Filtter(int month = 0, int year = 0)
+        public IActionResult Filtter(int month = 0, int year = 0, string type = "")
         {
             var url = "";
-            if (month != 0 && year != 0)
+            if (month != 0 && year != 0 && type != "")
             {
-                url = $"/Admin/Statistical/BrandStatistical?Month={month}&Year={year}";
+                switch (type)
+                {
+                    case "BrandStatistical":
+                        url = $"/Admin/Statistical/BrandStatistical?Month={month}&Year={year}";
+                        break;
+                    case "CustomerStatistical":
+                        url = $"/Admin/Statistical/CustomerStatistical?Month={month}&Year={year}";
+                        break;
+                }
             }
 
             if(month == 0 && year != 0)

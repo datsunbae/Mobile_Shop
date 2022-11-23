@@ -1,0 +1,116 @@
+﻿@using Phone_Ecommerce_Manage.ModelViews;
+@{
+    ViewData["Title"] = "Customer Statistical";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	IEnumerable<CustomerStatistical> customerStatisticals = ViewBag.CustomerStatisticals ;
+
+    var month = ViewBag.Month;
+    var year = ViewBag.Year;
+}
+
+<div class="main-container">
+	<div >
+		<div class="min-height-200px">
+			<div class="card-box mb-30">
+				<div class="pd-20">
+					 <div class= "row mb-4">
+						 <div class="col-md-3">
+							 <select class="form-control form-control-sm selectpicker select-month" tabindex="-98" asp-items="ViewBag.ListMonth">
+                                
+                                </select>
+
+                                 <select class="form-control form-control-sm selectpicker mt-3 select-year" tabindex="-98" asp-items="ViewBag.ListYear">
+                                
+                                </select>
+						 </div>
+					 </div>
+					<h4 class="text-blue h4">THỐNG KÊ KHÁCH HÀNG</h4>
+					
+				</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>Mã khách hàng</th>
+								<th>Tên khách hàng</th>
+								<th>Số điện thoại</th>
+								<th>Email</th>
+								<th>Số đơn hàng</th>
+								<th>Tổng tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in customerStatisticals) {
+                                <tr>
+                                    <td>@item.IdCustomer</td>
+                                    <td>@item.NameCustomer</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.CountOrderBills</td>
+                                    <td>@String.Format("{0:0,0}", item.Total)₫</td>
+                                </tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+<script>
+            $(".select-month").val(@month);
+            $(".select-year").val(@year);
+
+            $(".select-month").on( 'change',function(){
+                 $.ajax({
+                    url: "/Admin/Statistical/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        month: $(this).val(),
+                        year: $(".select-year :selected").val(),
+                        type: "CustomerStatistical"
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+            $(".select-year").on( 'change',function(){
+                 $.ajax({
+                    url: "/Admin/Statistical/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        year: $(this).val(),
+                        month: $(".select-month :selected").val(),
+                        type: "CustomerStatistical"
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+</script>
+}
+
+
+
