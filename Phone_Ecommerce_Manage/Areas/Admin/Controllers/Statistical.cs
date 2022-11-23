@@ -16,9 +16,36 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult RevenuesStatistical()
+        public IActionResult RevenuesStatistical(int year = 0)
         {
-            
+            List<SelectListItem> listYear = new List<SelectListItem>();
+            int yearCurrent = DateTime.Now.Year;
+            for (var i = 0; i <= 5; i++)
+            {
+                listYear.Add(new SelectListItem() { Text = $"Năm {yearCurrent - i}", Value = $"{yearCurrent - i}" });
+            }
+
+            if (year == 0)
+            {
+                year = DateTime.Now.Year;
+            }
+
+            ViewBag.Year = year;
+            ViewData["ListYear"] = listYear;
+
+           List<double> statisList = new List<double>();
+            for(int i = 1; i <= 12; i++)
+            {
+                var revenues = (from OrderBills in _context.OrderBills
+                                join OrderBillDetails in _context.OrderBillDetails on OrderBills.IdOrderBill equals OrderBillDetails.IdOrderBill
+                                where OrderBills.OrderDate.Value.Month == i && OrderBills.OrderDate.Value.Year == year
+                                select OrderBills).ToList();
+                var sum = revenues.Select(c => c.Total).Sum();
+
+                statisList.Add(double.Parse(sum.Value.ToString()));
+            }
+
+            ViewBag.ListRevenuesSatistical = statisList;
             return View();
         }
 
@@ -72,6 +99,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 url = $"/Admin/Statistical/BrandStatistical?Month={month}&Year={year}";
             }
+
+            if(month == 0 && year != 0)
+            {
+                url = $"/Admin/Statistical/RevenuesStatistical?Year={year}";
+            }
+
             return Json(new { status = "success", redirectUrl = url });
         }
     }

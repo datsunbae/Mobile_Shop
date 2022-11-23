@@ -1,11 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Revenues Statistical";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    
+    var year = ViewBag.Year;
+    List<double> listRevenuesSatistical = ViewBag.ListRevenuesSatistical;
 }
 <div class="main-container">
     <div class="xs-pd-20-10 pd-ltr-20">
+           <h3 class="text-center">THỐNG KÊ DOANH THU</h3>
+
         <div class="row">
+            <div class="col-md-2">
+                <select class="form-control form-control-sm selectpicker mt-3 select-year" tabindex="-98" asp-items="ViewBag.ListYear">
+                                
+                                </select>
+            </div>
+        </div>
+        <div class="row">
+            
   <canvas id="myChart" width="100%" height="50"><p>Hello Fallback World</p></canvas>
 </div>
     </div>
@@ -17,6 +28,35 @@
   const ctx = document.getElementById('myChart');
   
 
+  $(".select-year").val(@year);
+
+            $(".select-year").on( 'change',function(){
+                 $.ajax({
+                    url: "/Admin/Statistical/Filtter",
+                    type: "POST",
+                    datatype: "json",
+                     async: true,
+                    data: {
+                        year: $(this).val(),
+                    },
+                     success: function(data){ 
+                         if (data.status == "success") {
+                            window.location.href = data.redirectUrl;
+                        }
+                      },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                })
+                
+            });
+
+  const revenuesStasticals = [];
+  @foreach(var item in listRevenuesSatistical){
+
+      @:revenuesStasticals.push({revenues: @item})
+  }
+
 
   new Chart(ctx, {
     type: 'bar',
@@ -24,7 +64,7 @@
       labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
       datasets: [{
         label: 'Doanh thu',
-        data: [30000000, 500000, 70000000, 1000000, 34000000, 50000000, 20000000, 76000000, 50000000, 9000000, 8000000, 50000000, 50000000],
+        data: revenuesStasticals.map(row => row.revenues),
         borderWidth: 1,
         backgroundColor: '#6610f2',
       }]
