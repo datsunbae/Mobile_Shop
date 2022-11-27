@@ -262,7 +262,7 @@ namespace Phone_Ecommerce_Manage.Controllers
             Voucher voucher = _context.Vouchers.SingleOrDefault(x => x.CodeVoucher == checkout.voucher);
 
             if (voucher != null && ((DateTime.Now >= voucher.CreateDate && DateTime.Now <= voucher.EndDate) || voucher.IsNoEndDay == true)
-                && (voucher.Quantity > 0 || voucher.IsUnLimit == true) && Total() >= voucher.IncreasePrice)
+                && (voucher.QuantityRemaining > 0 || voucher.IsUnLimit == true) && Total() >= voucher.IncreasePrice)
             {
                 if (voucher.TypeVoucher == true)
                 {
@@ -277,11 +277,12 @@ namespace Phone_Ecommerce_Manage.Controllers
 
                 if (voucher.IsUnLimit == false || voucher.IsUnLimit == null)
                 {
-                    voucher.Quantity--;
+                    voucher.QuantityRemaining--;
                     _context.Update(voucher);
                     await _context.SaveChangesAsync();
                 }
 
+                orderbill.Idvoucher = voucher.Idvoucher;
             }
             else
             {
@@ -318,17 +319,6 @@ namespace Phone_Ecommerce_Manage.Controllers
             _context.Add(orderbill);
             await _context.SaveChangesAsync();
 
-            //Add details voucher
-            if (voucher != null)
-            {
-                VoucherDetail voucherDetail = new VoucherDetail();
-                voucherDetail.Idvoucher = voucher.Idvoucher;
-                voucherDetail.IdOrderBill = orderbill.IdOrderBill;
-                _context.Add(voucherDetail);
-                await _context.SaveChangesAsync();
-            }
-
-
             //Add order bill details
             foreach (var item in listCard)
             {
@@ -364,7 +354,7 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             var checkVoucher = await _context.Vouchers.Where(x => x.CodeVoucher.Equals(voucher)).FirstOrDefaultAsync();
             if (checkVoucher != null && ((DateTime.Now >= checkVoucher.CreateDate && DateTime.Now <= checkVoucher.EndDate) || checkVoucher.IsNoEndDay == true)
-                && (checkVoucher.Quantity > 0 || checkVoucher.IsUnLimit == true) && Total() >= checkVoucher.IncreasePrice)
+                && (checkVoucher.QuantityRemaining > 0 || checkVoucher.IsUnLimit == true) && Total() >= checkVoucher.IncreasePrice)
             {
                 if (checkVoucher.TypeVoucher == true)
                 {

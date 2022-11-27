@@ -11,7 +11,6 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public Customer()
         {
-            CommentProducts = new HashSet<CommentProduct>();
             CommentRatings = new HashSet<CommentRating>();
             OrderBills = new HashSet<OrderBill>();
         }
@@ -41,8 +40,6 @@ namespace Phone_Ecommerce_Manage.Models
         [Unicode(false)]
         public string? Token { get; set; }
 
-        [InverseProperty("IdCustomerNavigation")]
-        public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdCustomerNavigation")]
         public virtual ICollection<CommentRating> CommentRatings { get; set; }
         [InverseProperty("IdCustomerNavigation")]

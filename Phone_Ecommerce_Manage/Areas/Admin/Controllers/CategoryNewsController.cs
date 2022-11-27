@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using Phone_Ecommerce_Manage.Models;
+
+using Phone_Ecommerce_Manage.Utilities;
 
 namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
@@ -27,7 +32,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             return View(await _context.CategoryNews.ToListAsync());
         }
-
+        
         // GET: Admin/CategoryNews/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -12,7 +12,6 @@ namespace Phone_Ecommerce_Manage.Models
         public OrderBill()
         {
             OrderBillDetails = new HashSet<OrderBillDetail>();
-            VoucherDetails = new HashSet<VoucherDetail>();
         }
 
         [Key]
@@ -24,14 +23,16 @@ namespace Phone_Ecommerce_Manage.Models
         public double? Total { get; set; }
         public double? DiscountProduct { get; set; }
         public double? DiscountVoucher { get; set; }
-        public bool IsPaid { get; set; }
+        public bool? IsPaid { get; set; }
         [StringLength(255)]
         public string? Note { get; set; }
         public int? IdStatusOrder { get; set; }
         public int? IdCustomer { get; set; }
         public int? IdManager { get; set; }
-        public bool TypeReceive { get; set; }
+        public bool? TypeReceive { get; set; }
         public int? IdPaymentType { get; set; }
+        [Column("IDVoucher")]
+        public int? Idvoucher { get; set; }
 
         [ForeignKey("IdCustomer")]
         [InverseProperty("OrderBills")]
@@ -45,9 +46,10 @@ namespace Phone_Ecommerce_Manage.Models
         [ForeignKey("IdStatusOrder")]
         [InverseProperty("OrderBills")]
         public virtual StatusOrder? IdStatusOrderNavigation { get; set; }
+        [ForeignKey("Idvoucher")]
+        [InverseProperty("OrderBills")]
+        public virtual Voucher? IdvoucherNavigation { get; set; }
         [InverseProperty("IdOrderBillNavigation")]
         public virtual ICollection<OrderBillDetail> OrderBillDetails { get; set; }
-        [InverseProperty("IdOrderBillNavigation")]
-        public virtual ICollection<VoucherDetail> VoucherDetails { get; set; }
     }
 }

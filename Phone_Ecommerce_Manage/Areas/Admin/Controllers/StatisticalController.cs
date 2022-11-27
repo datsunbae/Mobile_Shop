@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OfficeOpenXml;
 using Phone_Ecommerce_Manage.Models;
 using Phone_Ecommerce_Manage.ModelViews;
 
@@ -8,11 +9,11 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class Statistical : Controller
+    public class StatisticalController : Controller
     {
         private readonly MobileShop_DBContext _context;
 
-        public Statistical(MobileShop_DBContext context)
+        public StatisticalController(MobileShop_DBContext context)
         {
             _context = context;
         }
@@ -153,5 +154,28 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             return Json(new { status = "success", redirectUrl = url });
         }
+
+        public IActionResult Export(string fileName = "", List<CustomerStatistical> customerStatisticalList = null)
+        {
+            var data = (dynamic)null;
+            if(customerStatisticalList != null)
+            {
+                data = customerStatisticalList.ToList();
+            }
+            var stream = new MemoryStream();
+            fileName = fileName.Trim();
+            using (var package = new ExcelPackage(stream))
+            {
+                var sheet = package.Workbook.Worksheets.Add("Statis");
+                sheet.Cells.LoadFromCollection(data, true);
+                package.Save();
+            }
+            stream.Position = 0;
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
     }
+
+    
 }

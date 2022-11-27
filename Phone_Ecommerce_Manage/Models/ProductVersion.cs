@@ -11,7 +11,6 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public ProductVersion()
         {
-            CommentProducts = new HashSet<CommentProduct>();
             CommentRatings = new HashSet<CommentRating>();
             ProductColors = new HashSet<ProductColor>();
             PromotionProducts = new HashSet<PromotionProduct>();
@@ -43,8 +42,6 @@ namespace Phone_Ecommerce_Manage.Models
         [ForeignKey("IdRom")]
         [InverseProperty("ProductVersions")]
         public virtual Rom? IdRomNavigation { get; set; }
-        [InverseProperty("IdProductVersionNavigation")]
-        public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdProductVersionNavigation")]
         public virtual ICollection<CommentRating> CommentRatings { get; set; }
         [InverseProperty("IdProductVersionNavigation")]

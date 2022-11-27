@@ -10,7 +10,7 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public Voucher()
         {
-            VoucherDetails = new HashSet<VoucherDetail>();
+            OrderBills = new HashSet<OrderBill>();
         }
 
         [Key]
@@ -25,15 +25,16 @@ namespace Phone_Ecommerce_Manage.Models
         public int? PercentDiscount { get; set; }
         public int? PriceDiscount { get; set; }
         public int? Quantity { get; set; }
-        public bool? IsUnLimit { get; set; }
+        public int? QuantityRemaining { get; set; }
+        public bool IsUnLimit { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? EndDate { get; set; }
-        public bool? IsNoEndDay { get; set; }
-        public bool? TypeVoucher { get; set; }
+        public bool IsNoEndDay { get; set; }
+        public bool TypeVoucher { get; set; }
 
         [InverseProperty("IdvoucherNavigation")]
-        public virtual ICollection<VoucherDetail> VoucherDetails { get; set; }
+        public virtual ICollection<OrderBill> OrderBills { get; set; }
     }
 }

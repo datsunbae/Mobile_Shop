@@ -11,7 +11,6 @@ namespace Phone_Ecommerce_Manage.Models
     {
         public Manager()
         {
-            CommentProducts = new HashSet<CommentProduct>();
             CommentRatings = new HashSet<CommentRating>();
             News = new HashSet<News>();
             OrderBills = new HashSet<OrderBill>();
@@ -45,8 +44,6 @@ namespace Phone_Ecommerce_Manage.Models
         [ForeignKey("IdRole")]
         [InverseProperty("Managers")]
         public virtual Role? IdRoleNavigation { get; set; }
-        [InverseProperty("IdManagerNavigation")]
-        public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         [InverseProperty("IdManagerNavigation")]
         public virtual ICollection<CommentRating> CommentRatings { get; set; }
         [InverseProperty("IdManagerNavigation")]

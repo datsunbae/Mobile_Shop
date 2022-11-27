@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.CategoryNews>
+@using Phone_Ecommerce_Manage.Models;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    MobileShop_DBContext context = new MobileShop_DBContext();
+    List<CategoryNews> categoryNews = context.CategoryNews.ToList();
 }
 
 <div class="main-container">
@@ -27,6 +30,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    
                                     <td>@item.NameCategory</td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@item.IdCategoryNews" class="btn btn-primary">Sửa</a>
@@ -34,6 +38,7 @@
                                     </td>
                                 </tr>
                             }
+                            
                         </tbody>
                     </table>
                 </div>
@@ -41,3 +46,5 @@
         </div>
     </div>
 </div>
+
+

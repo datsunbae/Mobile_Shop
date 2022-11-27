@@ -6,6 +6,8 @@
 
     var month = ViewBag.Month;
     var year = ViewBag.Year;
+    //Excel
+    string fileName = $"CustomerStatistical_{DateTime.Now.ToString("ddMMyyyyhhmm")}.xlsx";
 }
 
 <div class="main-container">
@@ -22,6 +24,23 @@
                                  <select class="form-control form-control-sm selectpicker mt-3 select-year" tabindex="-98" asp-items="ViewBag.ListYear">
                                 
                                 </select>
+                                <form asp-controller="Statistical" asp-action="Export" method="post">
+                                       <input type="hidden" asp-for="@fileName" />
+                                @{
+                                    List<CustomerStatistical> customerStatisticalList = customerStatisticals.ToList();
+                                    for(var i = 0;i < customerStatisticalList.Count(); i++)
+                                    {
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].IdCustomer" />
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].NameCustomer" />
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].Phone" />
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].Email" />
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].CountOrderBills" />
+                                       <input type="hidden" asp-for="@customerStatisticalList[i].Total" />
+                                    }
+                                }
+                        
+                        <button class="btn btn-primary btn-lg mt-4" type="submit">Xuất báo cáo</button>
+                                </form>
 						 </div>
 					 </div>
 					<h4 class="text-blue h4">THỐNG KÊ KHÁCH HÀNG</h4>
