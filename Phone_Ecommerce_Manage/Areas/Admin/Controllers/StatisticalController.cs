@@ -118,10 +118,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 month = DateTime.Now.Month;
                 year = DateTime.Now.Year;
             }
-
             ViewBag.Month = month;
             ViewBag.Year = year;
-
             ViewBag.CustomerStatisticals = from OrderBills in _context.OrderBills
                                            join Customers in _context.Customers on OrderBills.IdCustomer equals Customers.IdCustomer 
                                            where OrderBills.OrderDate.Value.Month == month && OrderBills.OrderDate.Value.Year == year && OrderBills.IsPaid == true

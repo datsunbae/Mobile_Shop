@@ -75,11 +75,19 @@
 													if(item.TypeReceive == true)
 													{
 														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Giao hàng</a> 
+														<form asp-controller="OrderBills" asp-action="ExportPDF" method="post">
+															<input type="hidden" asp-for="@item.IdOrderBill" name="IdOrderBill"/>
+															<button  type="submit" class=" btn btn-success">Xuất</button> 
+														</form>
 														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
 													}
 													else
 													{
 														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" class=" btn btn-success">Chờ khách đến</a> 
+														<form asp-controller="OrderBills" asp-action="ExportPDF" method="post">
+															<input type="hidden" asp-for="@item.IdOrderBill"/>
+															<button  type="submit" class=" btn btn-success">Xuất</button> 
+														</form>
 														<a asp-action="UpdateStatusBill" asp-route-id="@item.IdOrderBill" asp-route-cancelOrder = "cancelOrder" class="btn btn-primary">Hủy đơn</a>
 													}
 													break;
