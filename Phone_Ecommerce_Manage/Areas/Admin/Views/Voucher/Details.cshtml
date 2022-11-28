@@ -1,6 +1,6 @@
 ﻿@model Phone_Ecommerce_Manage.Models.Voucher
-
 @{
+    List<OrderBill> listOrderBill = ViewBag.ListOrderBill;
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -97,8 +97,55 @@
                                 </div>
                             </div>
                         </section>
+                    </form>
+                </div>
+                <div class="pb-20">
+                    <form>
+                        <table class="data-table table stripe hover nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Ngày giao hàng</th>
+                                    <th>Giảm giá sản phẩm</th>
+                                    <th>Tiền giảm</th>
+                                    <th>Hình thức nhận hàng</th>
+                                    <th>Tổng tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in listOrderBill)
+                                {
+                                    <tr>
+                                        <td>@item.IdOrderBill</td>
+                                        <td>@item.OrderDate</td>
+                                        <td>@item.ShipDate</td>
+                                        <td>
+                                            @item.DiscountProduct
+                                        </td>
+                                        <td>
+                                            @item.DiscountVoucher
+                                        </td>
+                                        <td>
+                                            @if (item.TypeReceive == true)
+                                            {
+                                                <a>Giao hàng tận nơi</a>
+                                            }
+                                            else
+                                            {
+                                                <a>Nhận hàng tại cửa hàng</a>
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.Total
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                         <button asp-area="Admin" asp-controller="Voucher" asp-action="Index" class="btn btn-danger">Quay về</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
