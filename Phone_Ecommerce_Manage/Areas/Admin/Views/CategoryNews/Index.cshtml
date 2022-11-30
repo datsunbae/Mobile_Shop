@@ -2,7 +2,7 @@
 @using Phone_Ecommerce_Manage.Models;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách danh mục tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     MobileShop_DBContext context = new MobileShop_DBContext();
     List<CategoryNews> categoryNews = context.CategoryNews.ToList();
@@ -13,7 +13,7 @@
         <div class="min-height-200px">
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Danh danh mục tin tức</h4>
+                    <h4 class="text-blue h4">Danh sách danh mục tin tức</h4>
                     <a asp-area="Admin" asp-controller="CategoryNews" asp-action="Create" type="button" class="btn btn-primary">
                         Thêm danh mục tin tức
                     </a>

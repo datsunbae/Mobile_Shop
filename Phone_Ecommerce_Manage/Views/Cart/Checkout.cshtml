@@ -4,7 +4,7 @@
 @model Phone_Ecommerce_Manage.ModelViews.Checkout;
 
 @{
-    ViewData["Title"] = "Checkout";
+    ViewData["Title"] = "Thanh toán";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var customer = Context.Session.Get<Customer>("CustomerSession");
     var ui = customer == null ? "col-lg-6" : "col-lg-12";

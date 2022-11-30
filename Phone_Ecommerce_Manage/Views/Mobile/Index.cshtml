@@ -1,14 +1,12 @@
 ﻿@using Phone_Ecommerce_Manage.ModelViews
 @using Phone_Ecommerce_Manage.Models;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
     MobileShop_DBContext contex = new MobileShop_DBContext();
-
     IEnumerable<ListMobileViewModels> listMobile = from productVerion in contex.ProductVersions
                                                    join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
                                                    select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor };
-
     List<ProductColor> productColorsFilter = ViewBag.ListProductFilter;
     if(productColorsFilter != null)
     {
@@ -16,19 +14,14 @@
                      join productColor in productColorsFilter.ToList() on productVerion.IdProductVersion equals productColor.IdProductVersion
                      select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor }).ToList();
     }
-
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
     List<BrandMobile> listBrands = ViewBag.ListBrand;
     List<O> listOs = ViewBag.ListOS;
     List<Ram> listRam = ViewBag.Ram;
     List<Rom> listRom = ViewBag.Rom;
-
-
     var location = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}");
-     var url = location.AbsoluteUri;
+    var url = location.AbsoluteUri;
 }
-
-
 <div class="u-s-p-y-90">
 
 
@@ -96,8 +89,6 @@
                                                 <input type="checkbox" class="input-os" data-id="@item.IdOs">
                                                 <span>@item.NameOs</span>
                                             </div>
-
-                                           
                                         </li>
                                         }
                                     </ul>
@@ -249,25 +240,9 @@
                     <div class="shop-p__toolbar u-s-m-b-30">
                         <div class="shop-p__tool-style">
                             <div class="tool-style__group u-s-m-b-8">
-
                                 <span class="js-shop-grid-target is-active">Dạng lưới</span>    
-
-                                <span class="js-shop-list-target">Dạng danh sách</span></div>
-
-                             
-                            <form>
-                                <div class="tool-style__form-wrap">
-                                    
-                                    <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2">
-                                            <option selected>Sắp xếp theo: Mới nhất</option>
-                                            <option>Sắp xếp theo: Giá từ thấp đến cao</option>
-                                            <option>Sắp xếp theo: Giá từ cao đến thấp</option>
-                                        </select></div>
-                                </div>
-                            </form>
-
-
-
+                                <span class="js-shop-list-target">Dạng danh sách</span>
+                            </div>
                         </div>
                     </div>
                     <div  id="products-list-ajax" class="shop-p__collection">
@@ -279,32 +254,27 @@
                                     if(product != null)
                                     {
                                         var img = (product.ImgProductColor).Split(", ")[0];
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product-m">
-                                    <div class="product-m__thumb">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.IdProductColor">
-
-                                            <img class="aspect__img" src="@img"alt="">
-                                        </a>
-                                        
-                                        <div class="product-m__add-cart">
-                                            
-                                            <a class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.IdProductColor">Thêm vào giỏ hàng</a></div>
-                                        
-                                    </div>
-                                    <div class="product-m__content">
-                                        <div class="product-m__category">
-
-                                            <a href="shop-side-version-2.html">Điện thoại</a></div>
-                                        <div class="product-m__name">
-
-                                            <a href="/Mobile/Product">@product.NameProduct</a>
-                                        </div>
-                                        <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-m__review">(23)</span></div>
-                                        <div class="product-m__price">
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-action="Details" asp-route-id="@item.IdProductVersion" asp-route-color="@product.IdProductColor">
+                                                        <img class="aspect__img" src="@img"alt="">
+                                                    </a>
+                                                    <div class="product-m__add-cart">
+                                                        <a class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.IdProductColor">Thêm vào giỏ hàng</a></div>
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+                                                        <a href="shop-side-version-2.html">Điện thoại</a>
+                                                    </div>
+                                                    <div class="product-m__name">
+                                                        <a href="/Mobile/Product">@product.NameProduct</a>
+                                                    </div>
+                                                    <div class="product-m__rating gl-rating-style">
+                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                                        <span class="product-m__review">(23)</span>
+                                                    </div>
+                                                    <div class="product-m__price">
                                                         @if(product.PromotionPrice == null)
                                                         {
                                                             <span>@String.Format("{0:0,0}", product.Price)₫  </span>
@@ -317,12 +287,8 @@
                                                             </span>
                                                         }
                                                     </div>
-                                        <div class="product-m__hover">
-                                            <div class="product-m__preview-description">
-
-                                                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
+                                                    <div class="product-m__hover">
                                             <div class="product-m__wishlist" data-id="@product.IdProductColor">
-
                                                 <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
                                         </div>
                                     </div>
@@ -330,7 +296,6 @@
                             </div>
                                     }
                                 }
-                                
                            }
                         </div>
                     </div>
@@ -339,15 +304,11 @@
                         <!--====== Pagination ======-->
                         <ul class="shop-p__pagination">
                             <li class="is-active">
-
-                                <a href="#">1</a></li>
+                                <a href="#">1</a>
+                            </li>
                             <li>
-
-                                <a href="#">2</a></li>
-                            <li>
-                            <li>
-
-                                <a class="fas fa-angle-right" href="#"></a></li>
+                                <a class="fas fa-angle-right" href="#"></a>
+                            </li>
                         </ul>
                         <!--====== End - Pagination ======-->
                     </div>

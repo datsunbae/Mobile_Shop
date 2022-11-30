@@ -3,8 +3,6 @@
 @using Phone_Ecommerce_Manage.Utilities;
 @{
     var customer = Context.Session.Get<Customer>("CustomerSession");
-
-
 }
 <header id="header-id" class="header--style-1">
 
@@ -45,68 +43,50 @@
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:120px">
                                     @{
-
                                         if (customer != null)
                                         {
                                             <li>
-
-                                                <a href="/Accounts/Profile">
+                                                <a href="/Accounts/ManageAccount">
                                                     <i class="fas fa-user-circle u-s-m-r-6"></i>
 
-                                                    <span>Account</span>
+                                                    <span>Thông tin</span>
                                                 </a>
                                             </li>
                                             <li>
-
                                                 <a asp-controller="Accounts" asp-action="SignOut">
                                                     <i class="fas fa-lock-open u-s-m-r-6"></i>
 
-                                                    <span>Signout</span>
+                                                    <span>Đăng xuất</span>
                                                 </a>
                                             </li>
-
                                         }
                                         else
                                         {
                                             <li>
-
                                                 <a href="/Accounts/SignUp">
                                                     <i class="fas fa-user-plus u-s-m-r-6"></i>
 
-                                                    <span>Signup</span>
+                                                    <span>Đăng ký</span>
                                                 </a>
                                             </li>
                                             <li>
-
                                                 <a href="/Accounts/SignIn">
                                                     <i class="fas fa-lock u-s-m-r-6"></i>
 
-                                                    <span>Signin</span>
+                                                    <span>Đăng nhập</span>
                                                 </a>
                                             </li>
                                         }
                                     }
-
                                 </ul>
                                 <!--====== End - Dropdown ======-->
                             </li>
-
                             @{
-
                                 if (customer != null)
                                 {
                                     <span>Xin chào, @(customer.NameCustomer)</span>
                                 }
                             }
-
-                            <li data-tooltip="tooltip" data-placement="left" title="Contact">
-
-                                <a href="tel:+84866160501"><i class="fas fa-phone-volume"></i></a>
-                            </li>
-                            <li data-tooltip="tooltip" data-placement="left" title="Mail">
-
-                                <a href="trancaodai1651@gmail.com"><i class="far fa-envelope"></i></a>
-                            </li>
                         </ul>
                         <!--====== End - List ======-->
                     </div>
@@ -125,9 +105,7 @@
             <div class="secondary-nav">
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation1">
-
                     <button class="btn btn--icon toggle-mega-text toggle-button" type="button">M</button>
-
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
 
@@ -135,64 +113,45 @@
                         <!--====== List ======-->
                         <ul class="ah-list">
                             <li class="has-dropdown">
-                         
-
                                 <span class="mega-text" style="width: 50px;border-radius: 10px">MENU</span>
-
                                 <!--====== Mega Menu ======-->
-
                                 <span class="js-menu-toggle"></span>
                                 <div class="mega-menu">
                                     <div class="mega-menu-wrap">
                                         <div class="mega-menu-list">
                                             <ul>
                                                 <li class="js-active">
-
                                                     <a href="shop-side-version-2.html">
                                                         <i class="fas fa-tv u-s-m-r-6"></i>
-
                                                         <span>Điện thoại</span>
                                                     </a>
-
                                                     <span class="js-menu-toggle js-toggle-mark"></span>
-                                                </li>
-                                                <li>
-
-                                                    <a href="shop-side-version-2.html">
-                                                        <i class="fas fa-female u-s-m-r-6"></i>
-
-                                                        <span>Âm thanh</span>
-                                                    </a>
-
-                                                    <span class="js-menu-toggle"></span>
                                                 </li>
                                             </ul>
                                         </div>
-
                                         <!--====== DIENTHOAI ======-->
                                         <div class="mega-menu-content js-active">
-
                                             <!--====== Mega Menu Row ======-->
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
-                                                            <a href="shop-side-version-2.html">Chọn theo hãng</a>
+                                                            <a">Chọn theo hãng</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Apple</a>
+                                                            <a>Apple</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Samsung</a>
+                                                            <a>Samsung</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Xiaomi</a>
+                                                            <a>Xiaomi</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Oppo</a>
+                                                            <a>Oppo</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Vivo</a>
+                                                            <a>Vivo</a>
                                                         </li>
                                                         <li>
                                                             <a href="shop-side-version-2.html">Nokia</a>
@@ -217,24 +176,19 @@
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
-
-                                                            <a href="shop-side-version-2.html">Chọn theo mức giá</a>
+                                                            <a>Chọn theo mức giá</a>
                                                         </li>
                                                         <li>
-
-                                                            <a href="shop-side-version-2.html">Dưới 5 triệu</a>
+                                                            <a>Dưới 5 triệu</a>
                                                         </li>
                                                         <li>
-
-                                                            <a href="shop-side-version-2.html">Từ 10 đến 15 triệu</a>
+                                                            <a>Từ 10 đến 15 triệu</a>
                                                         </li>
                                                         <li>
-
-                                                            <a href="shop-side-version-2.html">Từ 15 đến 20 triệu</a>
+                                                            <a>Từ 15 đến 20 triệu</a>
                                                         </li>
                                                         <li>
-
-                                                            <a href="shop-side-version-2.html">Trên 20 triệu</a>
+                                                            <a>Trên 20 triệu</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -279,133 +233,6 @@
                                             <br>
                                         </div>
                                         <!--====== End - DIENTHOAI ======-->
-                                        <!--====== AMTHANH ======-->
-                                        <div class="mega-menu-content">
-                                            <!--====== Mega Menu Row ======-->
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <ul>
-                                                        <li class="mega-list-title">
-
-                                                            <a href="shop-side-version-2.html">Chọn loại tai nghe</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Tai nghe bluetooth</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Tai nghe chụp tai</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Tai nghe có dây</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Tai nghe thể thao</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Tai nghe gaming</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <ul>
-                                                        <li class="mega-list-title">
-
-                                                            <a href="shop-side-version-2.html">Hãng tai nghe</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Bras</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Brief Sets</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Bustiers & Corsets</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Panties</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <ul>
-                                                        <li class="mega-list-title">
-
-                                                            <a href="shop-side-version-2.html">Chọn loại loa</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Loa bluetooth</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Loa mini</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Loa karaoke</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Loa soundbar</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <ul>
-                                                        <li class="mega-list-title">
-
-                                                            <a href="shop-side-version-2.html">Hãng loa</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">JBL</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">LG</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Sony</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Marshall</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Harman Kardon</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Huawei</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Anker</a>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">B&O</a>
-                                                        </li>
-                                                        <li>
-
-                                                            <a href="shop-side-version-2.html">Bose</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--====== End - Mega Menu Row ======-->
-                                        <!--====== End - AMTHANH ======-->
                                     </div>
                                 </div>
                                 <!--====== End - Mega Menu ======-->

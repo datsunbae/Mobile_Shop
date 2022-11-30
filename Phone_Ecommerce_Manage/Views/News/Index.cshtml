@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.News>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tin tức công nghệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
     MobileShop_DBContext data = new MobileShop_DBContext();
     var category = data.CategoryNews.ToList();
+    List<CategoryNews> listCategoryNews = ViewBag.ListCategoryNews;
+    List<Manager> listManager = ViewBag.ListManagers;
 }
 <div class="u-s-p-y-90">
     <div class="container">
@@ -18,7 +20,7 @@
                             <form class="blog-search-form">
 
                                 <label for="post-search"></label>
-
+                                @*<input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">*@
                                 <input class="input-text input-text--primary-style" type="text" id="post-search" placeholder="Search">
 
                                 <button class="btn btn--icon fas fa-search" type="submit"></button>
@@ -92,109 +94,48 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="u-s-m-b-60">
-                        <div class="blog-w">
-                            <span class="blog-w__h">COMMENTS GẦN ĐÂY</span>
-                            <ul class="blog-w__b-l-2">
-                                <li>
-                                    <div class="b-l__block">
-
-                                        <span class="b-l__text">admin</span>
-
-                                        <span class="b-l__text">trong</span>
-
-                                        <span class="b-l__h-2">
-
-                                            <a href="blog-detail.html">Life is all about opportunity</a>
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="b-l__block">
-
-                                        <span class="b-l__text">admin</span>
-
-                                        <span class="b-l__text">trong</span>
-
-                                        <span class="b-l__h-2">
-
-                                            <a href="blog-detail.html">Be More Confident in 30 Seconds</a>
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="blog-w">
-
-                            <span class="blog-w__h">TAGS</span>
-                            <div class="blog-t-w">
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Dresses</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Shirts & Tops</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Polo Shirts</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Sweaters</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Blazers</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Vests</a>
-
-                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="blog-left-sidebar.html">Jackets</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12">
-                <div class="bp bp--img u-s-m-b-30">
-                    @foreach (var item in Model)
-                    {
+                @foreach(var item in Model)
+                {
+                    <div class="bp bp--img u-s-m-b-30">
                         <div class="bp__wrap">
                             <div class="bp__thumbnail">
 
                                 <!--====== Image Code ======-->
 
-                                <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
+                                <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" asp-action="Details" asp-route-id="@item.IdNews">
 
-                                    <img class="aspect__img" src="@item.Thumb"/>
+                                    <img class="aspect__img" src="@item.Thumb" />
                                 </a>
                                 <!--====== End - Image Code ======-->
                             </div>
                             <div class="bp__info-wrap">
                                 <div class="bp__stat">
-
                                     <span class="bp__stat-wrap">
-
                                         <span class="bp__publish-date">
-
-                                            <a href="blog-left-sidebar.html">
-
+                                            <a>
                                                 <span>@item.CreateDate</span>
                                             </a>
                                         </span>
                                     </span>
-
                                     <span class="bp__stat-wrap">
 
                                         <span class="bp__author">
-
-                                            <a>Dayle</a>
+                                            @{
+                                                var manager = listManager.Where(x => x.IdManager == item.IdManager).FirstOrDefault();
+                                                <a>@manager.FullName</a>
+                                            }
                                         </span>
                                     </span>
-
                                     <span class="bp__stat-wrap">
 
-                                        <span class="bp__comment">
-
-                                            <a href="blog-detail.html">
-                                                <i class="far fa-comments u-s-m-r-4"></i>
-
-                                                <span>8</span>
-                                            </a>
+                                        <span class="bp__author">
+                                            @{
+                                                var categoryNews = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
+                                                <a>@categoryNews.NameCategory</a>
+                                            }
                                         </span>
                                     </span>
                                 </div>
@@ -237,19 +178,17 @@
                                 </div>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
                 <nav class="post-center-wrap u-s-p-y-60">
 
                     <!--====== Pagination ======-->
                     <ul class="blog-pg">
                         <li class="blog-pg--active">
-
-                            <a href="blog-left-sidebar.html">1</a>
+                            <a>1</a>
                         </li>
                         <li>
-
-                            <a class="fas fa-angle-right" href="blog-left-sidebar.html"></a>
+                            <a class="fas fa-angle-right"></a>
                         </li>
                     </ul>
                     <!--====== End - Pagination ======-->

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using Phone_Ecommerce_Manage.Models;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
     MobileShop_DBContext contex = new MobileShop_DBContext();
     var listMobile = 
                from productVerion in contex.ProductVersions
@@ -107,12 +107,6 @@
                 </div>
             </div>
             <!--====== End - Primary Slider ======-->
-
-
-        
-            
-
-
             <!--====== Section 4 ======-->
             <div class="u-s-p-b-60 mt-5">
 
@@ -131,8 +125,6 @@
                     </div>
                 </div>
                 <!--====== End - Section Intro ======-->
-
-
                 <!--====== Section Content ======-->
                 <div class="section__content">
                     <div class="container">
@@ -142,40 +134,23 @@
                                     <div class="u-s-m-b-30">
                                     <div class="product-o product-o--hover-on">
                                         <div class="product-o__wrap">
-
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
                                                 <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt=""></a>
                                             <div class="product-o__action-wrap">
                                                 <ul class="product-o__action-list">
                                                     <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
                                                         <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
                                                     <li>
-
                                                         <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
-
                                         <span class="product-o__category">
-
                                             <a href="shop-side-version-2.html">Điện thoại</a></span>
-
                                         <span class="product-o__name">
-
-                                         <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
-
+                                            <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
                                         <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
                                             <span class="product-o__review">(0)</span></div>
-
                                        @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
                                         <span class="product-o__price">
                                             @String.Format("{0:0,0}", item.ProductColor.Price)₫
@@ -428,11 +403,8 @@
                                                 <span class="bp-mini__author">
                                                 @{
                                                     var manager = listManager.Where(x => x.IdManager == item.IdManager).FirstOrDefault();
-                                                    <a href="#">@manager.FullName</a>
-                                                  }
-
-                                                  </span></span>
-
+                                                    <a>@manager.FullName</a>
+                                                }
                                             <span class="bp-mini__stat">
 
                                                 <span class="bp-mini__comment">
@@ -462,19 +434,14 @@
                             </div>
                 }
                 }
-                
-
                         </div>
                     </div>
                 </div>
                 <!--====== End - Section Content ======-->
             </div>
             <!--====== End - Section 10 ======-->
-
-
             <!--====== Section 11 ======-->
             <div class="u-s-p-b-90 u-s-m-b-30">
-
                 <!--====== Section Intro ======-->
                 <div class="section__intro u-s-m-b-46">
                     <div class="container">
@@ -490,8 +457,6 @@
                     </div>
                 </div>
                 <!--====== End - Section Intro ======-->
-
-
                 <!--====== Section Content ======-->
                 <div class="section__content">
                     <div class="container">
