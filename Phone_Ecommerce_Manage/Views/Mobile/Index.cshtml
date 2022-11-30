@@ -276,6 +276,8 @@
                                 foreach(var item in listProductVersion)
                                 {
                                     var product = listMobile.Where(x => x.IdProductVersion == item.IdProductVersion && x.IsPublished== true).Take(1).FirstOrDefault();
+                                    
+
                                     if(product != null)
                                     {
                                         var img = (product.ImgProductColor).Split(", ")[0];
@@ -301,9 +303,25 @@
 
                                             <a href="/Mobile/Product">@product.NameProduct</a>
                                         </div>
-                                        <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                        <div class="product-m__rating gl-rating-style">
 
-                                            <span class="product-m__review">(23)</span></div>
+                                            @{
+                                                var getRating = contex.Ratings.SingleOrDefault(x => x.IdProductVersion == product.IdProductVersion);
+                                                if(getRating != null)
+                                                {
+                                                    var scoreTotalRating = (getRating.OneStar) + (getRating.TwoStar * 2) + (getRating.ThreeStar * 3) + (getRating.FourStar * 4) + (getRating.FiveStar * 5);
+                                                    double starScore = (double)(scoreTotalRating / (getRating.QuantityRating * 1.0));
+                                                    var star = Math.Round(starScore);
+
+                                                    for(var i = 0 ;i< star; i++){
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                }
+                                                
+                                            }
+
+
+                                            </div>
                                         <div class="product-m__price">
                                                         @if(product.PromotionPrice == null)
                                                         {

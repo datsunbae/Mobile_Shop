@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Phone_Ecommerce_Manage.Models;
+using Phone_Ecommerce_Manage.Utilities;
 
 namespace Phone_Ecommerce_Manage.Controllers
 {
@@ -106,6 +108,24 @@ namespace Phone_Ecommerce_Manage.Controllers
             ViewBag.ListProductVersion = productVersions.Where(x => x.IdProduct == productVersion.IdProduct).ToList();
             ViewBag.ListProductColor = productColors.Where(x => x.IdProductVersion == productVersion.IdProductVersion).ToList();
             ViewBag.ListColorProduct = _context.ColorProducts.ToList();
+            ViewBag.ListCommentRating = _context.CommentRatings.Where(x => x.IdProductVersion == id).ToList();
+
+            var getRating = _context.Ratings.SingleOrDefault(x => x.IdProductVersion == id);
+            if(getRating != null)
+            {
+                var scoreTotalRating = (getRating.OneStar) + (getRating.TwoStar * 2) + (getRating.ThreeStar * 3) + (getRating.FourStar * 4) + (getRating.FiveStar * 5);
+                double starScore = (double)(scoreTotalRating / (getRating.QuantityRating * 1.0));
+                var star = Math.Round(starScore);
+
+                ViewBag.ScoreRating = star;
+            }
+            else
+            {
+                ViewBag.ScoreRating = 0;
+
+            }
+
+
 
             var listImgProduct = productColor.ImgProductColor.Split(", ");
             ViewBag.ListImg = listImgProduct;
@@ -190,6 +210,109 @@ namespace Phone_Ecommerce_Manage.Controllers
         public IActionResult EmptySearch()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Rating(int idProductVersion = 0, int idProductColor = 0, int rating = 0, string comment = "")
+        {
+
+            var customer = HttpContext.Session.Get<Customer>("CustomerSession");
+
+            if (customer == null)
+            {
+                return RedirectToAction("SignIn", "Accounts");
+            }
+
+            if(rating !=0 && comment != "" && idProductVersion != 0)
+            {
+                CommentRating commentRating = new CommentRating();
+
+                commentRating.Content = comment.ToString();
+                commentRating.CreateDate = DateTime.Now;
+                commentRating.Rating = rating;
+                commentRating.IdCustomer = customer.IdCustomer;
+                commentRating.IdProductVersion = idProductVersion;
+                _context.Add(commentRating);
+                await _context.SaveChangesAsync();
+
+                var getRating = await _context.Ratings.SingleOrDefaultAsync(x => x.IdProductVersion == idProductVersion);
+                if (getRating != null)
+                {
+                    switch (rating)
+                    {
+                        case 1:
+                            getRating.OneStar++;
+                            break;
+                        case 2:
+                            getRating.TwoStar++;
+                            break;
+                        case 3:
+                            getRating.ThreeStar++;
+                            break;
+                        case 4:
+                            getRating.FourStar++;
+                            break;
+                        case 5:
+                            getRating.FiveStar++;
+                            break;
+                    }
+
+                    getRating.QuantityRating++;
+                    _context.Update(getRating);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    Rating r = new Rating();
+                    switch (rating)
+                    {
+                        case 1:
+                            r.OneStar = 1;
+                            r.TwoStar = 0;
+                            r.ThreeStar = 0;
+                            r.FourStar = 0;
+                            r.FiveStar = 0;
+                            break;
+                        case 2:
+                            r.OneStar = 0;
+                            r.TwoStar = 1;
+                            r.ThreeStar = 0;
+                            r.FourStar = 0;
+                            r.FiveStar = 0;
+                            break;
+                        case 3:
+                            r.OneStar = 0;
+                            r.TwoStar = 0;
+                            r.ThreeStar = 1;
+                            r.FourStar = 0;
+                            r.FiveStar = 0;
+                            break;
+                        case 4:
+                            r.OneStar = 0;
+                            r.TwoStar = 0;
+                            r.ThreeStar = 0;
+                            r.FourStar = 1;
+                            r.FiveStar = 0;
+                            break;
+                        case 5:
+                            r.OneStar = 0;
+                            r.TwoStar = 0;
+                            r.ThreeStar = 0;
+                            r.FourStar = 0;
+                            r.FiveStar = 1;
+                            break;
+                    }
+
+                    r.QuantityRating = 1;
+                    r.IdProductVersion = idProductVersion;
+                    _context.Add(r);
+                    await _context.SaveChangesAsync();
+                }
+
+               
+            }
+
+            return RedirectToAction("Details", "Mobile", new {id = idProductVersion, color = idProductColor});
         }
     }
 }

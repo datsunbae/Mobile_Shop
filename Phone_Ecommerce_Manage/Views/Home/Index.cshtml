@@ -172,9 +172,25 @@
 
                                          <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
 
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                        <div class="product-o__rating gl-rating-style">
 
-                                            <span class="product-o__review">(0)</span></div>
+                                            
+                                            @{
+                                                var getRating = contex.Ratings.SingleOrDefault(x => x.IdProductVersion == item.ProductVersion.IdProductVersion);
+                                                if(getRating != null)
+                                                {
+                                                    var scoreTotalRating = (getRating.OneStar) + (getRating.TwoStar * 2) + (getRating.ThreeStar * 3) + (getRating.FourStar * 4) + (getRating.FiveStar * 5);
+                                                    double starScore = (double)(scoreTotalRating / (getRating.QuantityRating * 1.0));
+                                                    var star = Math.Round(starScore);
+
+                                                    for(var i = 0 ;i< star; i++){
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                }
+                                                
+                                            }
+
+                                           </div>
 
                                        @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
                                         <span class="product-o__price">
