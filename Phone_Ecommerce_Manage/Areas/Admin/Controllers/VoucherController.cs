@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using Phone_Ecommerce_Manage.Models;
 namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class VoucherController : Controller
     {
         private readonly MobileShop_DBContext _context;
@@ -26,8 +29,9 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         }
 
         // GET: Admin/Voucher/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int? bill)
         {
+
             if (id == null || _context.Vouchers == null)
             {
                 return NotFound();
@@ -39,6 +43,12 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            var vouchers = _context.Vouchers.Where(x => x.Idvoucher == id).FirstOrDefault();
+            List<OrderBill> orderBills = _context.OrderBills.ToList();
+            ViewBag.AllOrderBill = orderBills;
+            ViewBag.ListOrderBill = orderBills.Where(x => x.Idvoucher == vouchers.Idvoucher).ToList();
+
             List<SelectListItem> listVoucher = new List<SelectListItem>();
             listVoucher.Add(new SelectListItem() { Text = "Phần trăm", Value = "false" });
             listVoucher.Add(new SelectListItem() { Text = "Giảm tiền", Value = "true" });
@@ -65,6 +75,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                voucher.QuantityRemaining = voucher.Quantity.Value;
                 _context.Add(voucher);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -109,6 +120,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 try
                 {
                     _context.Update(voucher);
+                    voucher.QuantityRemaining = voucher.Quantity.Value;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
