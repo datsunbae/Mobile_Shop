@@ -1,6 +1,6 @@
-﻿@model Phone_Ecommerce_Manage.Models.ProductVersion
+@model Phone_Ecommerce_Manage.Models.ProductVersion
 @{
-
+    MobileShop_DBContext context = new MobileShop_DBContext();
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
     List<ProductColor> listProductColor = ViewBag.ListProductColor;
     List<ColorProduct> listColorProduct = ViewBag.ListColorProduct;
@@ -8,6 +8,8 @@
     List<ProductColor> allProductColor = ViewBag.AllProductColor;
     List<PromotionProductDetail> listPromotion =  ViewBag.ListPromotion;
     List<ProductVersion> allProductVersion = ViewBag.AllProductVersion;
+    List<CommentRating> commentRatings = ViewBag.ListCommentRating;
+    var starRating = ViewBag.ScoreRating;
     var listImgProduct = ViewBag.ListImg;
     ViewData["Title"] = @Model.NameProductVersion;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -94,11 +96,13 @@
                     </div>
                     <div class="u-s-m-b-15">
                         <div class="pd-detail__rating gl-rating-style">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            @for(var i =0; i<starRating; i++){
+                                <i class="fas fa-star"></i>
+                            }
 
                             <span class="pd-detail__review u-s-m-l-4">
 
-                                <a data-click-scroll="#view-review">3 Reviews</a>
+                                <a data-click-scroll="#view-review">@commentRatings.Count đánh giá</a>
                             </span>
                         </div>
                     </div>
@@ -311,7 +315,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev">
                                     ĐÁNH GIÁ
-                                    <span>(3)</span>
+                                    <span>(@commentRatings.Count)</span>
                                 </a>
                             </li>
                         </ul>
@@ -337,53 +341,75 @@
                                 <div class="u-s-m-b-30">
                                     <div class="pd-tab__rev-score">
                                         <div class="u-s-m-b-8">
-                                            <h2>3 Reviews - 4.6 (Overall)</h2>
+                                           @if(commentRatings.Count == 0){
+                                                <h2>@commentRatings.Count đánh giá - @starRating sao</h2>
+                                            }
+                                            else
+                                            {
+                                                <h2>@commentRatings.Count đánh giá - @starRating sao</h2>
+                                            }
                                         </div>
-                                        <div class="gl-rating-style-2 u-s-m-b-8"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                        <div class="gl-rating-style-2 u-s-m-b-8">
+                                            @for(var i = 0;i < starRating; i++){
+                                                <i class="fas fa-star"></i>
+                                            }
+                                        </div>
                                         <div class="u-s-m-b-8">
-                                            <h4>We want to hear from you!</h4>
+                                            <h4>Chúng tôi muốn nghe từ bạn!</h4>
                                         </div>
 
-                                        <span class="gl-text">Tell us what you think about this item</span>
+                                        <span class="gl-text">Hãy cho chúng tôi những gì bạn nghĩ về sản phẩm này</span>
                                     </div>
                                 </div>
                                 <div class="u-s-m-b-30">
                                     <form class="pd-tab__rev-f1">
                                         <div class="rev-f1__group">
                                             <div class="u-s-m-b-15">
-                                                <h2>23 Review(s) for Man Ruched Floral Applique Tee</h2>
+                                                @if(commentRatings.Count == 0)
+                                                {
+                                                    <h2>Chưa có đánh giá nào!</h2>
+                                                }
+                                                else
+                                                {
+                                                    
+                                                    <h2>Có @commentRatings.Count đánh giá</h2>
+                                                }
                                             </div>
-                                            <div class="u-s-m-b-15">
-
-                                                <label for="sort-review"></label><select class="select-box select-box--primary-style" id="sort-review">
-                                                    <option selected>Sort by: Best Rating</option>
-                                                    <option>Sort by: Worst Rating</option>
-                                                </select>
-                                            </div>
+                                           
                                         </div>
-                                        <div class="rev-f1__review">
-                                            <div class="review-o u-s-m-b-15">
+                                        <div class="rev-f1__review">                              
+                                            @if(commentRatings == null || commentRatings.Count == 0)
+                                            {
+                                                
+                                            }
+                                            else{
+                                                foreach(var item in commentRatings){
+                                                    Customer customer = context.Customers.SingleOrDefault(x => x.IdCustomer == item.IdCustomer);
+                                                    <div class="review-o u-s-m-b-15">
                                                 <div class="review-o__info u-s-m-b-8">
 
-                                                    <span class="review-o__name">John Doe</span>
+                                                    <span class="review-o__name">@customer.NameCustomer</span>
 
-                                                    <span class="review-o__date">27 Feb 2018 10:57:43</span>
+                                                    <span class="review-o__date">@item.CreateDate</span>
                                                 </div>
                                                 <div class="review-o__rating gl-rating-style u-s-m-b-8">
-                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                                    @for(var i = 0; i < item.Rating; i++){
+                                                        <i class="fas fa-star"></i>
+                                                    }
 
-                                                    <span>(4)</span>
                                                 </div>
-                                                <p class="review-o__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                <p class="review-o__text">@item.Content</p>
                                             </div>
+                                                }
+                                            }
                                         </div>
                                     </form>
                                 </div>
                                 <div class="u-s-m-b-30">
-                                    <form class="pd-tab__rev-f2">
-                                        <h2 class="u-s-m-b-15">Add a Review</h2>
-
-                                        <span class="gl-text u-s-m-b-15">Your email address will not be published. Required fields are marked *</span>
+                                    <form class="pd-tab__rev-f2" asp-controller="Mobile" asp-action="Rating">
+                                        <input type="hidden" name="idProductVersion" value="@Model.IdProductVersion" />
+                                        <input type="hidden" name="idProductColor" value="@productColor.IdProductColor" />
+                                        <h2 class="u-s-m-b-15">ĐÁNH GIÁ</h2>
                                         <div class="u-s-m-b-30">
                                             <div class="rev-f2__table-wrap gl-scroll">
                                                 <table class="rev-f2__table">
@@ -396,13 +422,7 @@
                                                                     <span>(1)</span>
                                                                 </div>
                                                             </th>
-                                                            <th>
-                                                                <div class="gl-rating-style-2">
-                                                                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                                    <span>(1.5)</span>
-                                                                </div>
-                                                            </th>
+                                                           
                                                             <th>
                                                                 <div class="gl-rating-style-2">
                                                                     <i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -410,13 +430,7 @@
                                                                     <span>(2)</span>
                                                                 </div>
                                                             </th>
-                                                            <th>
-                                                                <div class="gl-rating-style-2">
-                                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                                    <span>(2.5)</span>
-                                                                </div>
-                                                            </th>
+                                                            
                                                             <th>
                                                                 <div class="gl-rating-style-2">
                                                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -424,13 +438,7 @@
                                                                     <span>(3)</span>
                                                                 </div>
                                                             </th>
-                                                            <th>
-                                                                <div class="gl-rating-style-2">
-                                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                                    <span>(3.5)</span>
-                                                                </div>
-                                                            </th>
+                                                            
                                                             <th>
                                                                 <div class="gl-rating-style-2">
                                                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -438,13 +446,7 @@
                                                                     <span>(4)</span>
                                                                 </div>
                                                             </th>
-                                                            <th>
-                                                                <div class="gl-rating-style-2">
-                                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                                                    <span>(4.5)</span>
-                                                                </div>
-                                                            </th>
+                                                            
                                                             <th>
                                                                 <div class="gl-rating-style-2">
                                                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -461,7 +463,7 @@
                                                                 <!--====== Radio Box ======-->
                                                                 <div class="radio-box">
 
-                                                                    <input type="radio" id="star-1" name="rating">
+                                                                    <input type="radio" id="star-1" name="rating" value="1">
                                                                     <div class="radio-box__state radio-box__state--primary">
 
                                                                         <label class="radio-box__label" for="star-1"></label>
@@ -474,20 +476,7 @@
                                                                 <!--====== Radio Box ======-->
                                                                 <div class="radio-box">
 
-                                                                    <input type="radio" id="star-1.5" name="rating">
-                                                                    <div class="radio-box__state radio-box__state--primary">
-
-                                                                        <label class="radio-box__label" for="star-1.5"></label>
-                                                                    </div>
-                                                                </div>
-                                                                <!--====== End - Radio Box ======-->
-                                                            </td>
-                                                            <td>
-
-                                                                <!--====== Radio Box ======-->
-                                                                <div class="radio-box">
-
-                                                                    <input type="radio" id="star-2" name="rating">
+                                                                    <input type="radio" id="star-2" name="rating" value="2">
                                                                     <div class="radio-box__state radio-box__state--primary">
 
                                                                         <label class="radio-box__label" for="star-2"></label>
@@ -500,20 +489,7 @@
                                                                 <!--====== Radio Box ======-->
                                                                 <div class="radio-box">
 
-                                                                    <input type="radio" id="star-2.5" name="rating">
-                                                                    <div class="radio-box__state radio-box__state--primary">
-
-                                                                        <label class="radio-box__label" for="star-2.5"></label>
-                                                                    </div>
-                                                                </div>
-                                                                <!--====== End - Radio Box ======-->
-                                                            </td>
-                                                            <td>
-
-                                                                <!--====== Radio Box ======-->
-                                                                <div class="radio-box">
-
-                                                                    <input type="radio" id="star-3" name="rating">
+                                                                    <input type="radio" id="star-3" name="rating" value="3">
                                                                     <div class="radio-box__state radio-box__state--primary">
 
                                                                         <label class="radio-box__label" for="star-3"></label>
@@ -526,20 +502,7 @@
                                                                 <!--====== Radio Box ======-->
                                                                 <div class="radio-box">
 
-                                                                    <input type="radio" id="star-3.5" name="rating">
-                                                                    <div class="radio-box__state radio-box__state--primary">
-
-                                                                        <label class="radio-box__label" for="star-3.5"></label>
-                                                                    </div>
-                                                                </div>
-                                                                <!--====== End - Radio Box ======-->
-                                                            </td>
-                                                            <td>
-
-                                                                <!--====== Radio Box ======-->
-                                                                <div class="radio-box">
-
-                                                                    <input type="radio" id="star-4" name="rating">
+                                                                    <input type="radio" id="star-4" name="rating" value="4">
                                                                     <div class="radio-box__state radio-box__state--primary">
 
                                                                         <label class="radio-box__label" for="star-4"></label>
@@ -552,20 +515,7 @@
                                                                 <!--====== Radio Box ======-->
                                                                 <div class="radio-box">
 
-                                                                    <input type="radio" id="star-4.5" name="rating">
-                                                                    <div class="radio-box__state radio-box__state--primary">
-
-                                                                        <label class="radio-box__label" for="star-4.5"></label>
-                                                                    </div>
-                                                                </div>
-                                                                <!--====== End - Radio Box ======-->
-                                                            </td>
-                                                            <td>
-
-                                                                <!--====== Radio Box ======-->
-                                                                <div class="radio-box">
-
-                                                                    <input type="radio" id="star-5" name="rating">
+                                                                    <input type="radio" id="star-5" name="rating" value="5">
                                                                     <div class="radio-box__state radio-box__state--primary">
 
                                                                         <label class="radio-box__label" for="star-5"></label>
@@ -581,32 +531,18 @@
                                         <div class="rev-f2__group">
                                             <div class="u-s-m-b-15">
 
-                                                <label class="gl-label" for="reviewer-text">YOUR REVIEW *</label><textarea class="text-area text-area--primary-style" id="reviewer-text"></textarea>
+                                                <label class="gl-label" for="reviewer-text">ĐÁNH GIÁ CỦA BẠN *</label><textarea class="text-area text-area--primary-style" id="reviewer-text" name="comment"></textarea>
                                             </div>
-                                            <div>
-                                                <p class="u-s-m-b-30">
-
-                                                    <label class="gl-label" for="reviewer-name">NAME *</label>
-
-                                                    <input class="input-text input-text--primary-style" type="text" id="reviewer-name">
-                                                </p>
-                                                <p class="u-s-m-b-30">
-
-                                                    <label class="gl-label" for="reviewer-email">EMAIL *</label>
-
-                                                    <input class="input-text input-text--primary-style" type="text" id="reviewer-email">
-                                                </p>
-                                            </div>
+                                           
                                         </div>
                                         <div>
 
-                                            <button class="btn btn--e-brand-shadow" type="submit">SUBMIT</button>
+                                            <button class="btn btn--e-brand-shadow" type="submit">GỬI ĐÁNH GIÁ</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        <!--====== End - Tab 4 ======-->
                     </div>
                 </div>
             </div>
