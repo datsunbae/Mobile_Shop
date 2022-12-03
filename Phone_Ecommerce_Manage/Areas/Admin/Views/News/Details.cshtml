@@ -15,25 +15,22 @@
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-blue h4">Chỉnh sửa bài viết: @Model.Title</h4>
+                    <h4 class="text-blue h4">Chi tiết bài viết: @Model.Title</h4>
                 </div>
                 <div class="wizard-content">
-                    <form asp-action="Edit" asp-route-id="@Model.IdNews" method="post" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="@Model.IdNews" />
-                        <input type="hidden" asp-for="@Model.IdManager" />
-                        <input type="hidden" asp-for="@Model.CreateDate" />
+                    <form asp-action="Details" asp-route-id="@Model.IdNews" method="post" enctype="multipart/form-data">
                         <section class="mb-5">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Tiêu đề</label>
-                                        <input asp-for="@Model.Title" class="form-control" />
+                                        <input disabled asp-for="@Model.Title" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Danh mục</label>
-                                        <select asp-for="@Model.IdCategoryNews" class="form-control" asp-items="ViewBag.ListCategoryNews"></select>
+                                        <select disabled asp-for="@Model.IdCategoryNews" class="form-control" asp-items="ViewBag.ListCategoryNews"></select>
                                     </div>
                                 </div>
                             </div>
@@ -51,14 +48,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label asp-for="@Model.DescriptionNew">Mô tả</label>
-                                        <input asp-for="@Model.DescriptionNew" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.Thumb" class="control-label">Hình ảnh</label>
-                                        <input name="fImage" asp-for="@Model.Thumb" class="form-control form-control-lg form-control-file"
-                                               type="file" />
+                                        <input disabled asp-for="@Model.DescriptionNew" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -69,7 +59,6 @@
                                 </div>
                             </div>
                         </section>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
                         <button asp-area="Admin" asp-controller="News" asp-action="Index" class="btn btn-outline-danger">Quay lại danh sách</button>
                     </form>
                 </div>

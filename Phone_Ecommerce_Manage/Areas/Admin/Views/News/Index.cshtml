@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Phone_Ecommerce_Manage.Models.News>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<CategoryNews> listCategoryNews = ViewBag.ListCategoryNews;
 }
@@ -33,12 +33,12 @@
                             {
                                 <tr>
                                     <td>@item.Title</td>
-                                    <td class="profile-photo" height="10px"><img src="@item.Thumb"/></td>
+                                    <td class="profile-photo" height="10px"><img src="@item.Thumb" /></td>
                                     <td>@item.CreateDate</td>
                                     @{
                                         var categoryNews = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
                                         <td>@categoryNews.NameCategory</td>
-									}
+                                    }
                                     @if (item.IsHot)
                                     {
                                         <td>Có</td>
@@ -48,6 +48,7 @@
                                         <td>Không</td>
                                     }
                                     <td>
+                                        <a asp-action="Details" asp-route-id="@item.IdNews" class="btn btn-success">Sửa</a>
                                         <a asp-action="Edit" asp-route-id="@item.IdNews" class="btn btn-primary">Sửa</a>
                                         <a asp-action="Delete" asp-route-id="@item.IdNews" class="btn btn-danger">Xóa</a>
                                     </td>
@@ -55,8 +56,8 @@
                             }
                         </tbody>
                     </table>
-                    
-                    
+
+
                 </div>
             </div>
         </div>

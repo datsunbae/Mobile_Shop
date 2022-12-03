@@ -99,14 +99,13 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
                     if (fImage != null)
                     {
-                        brandMobile.ImgBrand = "/images/brandMobile/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
+                        brandMobile.ImgBrand = "/images/brandMobile/" + await Utilities.UploadFile.UploadImage(fImage, @"brandMobile");
                     }
                     _context.Update(brandMobile);
                     await _context.SaveChangesAsync();
