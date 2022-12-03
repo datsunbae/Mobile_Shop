@@ -20,8 +20,8 @@ namespace Phone_Ecommerce_Manage.Models
         public DateTime? StartDateTime { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? EndDateTime { get; set; }
-        public bool? IsNoEndDay { get; set; }
-        public bool? IsPublished { get; set; }
+        public bool IsNoEndDay { get; set; }
+        public bool IsPublished { get; set; }
         public int IdProductVersion { get; set; }
 
         [ForeignKey("IdProductVersion")]
