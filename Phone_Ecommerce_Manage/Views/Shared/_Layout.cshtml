@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="~/asset/images/favicon.png" rel="shortcut icon">
-    <title>@ViewData["Title"] - Phone_Ecommerce_Manage</title>
+    <link href="~/adminasset/vendors/images/logo1.png" rel="shortcut icon">
+    <title>@ViewData["Title"]</title>
      <!--====== BootStrap ======-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--====== Google Font ======-->
@@ -37,14 +37,9 @@
         <!--====== Main Footer ======-->
         @await Html.PartialAsync("_FooterPartialView.cshtml")
         <!--====== End - Main Footer ======-->
-        <!--====== Modal Section ======-->
-        <!--====== Quick Look Modal ======-->
-        @await Html.PartialAsync("_QuickLookPartialView.cshtml")
-        <!--====== End - Quick Look Modal ======-->
         <!--====== Add to Cart Modal ======-->
         @await Html.PartialAsync("_CartPartialView.cshtml")
         <!--====== End - Add to Cart Modal ======-->
-        <!--====== End - Modal Section ======-->
     </div>
     <!--====== Bootstrap Js ======-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

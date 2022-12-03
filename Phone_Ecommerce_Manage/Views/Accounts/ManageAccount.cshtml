@@ -1,7 +1,7 @@
 ﻿@model Phone_Ecommerce_Manage.Models.Customer;
 
 @{
-    ViewData["Title"] = "ManageAccount";
+    ViewData["Title"] = "Tổng quan";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<OrderBill> orderBills = ViewBag.ListOrderBill;
     List<StatusOrder> statusOrders = ViewBag.ListStatusOrder;
@@ -53,16 +53,12 @@
                                                 <h2 class="dash__h2 u-s-m-b-8">THÔNG TIN CÁ NHÂN</h2>
                                                 <div class="dash__link dash__link--secondary u-s-m-b-8">
 
-                                                    <a href="/Accounts/EditAccounts">Chỉnh sửa</a>
+                                                    <a asp-controller="Accounts" asp-action="EditAccount">Chỉnh sửa</a>
                                                 </div>
 
                                                 <span class="dash__text">@Model.NameCustomer</span>
 
                                                 <span class="dash__text">@Model.Email</span>
-                                                <div class="dash__link dash__link--secondary u-s-m-t-8">
-
-                                                    <a data-modal="modal" data-modal-id="#dash-newsletter">Đăng ký nhận thông tin mới</a>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -72,10 +68,6 @@
                                                 <h2 class="dash__h2 u-s-m-b-8">ĐỊA CHỈ GIAO HÀNG</h2>
 
                                                 <span class="dash__text-2 u-s-m-b-8">Địa chỉ giao hàng mặc định</span>
-                                                <div class="dash__link dash__link--secondary u-s-m-b-8">
-
-                                                    <a href="/Accounts/AddressBook">Chỉnh sửa</a>
-                                                </div>
 
                                                 <span class="dash__text">@Model.Address</span>
 

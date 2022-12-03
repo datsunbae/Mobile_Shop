@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox mb-5">
                                             <input type="checkbox" class="custom-control-input" asp-for="@Model.IsHot">
-											<label class="custom-control-label" asp-for="@Model.IsHot">Bài viết hot</label>
+                                            <label class="custom-control-label" asp-for="@Model.IsHot">Bài viết hot</label>
                                         </div>
                                     </div>
                                 </div>
@@ -78,12 +78,12 @@
 </div>
 
 @section Scripts {
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
-<script src="~/adminasset/summernote/summernote-bs4.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="~/adminasset/summernote/summernote-bs4.js"></script>
 
-<script>
-        $(document).ready(function() {
-        $('.summernote').summernote();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote();
+        });
+    </script>
 }

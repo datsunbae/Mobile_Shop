@@ -1,4 +1,4 @@
-﻿@model Phone_Ecommerce_Manage.Models.ProductVersion
+@model Phone_Ecommerce_Manage.Models.ProductVersion
 @{
     MobileShop_DBContext context = new MobileShop_DBContext();
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
@@ -318,7 +318,6 @@
                                     <span>(@commentRatings.Count)</span>
                                 </a>
                             </li>
-                           
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -336,23 +335,6 @@
                             </div>
                         </div>
                         <!--====== End - Tab 2 ======-->
-                        <!--====== Tab 3 ======-->
-                        <div class="tab-pane" id="pd-tag">
-                            <div class="pd-tab__tag">
-                                <h2 class="u-s-m-b-15">ADD YOUR TAGS</h2>
-                                <div class="u-s-m-b-15">
-                                    <form>
-
-                                        <input class="input-text input-text--primary-style" type="text">
-
-                                        <button class="btn btn--e-brand-b-2" type="submit">ADD TAGS</button>
-                                    </form>
-                                </div>
-
-                                <span class="gl-text">Use spaces to separate tags. Use single quotes (') for phrases.</span>
-                            </div>
-                        </div>
-                        <!--====== End - Tab 3 ======-->
                         <!--====== Tab 4 ======-->
                         <div class="tab-pane" id="pd-rev">
                             <div class="pd-tab__rev">
@@ -395,9 +377,7 @@
                                             </div>
                                            
                                         </div>
-                                        <div class="rev-f1__review">
-                                            
-                                            
+                                        <div class="rev-f1__review">                              
                                             @if(commentRatings == null || commentRatings.Count == 0)
                                             {
                                                 
@@ -563,7 +543,6 @@
                                 </div>
                             </div>
                         </div>
-                      
                     </div>
                 </div>
             </div>
@@ -662,9 +641,8 @@
                                 @pc.PromotionPrice ₫</span>
                                     }
                                 </div>
-                    </div>
+                            </div>
                         }
-
                     }
                     
                 </div>

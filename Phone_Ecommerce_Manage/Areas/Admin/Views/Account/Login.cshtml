@@ -2,31 +2,25 @@
 @{
     Layout = "";
 }
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
-		<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+		<title>DoubleD - Mobile Shop</title>
 
 		<!-- Site favicon -->
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="~/adminasset/vendors/images/apple-touch-icon.png"
-		/>
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="32x32"
-			href="~/adminasset/vendors/images/favicon-32x32.png"
+			href="~/adminasset/vendors/images/logo1.png"
 		/>
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
-			href="~/adminasset/vendors/images/favicon-16x16.png"
+			href="~/adminasset/vendors/images/logo1.png"
 		/>
 
 		<!-- Mobile Specific Metas -->
@@ -85,7 +79,7 @@
 			>
 				<div class="brand-logo">
 					<a href="login.html">
-						<img src="~/adminasset/vendors/images/deskapp-logo.svg" alt="" />
+						<img src="~/adminasset/vendors/images/logo.png" alt="" />
 					</a>
 				</div>
 				
@@ -138,20 +132,8 @@
 								
 								</div>
 								<span asp-validation-for="@Model.Password" class="text-danger" style="display: block;margin: -16px 0 20px;"></span>	
-								<div class="row pb-30">
-									<div class="col-6">
-										<div class="custom-control custom-checkbox">
-											<input
-												type="checkbox"
-												class="custom-control-input"
-												id="customCheck1"
-											/>
-											<label class="custom-control-label" for="customCheck1"
-												>Remember</label
-											>
-										</div>
-									</div>
-									<div class="col-6">
+								<div class="row">
+									<div class="col-sm-12">
 										<div class="forgot-password">
 											<a href="forgot-password.html">Forgot Password</a>
 										</div>
@@ -165,14 +147,12 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="input-group mb-0">
-
 											<button
 												class="btn btn-primary btn-lg btn-block"
 												type="submit"
 												>Sign In</button
 											>
 										</div>
-										
 									</div>
 								</div>
 							</form>
