@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Phone_Ecommerce_Manage.Models;
 
-namespace Phone_Ecommerce_Manage.Areas.Admin
+namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin, Employee")]
+    [Authorize(Roles = "Admin")]
     public class NewsController : Controller
     {
         private readonly MobileShop_DBContext _context;
@@ -29,7 +28,25 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
             return View(await _context.News.ToListAsync());
         }
 
-        
+        // GET: Admin/News/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.News == null)
+            {
+                return NotFound();
+            }
+
+            var news = await _context.News
+                .Include(n => n.IdCategoryNewsNavigation)
+                .Include(n => n.IdManagerNavigation)
+                .FirstOrDefaultAsync(m => m.IdNews == id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory", news.IdCategoryNews);
+            return View(news);
+        }
 
         // GET: Admin/News/Create
         public IActionResult Create()
@@ -77,9 +94,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
             {
                 return NotFound();
             }
-            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory");
-            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager", news.IdManager);
-            ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews", news.IdCategoryNews);
+            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory", news.IdCategoryNews);
             return View(news);
         }
 
@@ -88,28 +103,19 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNews,Title,DescriptionNew,Content,Thumb,CreateDate,IsHot,IdCategoryNews,IdAccountUser")] News news, Microsoft.AspNetCore.Http.IFormFile fImage)
+        public async Task<IActionResult> Edit(int id, [Bind("IdNews,Title,DescriptionNew,Content,Thumb,CreateDate,IsHot,IdCategoryNews,IdManager")] News news, Microsoft.AspNetCore.Http.IFormFile fImage)
         {
             if (id != news.IdNews)
             {
                 return NotFound();
             }
-
-            var blog = await _context.News.Where(x => x.IdNews == news.IdNews).FirstOrDefaultAsync();
-
             if (ModelState.IsValid)
             {
-                
-
                 try
                 {
                     if (fImage != null)
                     {
                         news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
-                    }
-                    else
-                    {
-                        news.Thumb = blog?.Thumb;
                     }
                     _context.Update(news);
                     await _context.SaveChangesAsync();
@@ -127,9 +133,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory");
-            ViewData["IdAccountUser"] = new SelectList(_context.Managers, "IdManager", "IdManager", news.IdManager);
-            ViewData["IdCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "IdCategoryNews", news.IdCategoryNews);
+            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory", news.IdCategoryNews);
             return View(news);
         }
 
@@ -163,7 +167,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
                 return Problem("Entity set 'MobileShop_DBContext.News'  is null.");
             }
             var news = await _context.News.FindAsync(id);
-            
+
             if (news != null)
             {
                 _context.News.Remove(news);
@@ -175,7 +179,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin
 
         private bool NewsExists(int id)
         {
-            return _context.News.Any(e => e.IdNews == id);
+          return _context.News.Any(e => e.IdNews == id);
         }
     }
 }

@@ -24,8 +24,9 @@ namespace Phone_Ecommerce_Manage.Controllers
         {
             ViewBag.News = _context.News.OrderByDescending(x => x.CreateDate).Take(3).ToList();
             ViewBag.Managers = _context.Managers.ToList();
+            ViewBag.Customers = _context.Customers.ToList();
             ViewBag.Categorys = _context.CategoryNews.ToList();
-            
+            ViewBag.CommentRatings = _context.CommentRatings.OrderByDescending(x => x.CreateDate).Take(4).ToList();
             return View();
         }
 

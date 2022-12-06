@@ -11,550 +11,477 @@
     var listMobileNews = listMobile.Where(x => x.ProductVersion.IsPublished == true).OrderByDescending(x => x.ProductColor.CreateDate).Take(6).ToList();
     List<News> listNews = ViewBag.News;
     List<Manager> listManager = ViewBag.Managers;
-    List<CategoryNews> listCategoryNews = ViewBag.Categorys ;
+    List<CategoryNews> listCategoryNews = ViewBag.Categorys;
+    List<Customer> listCustomer = ViewBag.Customers;
+    List<CommentRating> commentRatings = ViewBag.CommentRatings;
 }
 <!--====== App Content ======-->
 <!--====== Primary Slider ======-->
-            <div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
-                <div class="owl-carousel primary-style-1" id="hero-slider">
-                    <div class="hero-slide hero-slide--1">
-                        <div class="container">
-                             
-                            <div class="row">
-                                <div class="col-12">
+<div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
+    <div class="owl-carousel primary-style-1" id="hero-slider">
+        <div class="hero-slide hero-slide--1">
+            <div class="container">
 
-                                       @*<img src="https://cdn2.cellphones.com.vn/x/media/catalog/product/h/e/heading-vivo.png" >*@
-                                        <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="content-span-1 u-c-secondary">Giảm giá</span>
 
-                                        <span class="content-span-2 u-c-white">30% Off On Electronics</span>
+                        <span class="content-span-2 u-c-white">IPhone 13 giá sốc</span>
 
-                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                        <span class="content-span-3 u-c-white">Giá ưu đãi tốt nhất và nhiều ưu đãi</span>
 
-                                        <span class="content-span-4 u-c-white">Starting At
+                        <span class="content-span-4 u-c-white">
+                            Bắt đầu từ giá
 
-                                            <span class="u-c-brand">$1050.00</span></span>
+                            <span class="u-c-brand">19.490.000đ</span>
+                        </span>
 
-                                        <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a>
-                                </div>
-                            </div>
-                        </div>
+                        <a class="shop-now-link btn--e-brand" href="/Mobile/Index">XEM SẢN PHẨM</a>
                     </div>
-                    <div class="hero-slide hero-slide--2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="slider-content slider-content--animation">
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide hero-slide--2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
 
-                                        <span class="content-span-1 u-c-white">Find Top Brands</span>
+                            <span class="content-span-1 u-c-white">Thương hiệu lớn</span>
 
-                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
+                            <span class="content-span-2 u-c-white">Các sản phẩm đang giảm giá</span>
 
-                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                            <span class="content-span-3 u-c-white">Các sản phảm của thương hiệu lớn đang giảm gía</span>
 
-                                        <span class="content-span-4 u-c-white">Starting At
+                            <span class="content-span-4 u-c-white">
+                                Giảm từ
 
-                                            <span class="u-c-brand">$380.00</span></span>
+                                <span class="u-c-brand">5%</span>
+                            </span>
 
-                                        <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-slide hero-slide--3">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="slider-content slider-content--animation">
-
-                                        <span class="content-span-1 u-c-white">Find Top Brands</span>
-
-                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
-
-                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
-
-                                        <span class="content-span-4 u-c-white">Starting At
-
-                                            <span class="u-c-brand">$550.00</span></span>
-
-                                <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a>
-                            </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-slide hero-slide--4">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="slider-content slider-content--animation">
-
-                                        <span class="content-span-1 u-c-white">Find Top Brands</span>
-
-                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
-
-                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
-
-                                        <span class="content-span-4 u-c-white">Starting At
-
-                                            <span class="u-c-brand">$550.00</span></span>
-
-                                <a class="shop-now-link btn--e-brand" href="/Mobile/Index">SHOP NOW</a>
-                            </div>
-                                </div>
-                            </div>
+                            <a class="shop-now-link btn--e-brand" href="/Mobile/Index">XEM SẢN PHẨM</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--====== End - Primary Slider ======-->
-            <!--====== Section 4 ======-->
-            <div class="u-s-p-b-60 mt-5">
+        </div>
+        <div class="hero-slide hero-slide--3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
 
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM MỚI</h1>
+                            <span class="content-span-1 u-c-white">Sản phảm mới</span>
 
-                                    <span class="section__span u-c-silver">CÁC SẢN PHẨM MỚI</span>
-                                </div>
-                            </div>
+                            <span class="content-span-2 u-c-white">Các sản phẩm mới ưu đãi</span>
+
+                            <span class="content-span-3 u-c-white">Các sản phẩm mới ra mắt với nhiều ưu đãi</span>
+
+                            <span class="content-span-4 u-c-white">
+                                Giá chỉ từ
+
+                                <span class="u-c-brand">19.990.000đ</span>
+                            </span>
+
+                            <a class="shop-now-link btn--e-brand" href="/Mobile/Index">XEM SẢN PHẨM</a>
                         </div>
                     </div>
                 </div>
-                <!--====== End - Section Intro ======-->
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="slider-fouc">
-                            <div class="owl-carousel product-slider" data-item="4">
-                                @foreach(var item in listMobileNews){
-                                    <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                                <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <span class="product-o__category">
-                                            <a href="shop-side-version-2.html">Điện thoại</a></span>
-                                        <span class="product-o__name">
-                                         <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
+            </div>
+        </div>
+        <div class="hero-slide hero-slide--4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
 
-                                        <div class="product-o__rating gl-rating-style">
+                            <span class="content-span-1 u-c-white">Vận chuyển</span>
 
-                                            
-                                            @{
-                                                var getRating = contex.Ratings.SingleOrDefault(x => x.IdProductVersion == item.ProductVersion.IdProductVersion);
-                                                if(getRating != null)
-                                                {
-                                                    var scoreTotalRating = (getRating.OneStar) + (getRating.TwoStar * 2) + (getRating.ThreeStar * 3) + (getRating.FourStar * 4) + (getRating.FiveStar * 5);
-                                                    double starScore = (double)(scoreTotalRating / (getRating.QuantityRating * 1.0));
-                                                    var star = Math.Round(starScore);
+                            <span class="content-span-2 u-c-white">Miễn phí vận chuyển</span>
 
-                                                    for(var i = 0 ;i< star; i++){
-                                                        <i class="fas fa-star"></i>
-                                                    }
-                                                }
-                                                
+                            <span class="content-span-3 u-c-white">Miễn phí vận chuyển cho đơn hàng có giá trị lớn và khách hàng thành viên</span>
+
+                            <span class="content-span-4 u-c-white">
+                                Đơn hàng từ
+
+                                <span class="u-c-brand">3.000.000đ</span>
+                            </span>
+
+                            <a class="shop-now-link btn--e-brand" href="/Mobile/Index">XEM SẢN PHẨM</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - Primary Slider ======-->
+<!--====== Section 4 ======-->
+<div class="u-s-p-b-60 mt-5">
+
+    <!--====== Section Intro ======-->
+    <div class="section__intro u-s-m-b-46">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__text-wrap">
+                        <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM MỚI</h1>
+
+                        <span class="section__span u-c-silver">CÁC SẢN PHẨM MỚI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Intro ======-->
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="slider-fouc">
+                <div class="owl-carousel product-slider" data-item="4">
+                    @foreach (var item in listMobileNews)
+                    {
+                        <div class="u-s-m-b-30">
+                            <div class="product-o">
+                                <div>
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block">
+                                        <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt="">
+                                    </a>
+                                </div>
+                                <span class="product-o__category">
+                                    <a href="shop-side-version-2.html">Điện thoại</a>
+                                </span>
+                                <span class="product-o__name">
+                                    <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a>
+                                </span>
+
+                                <div class="product-o__rating gl-rating-style">
+
+
+                                    @{
+                                        var getRating = contex.Ratings.SingleOrDefault(x => x.IdProductVersion == item.ProductVersion.IdProductVersion);
+                                        if (getRating != null)
+                                        {
+                                            var scoreTotalRating = (getRating.OneStar) + (getRating.TwoStar * 2) + (getRating.ThreeStar * 3) + (getRating.FourStar * 4) + (getRating.FiveStar * 5);
+                                            double starScore = (double)(scoreTotalRating / (getRating.QuantityRating * 1.0));
+                                            var star = Math.Round(starScore);
+
+                                            for (var i = 0; i < star; i++)
+                                            {
+                                                <i class="fas fa-star"></i>
                                             }
+                                        }
 
-                                           </div>
-                                       @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
-                                        <span class="product-o__price">
-                                            @String.Format("{0:0,0}", item.ProductColor.Price)₫
-                                        </span>
                                     }
-                                    else{
-                                         <span class="product-o__price">@String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
-                                        <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span></span>
-                                    }
-                                    </div>
+
                                 </div>
+                                @if (item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null)
+                                {
+                                    <span class="product-o__price">
+                                        @String.Format("{0:0,0}", item.ProductColor.Price)₫
+                                    </span>
                                 }
-                               
+                                else
+                                {
+                                    <span class="product-o__price">
+                                        @String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
+                                        <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span>
+                                    </span>
+                                }
                             </div>
                         </div>
-                    </div>
+                    }
+
                 </div>
-                <!--====== End - Section Content ======-->
             </div>
-            <!--====== End - Section 4 ======-->
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 4 ======-->
+<!--====== Section 6 ======-->
+<div class="u-s-p-y-60">
 
+    <!--====== Section Intro ======-->
+    <div class="section__intro u-s-m-b-46">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__text-wrap">
+                        <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM NỔI BẬT</h1>
 
-            <!--====== Section 5 ======-->
-            <div class="banner-bg">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="banner-bg__countdown">
-                                    <div class="countdown countdown--style-banner" data-countdown="2020/05/01"></div>
-                                </div>
-                                <div class="banner-bg__wrap">
-                                    <div class="banner-bg__text-1">
-
-                                        <span class="u-c-white">ƯU ĐÃI</span>
-
-                                        <span class="u-c-secondary">TOÀN QUỐC</span></div>
-                                        <div class="banner-bg__text-2">
-
-                                            <span class="u-c-secondary">Ra Mắt</span>
-
-                                            <span class="u-c-white">Chính Thức</span>
-                                        </div>
-
-                                        <span class="banner-bg__text-block banner-bg__text-3 u-c-secondary">Miễn phí giao hàng khi bạn đặt mua 2 sản phẩm trở lên</span>
-
-                                    <a class="banner-bg__shop-now btn--e-secondary" href="shop-side-version-2.html">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="section__span u-c-silver">CÁC SẢN PHẨM NỔI BẬT MỚI NHẤT</span>
                     </div>
                 </div>
-                <!--====== End - Section Content ======-->
             </div>
-            <!--====== End - Section 5 ======-->
+        </div>
+    </div>
+    <!--====== End - Section Intro ======-->
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="row">
 
+                @foreach (var item in listMobileHot)
+                {
 
-            <!--====== Section 6 ======-->
-            <div class="u-s-p-y-60">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                        <div class="product-o product-o--hover-on u-h-100">
+                            <div class="product-o__wrap">
 
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">SẢN PHẨM NỔI BẬT</h1>
+                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
 
-                                    <span class="section__span u-c-silver">CÁC SẢN PHẨM NỔI BẬT MỚI NHẤT</span>
+                                    <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt="">
+                                </a>
+                                <div class="product-o__action-wrap">
+                                    <ul class="product-o__action-list">
+                                        <li>
+
+                                            <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
 
+                            <span class="product-o__category">
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            
-                            @foreach(var item in listMobileHot){
+                                <a href="shop-side-version-2.html">Electronics</a>
+                            </span>
 
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
+                            <span class="product-o__name">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a>
+                            </span>
+                            <div class="product-o__rating gl-rating-style">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
-                                            <img class="aspect__img" src="@item.ProductColor.ImgProductColor.Split(", ")[0]" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a asp-controller="Mobile" asp-action="Details" asp-route-id="@item.ProductVersion.IdProductVersion" asp-route-color="@item.ProductColor.IdProductColor">@item.ProductVersion.NameProductVersion</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    @if(item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null){
-                                        <span class="product-o__price">
-                                            @String.Format("{0:0,0}", item.ProductColor.Price)₫
-                                        </span>
-                                    }
-                                    else{
-                                         <span class="product-o__price">@String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
-                                        <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span></span>
-                                    }
-                                </div>
+                                <span class="product-o__review">(23)</span>
                             </div>
+
+                            @if (item.ProductColor.PromotionPrice == 0 || item.ProductColor.PromotionPrice == null)
+                            {
+                                <span class="product-o__price">
+                                    @String.Format("{0:0,0}", item.ProductColor.Price)₫
+                                </span>
                             }
-                            
+                            else
+                            {
+                                <span class="product-o__price">
+                                    @String.Format("{0:0,0}", item.ProductColor.PromotionPrice)₫
+                                    <span class="product-o__discount">@String.Format("{0:0,0}", item.ProductColor.Price)₫</span>
+                                </span>
+                            }
                         </div>
                     </div>
-                </div>
-                <!--====== End - Section Content ======-->
+                }
+
             </div>
-            <!--====== End - Section 6 ======-->
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 6 ======-->
+<!--====== Section 9 ======-->
+<div class="u-s-p-b-60">
 
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                    <div class="service u-h-100">
+                        <div class="service__icon"><i class="fas fa-truck"></i></div>
+                        <div class="service__info-wrap">
 
-            
+                            <span class="service__info-text-1">Miễn phí vận chuyển</span>
 
-
-            
-
-
-            <!--====== Section 9 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="service u-h-100">
-                                    <div class="service__icon"><i class="fas fa-truck"></i></div>
-                                    <div class="service__info-wrap">
-
-                                        <span class="service__info-text-1">Miễn phí vận chuyển</span>
-
-                                        <span class="service__info-text-2">Miễn phí vận chuyển cho đơn hàng có giá trị từ 3 triệu đồng</span></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="service u-h-100">
-                                    <div class="service__icon"><i class="fas fa-redo"></i></div>
-                                    <div class="service__info-wrap">
-
-                                        <span class="service__info-text-1">Tự tin mua sắm</span>
-
-                            <span class="service__info-text-2">Sự bảo vệ của chúng tôi bao gồm việc mua hàng của bạn từ khi nhấp
-                         chuột đến khi giao hàng</span></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="service u-h-100">
-                                    <div class="service__icon"><i class="fas fa-headphones-alt"></i></div>
-                                    <div class="service__info-wrap">
-
-                                        <span class="service__info-text-1">Hỗ trợ 24/7</span>
-
-                                        <span class="service__info-text-2">Chúng tôi luôn sẵn sàng hỗ trợ bạn bất kể sáng hay tối để bạn có trải nghiệm mua sắm tốt nhất</span></div>
-                                </div>
-                            </div>
+                            <span class="service__info-text-2">Miễn phí vận chuyển cho đơn hàng có giá trị từ 3 triệu đồng</span>
                         </div>
                     </div>
                 </div>
-                <!--====== End - Section Content ======-->
+                <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                    <div class="service u-h-100">
+                        <div class="service__icon"><i class="fas fa-redo"></i></div>
+                        <div class="service__info-wrap">
+
+                            <span class="service__info-text-1">Tự tin mua sắm</span>
+
+                            <span class="service__info-text-2">
+                                Sự bảo vệ của chúng tôi bao gồm việc mua hàng của bạn từ khi nhấp
+                                chuột đến khi giao hàng
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                    <div class="service u-h-100">
+                        <div class="service__icon"><i class="fas fa-headphones-alt"></i></div>
+                        <div class="service__info-wrap">
+
+                            <span class="service__info-text-1">Hỗ trợ 24/7</span>
+
+                            <span class="service__info-text-2">Chúng tôi luôn sẵn sàng hỗ trợ bạn bất kể sáng hay tối để bạn có trải nghiệm mua sắm tốt nhất</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--====== End - Section 9 ======-->
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 9 ======-->
+<!--====== Section 10 ======-->
+<div class="u-s-p-b-60">
 
+    <!--====== Section Intro ======-->
+    <div class="section__intro u-s-m-b-46">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__text-wrap">
+                        <h1 class="section__heading u-c-secondary u-s-m-b-12">TIN TỨC CÔNG NGHỆ MỚI NHẤT</h1>
 
-            <!--====== Section 10 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">TIN TỨC CÔNG NGHỆ MỚI NHẤT</h1>
-
-                                    <span class="section__span u-c-silver">BẮT ĐẦU VỚI NHỮNG TIN TỨC MỚI NHẤT NHẤT TRONG NGÀY</span>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="section__span u-c-silver">BẮT ĐẦU VỚI NHỮNG TIN TỨC MỚI NHẤT NHẤT TRONG NGÀY</span>
                     </div>
                 </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                @if(listNews != null || listNews.Count() != 0)
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Intro ======-->
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="row">
+                @if (listNews != null || listNews.Count() != 0)
                 {
-                    foreach(var item in listNews )
-                {
-                     <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
+                    foreach (var item in listNews)
+                    {
+                        <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                            <div class="bp-mini bp-mini--img u-h-100">
+                                <div class="bp-mini__thumbnail">
 
-                                        <!--====== Image Code ======-->
+                                    <!--====== Image Code ======-->
 
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">
+                                    <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">
 
-                                            <img class="aspect__img" src="@item.Thumb" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
+                                        <img class="aspect__img" src="@item.Thumb" alt="">
+                                    </a>
+                                    <!--====== End - Image Code ======-->
+                                </div>
+                                <div class="bp-mini__content">
+                                    <div class="bp-mini__stat">
 
-                                            <span class="bp-mini__stat-wrap">
+                                        <span class="bp-mini__stat-wrap">
 
-                                                <span class="bp-mini__publish-date">
+                                            <span class="bp-mini__publish-date">
 
-                                                    <a>
+                                                <a>
 
-                                                        <span>@item.CreateDate</span></a></span></span>
+                                                    <span>@item.CreateDate</span>
+                                                </a>
+                                            </span>
+                                        </span>
 
-                                            <span class="bp-mini__stat-wrap">
+                                        <span class="bp-mini__stat-wrap">
+                                            <span class="bp-mini__preposition">By</span>
 
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
+                                            <span class="bp-mini__author">
                                                 @{
                                                     var manager = listManager.Where(x => x.IdManager == item.IdManager).FirstOrDefault();
                                                     <a>@manager.FullName</a>
                                                 }
-                                            <span class="bp-mini__stat">
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="bp-mini__category">
+                                    </div>
 
-                                                <span class="bp-mini__comment">
+                                    <span class="bp-mini__h1">
 
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                           </div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">@item.Title</a></span>
-                                        <p class="bp-mini__p">@item.DescriptionNew</p>
-                                        <div class="blog-t-w">
-
-                                            @{
-                                                    var category = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
-                                                    <a class="gl-tag btn--e-transparent-hover-brand-b-2">@category.NameCategory</a>
-                                                  }
-                                            
-
-                                            </div>
+                                        <a asp-controller="News" asp-action="Details" asp-route-id="@item.IdNews">@item.Title</a>
+                                    </span>
+                                    <p class="bp-mini__p">@item.DescriptionNew</p>
+                                    <div class="blog-t-w">
+                                        @{
+                                            var category = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
+                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">@category.NameCategory</a>
+                                        }
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    }
                 }
-                }
-                        </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 10 ======-->
+<!--====== Section 11 ======-->
+<div class="u-s-p-b-90 u-s-m-b-30">
+    <!--====== Section Intro ======-->
+    <div class="section__intro u-s-m-b-46">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__text-wrap">
+                        <h1 class="section__heading u-c-secondary u-s-m-b-12">ĐÁNH GIÁ KHÁCH HÀNG</h1>
+
+                        <span class="section__span u-c-silver">KHÁCH HÀNG CỦA CHÚNG TÔI NÓI GÌ</span>
                     </div>
                 </div>
-                <!--====== End - Section Content ======-->
             </div>
-            <!--====== End - Section 10 ======-->
-            <!--====== Section 11 ======-->
-            <div class="u-s-p-b-90 u-s-m-b-30">
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">ĐÁNH GIÁ KHÁCH HÀNG</h1>
+        </div>
+    </div>
+    <!--====== End - Section Intro ======-->
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
 
-                                    <span class="section__span u-c-silver">KHÁCH HÀNG CỦA CHÚNG TÔI NÓI GÌ</span>
-                                </div>
+            <!--====== Testimonial Slider ======-->
+            <div class="slider-fouc">
+                <div class="owl-carousel" id="testimonial-slider">
+                    @foreach(var item in commentRatings)
+                    {
+                        <div class="testimonial">
+                            <div class="testimonial__img-wrap">
+                                <img class="testimonial__img" src="~/images/iconcustomer.png" alt="">
+                            </div>
+                            <div class="testimonial__content-wrap">
+
+                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                <blockquote class="testimonial__block-quote">
+                                    <p>@item.Content</p>
+                                </blockquote>
+                                @{
+                                    var customer = listCustomer.Where(x => x.IdCustomer == item.IdCustomer).FirstOrDefault();
+                                    <span class="testimonial__author">@customer.NameCustomer</span>
+                                }
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
-                <!--====== End - Section Intro ======-->
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-
-                        <!--====== Testimonial Slider ======-->
-                        <div class="slider-fouc">
-                            <div class="owl-carousel" id="testimonial-slider">
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-
-                                        <img class="testimonial__img" src="~/asset/images/about/test-1.jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                        </blockquote>
-
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-
-                                        <img class="testimonial__img" src="~/asset/images/about/test-2.jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                        </blockquote>
-
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-
-                                        <img class="testimonial__img" src="~/asset/images/about/test-3.jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                        </blockquote>
-
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-
-                                        <img class="testimonial__img" src="~/asset/images/about/test-4.jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                        </blockquote>
-
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--====== End - Testimonial Slider ======-->
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
             </div>
-            <!--====== End - Section 11 ======-->
-
-
-            
-
-
+            <!--====== End - Testimonial Slider ======-->
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 11 ======-->
 <style>
-    
-    
-
     .primary-style-1 .hero-slide {
             height: 700px;
     }
@@ -574,7 +501,5 @@
     .banner-bg{
         background: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400/1ff5ec116660231.60662162758cf.jpg") repeat fixed center center;
     }
-
- 
 
 </style>

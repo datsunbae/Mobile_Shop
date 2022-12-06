@@ -5,28 +5,14 @@
     
     MobileShop_DBContext data = new MobileShop_DBContext();
     var category = data.CategoryNews.ToList();
-    List<CategoryNews> listCategoryNews = ViewBag.ListCategoryNews;
-    List<Manager> listManager = ViewBag.ListManagers;
+    List<CategoryNews> listCategoryNews = ViewBag.CategoryNews;
+    List<Manager> listManager = ViewBag.Managers;
 }
 <div class="u-s-p-y-90">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div class="blog-w-master">
-                    <div class="u-s-m-b-60">
-                        <div class="blog-w">
-
-                            <span class="blog-w__h">SEARCH</span>
-                            <form class="blog-search-form">
-
-                                <label for="post-search"></label>
-                                @*<input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">*@
-                                <input class="input-text input-text--primary-style" type="text" id="post-search" placeholder="Search">
-
-                                <button class="btn btn--icon fas fa-search" type="submit"></button>
-                            </form>
-                        </div>
-                    </div>
                     <div class="u-s-m-b-60">
                         <div class="blog-w">
 
@@ -37,34 +23,6 @@
                                         <a>@item.NameCategory</a>
                                     </li>
                                 }
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="u-s-m-b-60">
-                        <div class="blog-w">
-
-                            <span class="blog-w__h">NGÀY ĐĂNG</span>
-                            <ul class="blog-w__list">
-                                <li>
-
-                                    <a href="blog-left-sidebar.html">Tháng 1 (1)</a>
-                                </li>
-                                <li>
-
-                                    <a href="blog-left-sidebar.html">Tháng 2 (3)</a>
-                                </li>
-                                <li>
-
-                                    <a href="blog-left-sidebar.html">Tháng 10 (4)</a>
-                                </li>
-                                <li>
-
-                                    <a href="blog-left-sidebar.html">Tháng 11 (1)</a>
-                                </li>
-                                <li>
-
-                                    <a href="blog-left-sidebar.html">Tháng 12 (1)</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -131,7 +89,7 @@
                                     </span>
                                     <span class="bp__stat-wrap">
 
-                                        <span class="bp__author">
+                                        <span class="gl-tag btn--e-transparent-hover-brand-b-2">
                                             @{
                                                 var categoryNews = listCategoryNews.Where(x => x.IdCategoryNews == item.IdCategoryNews).FirstOrDefault();
                                                 <a>@categoryNews.NameCategory</a>

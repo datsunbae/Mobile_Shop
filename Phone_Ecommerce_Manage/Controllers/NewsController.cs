@@ -15,6 +15,8 @@ namespace Phone_Ecommerce_Manage.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.CategoryNews = await _context.CategoryNews.ToListAsync();
+            ViewBag.Managers = await _context.Managers.ToListAsync();
             List<News> news = await _context.News.ToListAsync();
             return View(news);
         }
