@@ -21,6 +21,7 @@
                     <form asp-action="Edit" asp-route-id="@Model.IdNews" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="@Model.IdNews" />
                         <input type="hidden" asp-for="@Model.IdManager" />
+                        <input type="hidden" asp-for="Thumb" />
                         <input type="hidden" asp-for="@Model.CreateDate" />
                         <section class="mb-5">
                             <div class="row">

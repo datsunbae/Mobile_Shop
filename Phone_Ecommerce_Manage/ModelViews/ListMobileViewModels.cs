@@ -13,5 +13,7 @@
 
         public string ImgProductColor { get; set; }
 
+        public int StatusProduct { get; set; }
+
     }
 }

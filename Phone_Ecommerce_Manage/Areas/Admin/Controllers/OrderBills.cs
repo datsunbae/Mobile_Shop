@@ -24,14 +24,13 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var orderBills = await _context.OrderBills.ToListAsync();
+            var orderBills = await _context.OrderBills.OrderByDescending(x => x.OrderDate).ToListAsync();
 
             ViewBag.ListCustomer = await _context.Customers.ToListAsync();
             ViewBag.ListStatusOrder = await _context.StatusOrders.ToListAsync();
             ViewBag.ListPaymentType = await _context.PaymentsTypes.ToListAsync();
 
             return View(orderBills);
-           
         }
 
         public async Task<IActionResult> Details(int id)
@@ -82,6 +81,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 
             if(cancelOrder != "")
             {
+                orderBill.IdManager = manager.IdManager;
                 orderBill.IdStatusOrder = 6;
                 _context.Update(orderBill);
                 await _context.SaveChangesAsync();

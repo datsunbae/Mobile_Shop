@@ -11,7 +11,7 @@ using Phone_Ecommerce_Manage.Models;
 namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class NewsController : Controller
     {
         private readonly MobileShop_DBContext _context;
@@ -103,38 +103,21 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNews,Title,DescriptionNew,Content,Thumb,CreateDate,IsHot,IdCategoryNews,IdManager")] News news, Microsoft.AspNetCore.Http.IFormFile fImage)
+        public async Task<IActionResult> Edit(int id, News news, Microsoft.AspNetCore.Http.IFormFile fImage)
         {
             if (id != news.IdNews)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
+
+            _context.Update(news);
+
+            if (fImage != null)
             {
-                try
-                {
-                    if (fImage != null)
-                    {
-                        news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
-                    }
-                    _context.Update(news);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NewsExists(news.IdNews))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                news.Thumb = "/images/news/" + await Utilities.UploadFile.UploadImage(fImage, @"news");
             }
-            ViewData["ListCategoryNews"] = new SelectList(_context.CategoryNews, "IdCategoryNews", "NameCategory", news.IdCategoryNews);
-            return View(news);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Admin/News/Delete/5

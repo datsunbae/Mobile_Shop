@@ -4,16 +4,14 @@
     ViewData["Title"] = "Chỉnh sửa sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     ProductVersion productVersion = ViewBag.ProductColor;
-
 }
-
 
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
-                    <h4 class="text-blue h4">Sửa màu sản phẩm - @productVersion.NameProductVersion</h4>
+                    <h4 class="text-blue h4">Sửa màu sản phẩm - @productVersion?.NameProductVersion</h4>
                 </div>
                 <div class="wizard-content">
                     <div class="row">
@@ -26,12 +24,13 @@
                             </div>
                         </div>
                     </div>
-                    <form asp-action="EditProductColor">
+                    <form asp-action="EditProductColor" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="@Model.IdProductColor" />
                         <input type="hidden" asp-for="@Model.IdProductVersion" />
                         <input type="hidden" asp-for="@Model.CreateDate" />
                         <input type="hidden" asp-for="@Model.PromotionPrice" />
+                         <input type="hidden" asp-for="@Model.ImgProductColor"  name="nameImg"/>
 
                         <section class="mb-5">
                             <div class="row">

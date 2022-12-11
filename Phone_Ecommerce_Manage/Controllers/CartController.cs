@@ -289,6 +289,8 @@ namespace Phone_Ecommerce_Manage.Controllers
                 orderbill.Total = Total();
             }
 
+
+
             if(isPaid != false)
             {
                 orderbill.IsPaid = true;
@@ -319,6 +321,8 @@ namespace Phone_Ecommerce_Manage.Controllers
             _context.Add(orderbill);
             await _context.SaveChangesAsync();
 
+            double discountProduct = 0;
+
             //Add order bill details
             foreach (var item in listCard)
             {
@@ -329,6 +333,10 @@ namespace Phone_Ecommerce_Manage.Controllers
                 _context.Update(productColor);
                 await _context.SaveChangesAsync();
 
+                if(productColor.PromotionPrice !=0 || productColor.PromotionPrice != null)
+                {
+                    discountProduct += (productColor.Price - productColor.PromotionPrice.Value) * item.quantity;
+                }
                 orderBillDetail.IdOrderBill = orderbill.IdOrderBill;
                 orderBillDetail.IdProductColor = item.id;
                 orderBillDetail.QuantityProduct = item.quantity;
@@ -337,6 +345,17 @@ namespace Phone_Ecommerce_Manage.Controllers
 
             }
             await _context.SaveChangesAsync();
+
+            if(discountProduct != 0)
+            {
+                OrderBill updateOrderBill = _context.OrderBills.Where(x => x.IdOrderBill == orderbill.IdOrderBill).FirstOrDefault();
+                if(updateOrderBill != null)
+                {
+                    updateOrderBill.DiscountProduct = discountProduct;
+                    _context.Update(updateOrderBill);
+                    await _context.SaveChangesAsync();
+                }
+            }
 
             DeleteAllItem();
             HttpContext.Session.Remove("CheckoutSession");

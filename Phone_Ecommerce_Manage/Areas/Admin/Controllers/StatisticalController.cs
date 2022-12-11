@@ -39,7 +39,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             {
                 var revenues = (from OrderBills in _context.OrderBills
                                 join OrderBillDetails in _context.OrderBillDetails on OrderBills.IdOrderBill equals OrderBillDetails.IdOrderBill
-                                where OrderBills.OrderDate.Value.Month == i && OrderBills.OrderDate.Value.Year == year
+                                where OrderBills.OrderDate.Value.Month == i && OrderBills.OrderDate.Value.Year == year && OrderBills.IsPaid == true
                                 select OrderBills).ToList();
                 var sum = revenues.Select(c => c.Total).Sum();
 
@@ -86,8 +86,8 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                                 join ProductVersions in _context.ProductVersions on ProductColors.IdProductVersion equals ProductVersions.IdProductVersion
                                 join Products in _context.Products on ProductVersions.IdProduct equals Products.IdProduct
                                 join BrandMobiles in _context.BrandMobiles on Products.IdBrandMobile equals BrandMobiles.IdBrandMobile
-                                where (OrderBills.OrderDate.Value.Month == month && OrderBills.OrderDate.Value.Year == year)
-                                group new {OrderBillDetails, BrandMobiles} by new { BrandMobiles.IdBrandMobile , BrandMobiles.NameBrand} into g
+                                where (OrderBills.OrderDate.Value.Month == month && OrderBills.OrderDate.Value.Year == year) && OrderBills.IsPaid == true
+                                        group new {OrderBillDetails, BrandMobiles} by new { BrandMobiles.IdBrandMobile , BrandMobiles.NameBrand} into g
                                 select new BrandStatistical { IdBrand = g.Key.IdBrandMobile, NameBrand = g.Key.NameBrand, Count = (int) g.Sum(c => c.OrderBillDetails.QuantityProduct) };
              
             return View();

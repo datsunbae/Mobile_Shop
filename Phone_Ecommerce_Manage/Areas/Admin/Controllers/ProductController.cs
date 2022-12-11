@@ -176,7 +176,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 }
             }
 
-            if(productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
+            if(productColor.PercentPromotion != null || productColor.PercentPromotion != 0)
             {
                 productColor.PromotionPrice = productColor.Price - (productColor.Price * productColor.PercentPromotion) / 100;
             }
@@ -281,7 +281,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
             }
 
             var productColor = _context.ProductColors.Where(x => x.IdProductColor == id).FirstOrDefault();
-            var product = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion && x.IdProductVersion == IdProductVersion && x.IdProduct == IdProduct).FirstOrDefault(); ;
+            var product = _context.ProductVersions.Where(x => x.IdProductVersion == productColor.IdProductVersion && x.IdProductVersion == IdProductVersion && x.IdProduct == IdProduct).FirstOrDefault(); 
             if (productColor == null || product == null)
             {
                 return NotFound();
@@ -326,40 +326,42 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // POST: Admin/Product/EditProductColor/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProductColor(int id, ProductColor productColor, List<Microsoft.AspNetCore.Http.IFormFile> fImage)
+        public async Task<IActionResult> EditProductColor(int id, ProductColor productColor, List<Microsoft.AspNetCore.Http.IFormFile> fImage, string nameImg = "")
         {
             if (id != productColor.IdProductColor)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+
+            if (productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
             {
-                if (fImage != null)
-                {
-                    int fImageSize = fImage.Count;
-                    productColor.ImgProductColor = "";
-                    for (var i = 0; i < fImageSize; i++)
-                    {
-                        productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product");
-                        if (i + 1 != fImage.Count)
-                        {
-                            productColor.ImgProductColor += ", ";
-                        }
-                    }
-
-                }
-
-                if (productColor.PercentPromotion.Value != null || productColor.PercentPromotion.Value != 0)
-                {
-                    productColor.PromotionPrice = (productColor.Price * productColor.PercentPromotion) / 100;
-                }
-
-                _context.Update(productColor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("ProductsColor", "Product");
+                productColor.PromotionPrice = (productColor.Price * productColor.PercentPromotion) / 100;
             }
-            return View(productColor);
+
+            if (fImage != null)
+            {
+                int fImageSize = fImage.Count;
+                productColor.ImgProductColor = "";
+                for (var i = 0; i < fImageSize; i++)
+                {
+                    productColor.ImgProductColor += "/images/product/" + await Utilities.UploadFile.UploadImage(fImage[i], @"product");
+                    if (i + 1 != fImage.Count)
+                    {
+                        productColor.ImgProductColor += ", ";
+                    }
+                }
+
+                if(fImage.Count == 0)
+                {
+                    productColor.ImgProductColor = nameImg;
+                }
+            }
+            _context.Update(productColor);
+            
+            await _context.SaveChangesAsync();
+            
+            return RedirectToAction("ProductsColor", "Product");
 
         }
 

@@ -6,13 +6,13 @@
     MobileShop_DBContext contex = new MobileShop_DBContext();
     IEnumerable<ListMobileViewModels> listMobile = from productVerion in contex.ProductVersions
                                                    join productColor in contex.ProductColors on productVerion.IdProductVersion equals productColor.IdProductVersion
-                                                   select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor };
+                                                   select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor, StatusProduct = productColor.IdStatusProduct };
     List<ProductColor> productColorsFilter = ViewBag.ListProductFilter;
     if(productColorsFilter != null)
     {
         listMobile = (from productVerion in contex.ProductVersions.ToList()
                      join productColor in productColorsFilter.ToList() on productVerion.IdProductVersion equals productColor.IdProductVersion
-                     select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor }).ToList();
+                     select new ListMobileViewModels { IdProductVersion = productVerion.IdProductVersion, IdProductColor = productColor.IdProductColor, NameProduct = productVerion.NameProductVersion, IsPublished = productVerion.IsPublished, Price = productColor.Price, PromotionPrice = productColor.PromotionPrice, ImgProductColor = productColor.ImgProductColor, StatusProduct = productColor.IdStatusProduct }).ToList();
     }
     List<ProductVersion> listProductVersion = ViewBag.ListProductVersion;
     List<BrandMobile> listBrands = ViewBag.ListBrand;
@@ -202,7 +202,21 @@
                                         
                                         <div class="product-m__add-cart">
                                             
-                                            <a class="btn--e-brand text-white btn-add-to-card" data-modal="modal" data-modal-id="#add-to-cart" data-id="@product.IdProductColor">Thêm vào giỏ hàng</a></div>
+                                                        @if(product.StatusProduct == 1)
+                                                        {
+                                                            <a class="btn--e-brand text-white btn-add-to-card"  data-id="@product.IdProductColor">Thêm vào giỏ hàng</a>
+
+                                                        }
+                                                        else if(product.StatusProduct == 2)
+                                                        {
+                                                            <a class="btn--e-brand text-white" href="#" style="background-color: red">Tạm hết hàng</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn--e-brand text-white " href="#" style="background-color: green">Sắp về</a>
+                                                            
+                                                        }
+                                                    </div>
                                         
                                     </div>
                                     <div class="product-m__content">
@@ -277,6 +291,13 @@
                     },
                      success: function(data){ 
                          $('#mini-card-id').html(data);
+                         Swal.fire({
+                              position: 'top-center',
+                              icon: 'success',
+                              title: 'Đã thêm sản phẩm vào giỏ hàng',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
                       },
                     error: function (xhr) {
                         alert('error');

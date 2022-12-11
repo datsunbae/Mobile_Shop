@@ -12,7 +12,7 @@ using Phone_Ecommerce_Manage.Models;
 namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class RomsController : Controller
     {
         private readonly MobileShop_DBContext _context;

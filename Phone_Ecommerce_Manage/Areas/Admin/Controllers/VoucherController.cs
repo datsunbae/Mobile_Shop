@@ -12,7 +12,7 @@ using Phone_Ecommerce_Manage.Models;
 namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class VoucherController : Controller
     {
         private readonly MobileShop_DBContext _context;
@@ -108,7 +108,7 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idvoucher,CodeVoucher,NameVoucher,IncreasePrice,PercentDiscount,PriceDiscount,Quantity,IsUnLimit,CreateDate,EndDate,IsNoEndDay,TypeVoucher")] Voucher voucher)
+        public async Task<IActionResult> Edit(int id, Voucher voucher)
         {
             if (id != voucher.Idvoucher)
             {
@@ -120,7 +120,16 @@ namespace Phone_Ecommerce_Manage.Areas.Admin.Controllers
                 try
                 {
                     _context.Update(voucher);
-                    voucher.QuantityRemaining = voucher.Quantity.Value;
+                    Voucher getVoucher = await _context.Vouchers.Where(x => x.Idvoucher == id).FirstOrDefaultAsync();
+                    if (getVoucher != null)
+                    {
+                        if (getVoucher.Quantity != voucher.Quantity)
+                        {
+                            voucher.QuantityRemaining = voucher.Quantity;
+                        }
+                    }
+
+                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
